@@ -1,0 +1,12 @@
+/FreeRTOS/
+/FatFs/
+/App/
+/DeviceDrivers/
+/Drivers/
+/Src/
+/makefile
+/sources.mk
+/startup/
+/subdir.mk
+/objects.mk
+/Fonts/
