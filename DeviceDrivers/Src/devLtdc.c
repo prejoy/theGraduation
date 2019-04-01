@@ -348,7 +348,8 @@ void LTDC_ShowChar(uint32_t x,uint32_t y,uint32_t num,uint32_t size,uint32_t mod
 		  else if(mode==0)LTDC_Draw_Point(x,y,BACK_COLOR);
 		  temp<<=1;
 		  y++;
-		  if(y>=480)return;
+//		  if(y>=480)return;
+		  if(y>=800)return;
 		  if((y-y0)==size)
 		  {
 			  y=y0;

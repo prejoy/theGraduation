@@ -7,135 +7,183 @@
  */
 
 #include "sys.h"
-#include "spi.h"
 #include "MF_RC522.h"
-#include "devDelay.h"
 #include "string.h"
 
-//!!!!!!!! origin delay_ns(10);!!!!!!!!
-//void delay_ns(u32 ns)
-//{
-//  u32 i;
-//  for(i=0;i<ns;i++)
-//  {
-//    __nop();
-//    __nop();
-//    __nop();
-//  }
-//}
+extern SPI_HandleTypeDef hspi4;
+#define hspiRFID	hspi4
 
-u8 SPIWriteByte(u8 Byte)
+uint8_t RFID_DATA_BUF[32],MLastSelectedSnr[4];
+u8 XM[16];
+uint16_t RFID_Block_Num;
+void delay_ns(u32 ns)
 {
-  u8 recvdat;
-  HAL_SPI_TransmitReceive(&hspi4,&Byte,&recvdat,1,1000);
-  return recvdat;
+  u32 i;
+  for(i=0;i<ns;i++)
+  {
+    __asm("nop");
+    __asm("nop");
+    __asm("nop");
+    __asm("nop");
+    __asm("nop");
+    __asm("nop");
+    __asm("nop");
+	__asm("nop");
+	__asm("nop");
+	__asm("nop");
+	__asm("nop");
+	__asm("nop");
+  }
+}
+
+u8 RFID_SPI_ReadWriteByte(u8 dat)
+{
+	u8 sendDat,recvDat;
+	sendDat = dat;
+	recvDat = 0;
+	HAL_SPI_TransmitReceive(&hspiRFID,&sendDat,&recvDat,1,0xff);
+	return recvDat;
 }
 
 
-u8 SPIReadByte(void)
+/////////////////////////////////////////////////////////////////////
+//功    能：读RC632寄存器
+//参数说明：Address[IN]:寄存器地址
+//返    回：读出的值
+/////////////////////////////////////////////////////////////////////
+u8 ReadRawRC(u8   Address)
 {
-  u8 recvdat;
-  HAL_SPI_Receive(&hspi4,&recvdat,1,1000);
-  return recvdat;
+    u8   ucAddr;
+    u8   ucResult=0;
+		CLR_SPI_CS();
+    ucAddr = ((Address<<1)&0x7E)|0x80;
+		RFID_SPI_ReadWriteByte(ucAddr);
+		ucResult=RFID_SPI_ReadWriteByte(0xff);
+		SET_SPI_CS();
+    return ucResult;
 }
 
-/*
-//SPIx 读写一个字节
-//TxData:要写入的字节
-//返回值:读取到的字节
-u8 SPI2_ReadWriteByte(u8 TxData)
+/////////////////////////////////////////////////////////////////////
+//功    能：写RC632寄存器
+//参数说明：Address[IN]:寄存器地址
+//          value[IN]:写入的值
+/////////////////////////////////////////////////////////////////////
+void WriteRawRC(u8   Address, u8   value)
 {
-	u8 retry=0;
-	while (SPI_I2S_GetFlagStatus(SPI2, SPI_I2S_FLAG_TXE) == RESET) //检查指定的SPI标志位设置与否:发送缓存空标志位
-		{
-		retry++;
-		if(retry>200)return 0;
-		}
-	SPI_I2S_SendData(SPI2, TxData); //通过外设SPIx发送一个数据
-	retry=0;
+    u8   ucAddr;
 
-	while (SPI_I2S_GetFlagStatus(SPI2, SPI_I2S_FLAG_RXNE) == RESET) //检查指定的SPI标志位设置与否:接受缓存非空标志位
-		{
-		retry++;
-		if(retry>200)return 0;
-		}
-	return SPI_I2S_ReceiveData(SPI2); //返回通过SPIx最近接收的数据
+	CLR_SPI_CS();
+	ucAddr = ((Address<<1)&0x7E);
+	RFID_SPI_ReadWriteByte(ucAddr);
+	RFID_SPI_ReadWriteByte(value);
+	SET_SPI_CS();
 }
 
-
-//SPI 速度设置函数
-//SpeedSet:
-//SPI_BaudRatePrescaler_2   2分频
-//SPI_BaudRatePrescaler_8   8分频
-//SPI_BaudRatePrescaler_16  16分频
-//SPI_BaudRatePrescaler_256 256分频
-
-void SPI2_SetSpeed(u8 SPI_BaudRatePrescaler)
+/////////////////////////////////////////////////////////////////////
+//功    能：置RC522寄存器位
+//参数说明：reg[IN]:寄存器地址
+//          mask[IN]:置位值
+/////////////////////////////////////////////////////////////////////
+void SetBitMask(u8   reg,u8   mask)
 {
-  	assert_param(IS_SPI_BAUDRATE_PRESCALER(SPI_BaudRatePrescaler));
-	SPI2->CR1&=0XFFC7;
-	SPI2->CR1|=SPI_BaudRatePrescaler;	//设置SPI2速度
-	SPI_Cmd(SPI2,ENABLE);
-
+    char   tmp = 0x0;
+    tmp = ReadRawRC(reg);
+    WriteRawRC(reg,tmp | mask);  // set bit mask
 }
 
-
-
-
-void SPI2_Init(void)
+/////////////////////////////////////////////////////////////////////
+//功    能：清RC522寄存器位
+//参数说明：reg[IN]:寄存器地址
+//          mask[IN]:清位值
+/////////////////////////////////////////////////////////////////////
+void ClearBitMask(u8   reg,u8   mask)
 {
-	GPIO_InitTypeDef GPIO_InitStructure;
-  	SPI_InitTypeDef  SPI_InitStructure;
- 	RCC_APB2PeriphClockCmd(	RCC_APB2Periph_GPIOB|RCC_APB2Periph_GPIOF, ENABLE );//PORTB时钟使能
-	RCC_APB1PeriphClockCmd(	RCC_APB1Periph_SPI2,  ENABLE );//SPI2时钟使能
-
-	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0|GPIO_Pin_1;	 //IO-->PF0、PF1 端口配置
-	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP; 		 //推挽输出
-	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;		 //IO口速度为50MHz
-	GPIO_Init(GPIOF, &GPIO_InitStructure);					 //根据设定参数初始化PF0、PF1
-	GPIO_ResetBits(GPIOF,GPIO_Pin_1);			             //PF1输出低
-	//GPIO_SetBits(GPIOF,GPIO_Pin_0);
-
-	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_13 | GPIO_Pin_14 | GPIO_Pin_15;
-	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;  //PB13/14/15复用推挽输出
-	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
-	GPIO_Init(GPIOB, &GPIO_InitStructure);//初始化GPIOB
-
- 	GPIO_SetBits(GPIOB,GPIO_Pin_13|GPIO_Pin_14|GPIO_Pin_15);  //PB13/14/15上拉
-
-	SPI_InitStructure.SPI_Direction = SPI_Direction_2Lines_FullDuplex;  //设置SPI单向或者双向的数据模式:SPI设置为双线双向全双工
-	SPI_InitStructure.SPI_Mode = SPI_Mode_Master;		//设置SPI工作模式:设置为主SPI
-	SPI_InitStructure.SPI_DataSize = SPI_DataSize_8b;		//设置SPI的数据大小:SPI发送接收8位帧结构
-	SPI_InitStructure.SPI_CPOL = SPI_CPOL_Low;		//串行同步时钟的空闲状态为低电平
-	SPI_InitStructure.SPI_CPHA = SPI_CPHA_1Edge;	//串行同步时钟的第一个跳变沿（上升或下降）数据被采样
-	SPI_InitStructure.SPI_NSS = SPI_NSS_Soft;		//NSS信号由硬件（NSS管脚）还是软件（使用SSI位）管理:内部NSS信号有SSI位控制
-	SPI_InitStructure.SPI_BaudRatePrescaler = SPI_BaudRatePrescaler_256;		//定义波特率预分频的值:波特率预分频值为256
-	SPI_InitStructure.SPI_FirstBit = SPI_FirstBit_MSB;	//指定数据传输从MSB位还是LSB位开始:数据传输从MSB位开始
-	SPI_InitStructure.SPI_CRCPolynomial = 7;	//CRC值计算的多项式
-	SPI_Init(SPI2, &SPI_InitStructure);  //根据SPI_InitStruct中指定的参数初始化外设SPIx寄存器
-
-	SPI_Cmd(SPI2, ENABLE); //使能SPI外设
-
-	//SPI2_ReadWriteByte(0xff);//启动传输
+    char   tmp = 0x0;
+    tmp = ReadRawRC(reg);
+    WriteRawRC(reg, tmp & ~mask);  // clear bit mask
 }
-*/
 
-//void InitRc522(void)
-//{
-//  SPI2_Init();
-//  PcdReset();
-//  PcdAntennaOff();
-//  delay_ms(2);
-//  PcdAntennaOn();
-//  M500PcdConfigISOType( 'A' );
-//}
+char PcdReset(void)
+{
+	SET_RC522RST();
+	delay_ns(10);
+	CLR_RC522RST();
+	delay_ns(10);
+	SET_RC522RST();
+	delay_ns(10);
+	WriteRawRC(CommandReg,PCD_RESETPHASE);
+	WriteRawRC(CommandReg,PCD_RESETPHASE);
+	delay_ns(10);
+	WriteRawRC(ModeReg,0x3D);            //和Mifare卡通讯，CRC初始值0x6363
+	WriteRawRC(TReloadRegL,30);
+	WriteRawRC(TReloadRegH,0);
+	WriteRawRC(TModeReg,0x8D);
+	WriteRawRC(TPrescalerReg,0x3E);
+	WriteRawRC(TxAutoReg,0x40);//必须要
+	return MI_OK;
+}
+
+/////////////////////////////////////////////////////////////////////
+//关闭天线
+/////////////////////////////////////////////////////////////////////
+void PcdAntennaOff(void)
+{
+	ClearBitMask(TxControlReg, 0x03);
+}
+
+/////////////////////////////////////////////////////////////////////
+//开启天线
+//每次启动或关闭天线发射之间应至少有1ms的间隔
+/////////////////////////////////////////////////////////////////////
+void PcdAntennaOn(void)
+{
+    u8   i;
+    i = ReadRawRC(TxControlReg);
+    if (!(i & 0x03))
+    {
+        SetBitMask(TxControlReg, 0x03);
+    }
+}
+
 void Reset_RC522(void)
 {
-  PcdReset();
-  PcdAntennaOff();
-  delay_ms(2);
-  PcdAntennaOn();
+	PcdReset();       //功    能：复位RC522
+	PcdAntennaOff();  //关闭天线
+	delay_ns(0xffff);	//prejoy new add
+	PcdAntennaOn();   //开启天线
 }
+
+//////////////////////////////////////////////////////////////////////
+//设置RC632的工作方式
+//////////////////////////////////////////////////////////////////////
+char M500PcdConfigISOType(u8   type)
+{
+   if (type == 'A')                     //ISO14443_A
+   {
+			ClearBitMask(Status2Reg,0x08);
+			WriteRawRC(ModeReg,0x3D);//3F
+			WriteRawRC(RxSelReg,0x86);//84
+			WriteRawRC(RFCfgReg,0x7F);   //4F
+			WriteRawRC(TReloadRegL,30);//tmoLength);// TReloadVal = 'h6a =tmoLength(dec)
+			WriteRawRC(TReloadRegH,0);
+			WriteRawRC(TModeReg,0x8D);
+			WriteRawRC(TPrescalerReg,0x3E);
+			delay_ns(1000);
+			PcdAntennaOn();
+   }
+   else{ return 1; }
+
+   return MI_OK;
+}
+
+
+void RCC522_Init(void)
+{
+//	SPI2_Init();			//已配置
+	Reset_RC522();
+	M500PcdConfigISOType( 'A' );
+}
+
 /////////////////////////////////////////////////////////////////////
 //功    能：寻卡
 //参数说明: req_code[IN]:寻卡方式
@@ -149,7 +197,7 @@ void Reset_RC522(void)
 //                0x4403 = Mifare_DESFire
 //返    回: 成功返回MI_OK
 /////////////////////////////////////////////////////////////////////
-char PcdRequest(u8   req_code,u8 *pTagType)
+char PcdRequest(u8 req_code,u8 *pTagType)
 {
 	char   status;
 	u8   unLen;
@@ -162,6 +210,7 @@ char PcdRequest(u8   req_code,u8 *pTagType)
 	ucComMF522Buf[0] = req_code;
 
 	status = PcdComMF522(PCD_TRANSCEIVE,ucComMF522Buf,1,ucComMF522Buf,&unLen);
+	printf("unLen:%d\r\n",unLen);
 
 	if ((status == MI_OK) && (unLen == 0x10))
 	{
@@ -173,6 +222,7 @@ char PcdRequest(u8   req_code,u8 *pTagType)
 
 	return status;
 }
+
 
 /////////////////////////////////////////////////////////////////////
 //功    能：防冲撞
@@ -211,6 +261,7 @@ char PcdAnticoll(u8 *pSnr)
     return status;
 }
 
+
 /////////////////////////////////////////////////////////////////////
 //功    能：选定卡片
 //参数说明: pSnr[IN]:卡片序列号，4字节
@@ -245,6 +296,7 @@ char PcdSelect(u8 *pSnr)
     return status;
 }
 
+
 /////////////////////////////////////////////////////////////////////
 //功    能：验证卡片密码
 //参数说明: auth_mode[IN]: 密码验证模式
@@ -259,7 +311,8 @@ char PcdAuthState(u8   auth_mode,u8   addr,u8 *pKey,u8 *pSnr)
 {
     char   status;
     u8   unLen;
-    u8   i,ucComMF522Buf[MAXRLEN];
+//     u8   i;
+		u8	 ucComMF522Buf[MAXRLEN];
 
     ucComMF522Buf[0] = auth_mode;
     ucComMF522Buf[1] = addr;
@@ -344,6 +397,7 @@ char PcdWrite(u8   addr,u8 *p )
     return status;
 }
 
+
 /////////////////////////////////////////////////////////////////////
 //功    能：命令卡片进入休眠状态
 //返    回: 成功返回MI_OK
@@ -357,9 +411,7 @@ char PcdHalt(void)
     ucComMF522Buf[0] = PICC_HALT;
     ucComMF522Buf[1] = 0;
     CalulateCRC(ucComMF522Buf,2,&ucComMF522Buf[2]);
-
     status = PcdComMF522(PCD_TRANSCEIVE,ucComMF522Buf,4,ucComMF522Buf,&unLen);
-
     return MI_OK;
 }
 
@@ -387,119 +439,6 @@ void CalulateCRC(u8 *pIn ,u8   len,u8 *pOut )
 }
 
 /////////////////////////////////////////////////////////////////////
-//功    能：复位RC522
-//返    回: 成功返回MI_OK
-/////////////////////////////////////////////////////////////////////
-char PcdReset(void)
-{
-
-    SET_RC522RST();
-    delay_us(2);
-    CLR_RC522RST();
-    delay_us(5);
-    SET_RC522RST();
-    delay_us(2);
-
-    WriteRawRC(CommandReg,PCD_RESETPHASE);
-    WriteRawRC(CommandReg,PCD_RESETPHASE);
-    delay_us(10);
-
-    WriteRawRC(ModeReg,0x3D);            //和Mifare卡通讯，CRC初始值0x6363
-    WriteRawRC(TReloadRegL,30);
-    WriteRawRC(TReloadRegH,0);
-    WriteRawRC(TModeReg,0x8D);
-    WriteRawRC(TPrescalerReg,0x3E);
-    WriteRawRC(TxAutoReg,0x40);//必须要
-
-    return MI_OK;
-}
-//////////////////////////////////////////////////////////////////////
-//设置RC632的工作方式
-//////////////////////////////////////////////////////////////////////
-char M500PcdConfigISOType(u8   type)
-{
-   if (type == 'A')                     //ISO14443_A
-   {
-       ClearBitMask(Status2Reg,0x08);
-       WriteRawRC(ModeReg,0x3D);//3F
-       WriteRawRC(RxSelReg,0x86);//84
-       WriteRawRC(RFCfgReg,0x7F);   //4F
-       WriteRawRC(TReloadRegL,30);//tmoLength);// TReloadVal = 'h6a =tmoLength(dec)
-       WriteRawRC(TReloadRegH,0);
-       WriteRawRC(TModeReg,0x8D);
-       WriteRawRC(TPrescalerReg,0x3E);
-       delay_us(800);
-       PcdAntennaOn();
-   }
-   else{ return 1; }
-
-   return MI_OK;
-}
-/////////////////////////////////////////////////////////////////////
-//功    能：读RC632寄存器
-//参数说明：Address[IN]:寄存器地址
-//返    回：读出的值
-/////////////////////////////////////////////////////////////////////
-u8 ReadRawRC(u8   Address)
-{
-    u8   ucAddr;
-    u8   ucResult=0;
-    CLR_SPI_CS();
-    ucAddr = ((Address<<1)&0x7E)|0x80;
-
-    SPIWriteByte(ucAddr);
-    ucResult=SPIReadByte();
-    SET_SPI_CS();
-   return ucResult;
-}
-
-/////////////////////////////////////////////////////////////////////
-//功    能：写RC632寄存器
-//参数说明：Address[IN]:寄存器地址
-//          value[IN]:写入的值
-/////////////////////////////////////////////////////////////////////
-void WriteRawRC(u8   Address, u8   value)
-{
-    u8   ucAddr;
-//	u8 tmp;
-
-	CLR_SPI_CS();
-	ucAddr = ((Address<<1)&0x7E);
-
-	SPIWriteByte(ucAddr);
-	SPIWriteByte(value);
-	SET_SPI_CS();
-
-//	tmp=ReadRawRC(Address);
-//
-//	if(value!=tmp)
-//		printf("wrong\n");
-}
-/////////////////////////////////////////////////////////////////////
-//功    能：置RC522寄存器位
-//参数说明：reg[IN]:寄存器地址
-//          mask[IN]:置位值
-/////////////////////////////////////////////////////////////////////
-void SetBitMask(u8   reg,u8   mask)
-{
-    char   tmp = 0x0;
-    tmp = ReadRawRC(reg);
-    WriteRawRC(reg,tmp | mask);  // set bit mask
-}
-
-/////////////////////////////////////////////////////////////////////
-//功    能：清RC522寄存器位
-//参数说明：reg[IN]:寄存器地址
-//          mask[IN]:清位值
-/////////////////////////////////////////////////////////////////////
-void ClearBitMask(u8   reg,u8   mask)
-{
-    char   tmp = 0x0;
-    tmp = ReadRawRC(reg);
-    WriteRawRC(reg, tmp & ~mask);  // clear bit mask
-}
-
-/////////////////////////////////////////////////////////////////////
 //功    能：通过RC522和ISO14443卡通讯
 //参数说明：Command[IN]:RC522命令字
 //          pIn [IN]:通过RC522发送到卡片的数据
@@ -522,15 +461,14 @@ char PcdComMF522(u8   Command,
     switch (Command)
     {
         case PCD_AUTHENT:
-			irqEn   = 0x12;
-			waitFor = 0x10;
-			break;
-		case PCD_TRANSCEIVE:
-			irqEn   = 0x77;
-			waitFor = 0x30;
-			break;
-		default:
-			break;
+													irqEn   = 0x12;
+													waitFor = 0x10;
+													break;
+				case PCD_TRANSCEIVE:
+													irqEn   = 0x77;
+													waitFor = 0x30;
+													break;
+				default:	break;
     }
 
     WriteRawRC(ComIEnReg,irqEn|0x80);
@@ -546,8 +484,8 @@ char PcdComMF522(u8   Command,
     if (Command == PCD_TRANSCEIVE)
     {    SetBitMask(BitFramingReg,0x80);  }	 //开始传送
 
-    //i = 600;//根据时钟频率调整，操作M1卡最大等待时间25ms
-	i = 2000;
+      i = 600;//根据时钟频率调整，操作M1卡最大等待时间25ms
+// 	  i = 100000;
     do
     {
         n = ReadRawRC(ComIrqReg);
@@ -590,146 +528,142 @@ char PcdComMF522(u8   Command,
     return status;
 }
 
-/////////////////////////////////////////////////////////////////////
-//开启天线
-//每次启动或关闭天险发射之间应至少有1ms的间隔
-/////////////////////////////////////////////////////////////////////
-void PcdAntennaOn(void)
+const u8 psw[]={0xff,0xff,0xff,0xff,0xff,0xff};
+void RFID_Get_ID(u8 *pbuf)//卡号4字节
 {
-    u8   i;
-    i = ReadRawRC(TxControlReg);
-    if (!(i & 0x03))
-    {
-        SetBitMask(TxControlReg, 0x03);
-    }
+	uint8_t i;
+	int8_t status;
+	PcdReset();//复位RC522
+	status=PcdRequest(PICC_REQALL,&RFID_DATA_BUF[0]);//寻天线区内未进入休眠状态的卡，返回卡片类型 2字节
+	if(status!=MI_OK) return ;
+	status=PcdAnticoll(&RFID_DATA_BUF[2]);//防冲撞，返回卡的序列号 4字节
+	if(status!=MI_OK) return ;
+	memcpy(pbuf,&RFID_DATA_BUF[2],4);//拷贝卡号
+//	status=PcdSelect(MLastSelectedSnr);//选卡
+//	if(status!=MI_OK) return ;
+//	status=PcdAuthState(PICC_AUTHENT1A,4,(u8*)psw,MLastSelectedSnr);//验证A密钥
+//	if(status!=MI_OK)
+//	{
+//		return ;
+//	}
+//	status=PcdRead(4,RFID_DATA_BUF);
+//	if(status!=MI_OK)
+//	{
+//		return ;
+//	}
+	return ;;
 }
 
-
-/////////////////////////////////////////////////////////////////////
-//关闭天线
-/////////////////////////////////////////////////////////////////////
-void PcdAntennaOff(void)
+u8 Compare(u8 *x,u8 *y,u8 len)
 {
-    ClearBitMask(TxControlReg, 0x03);
+	 u8 m;
+	for(m=0;m<len;m++)
+		{
+		 if((*(x+m))!=(*(y+m)))
+			 {
+				return MI_ERR;
+		 }
+	}
+	return MI_OK;
 }
 
-/////////////////////////////////////////////////////////////////////
-//功    能：扣款和充值
-//参数说明: dd_mode[IN]：命令字
-//               0xC0 = 扣款
-//               0xC1 = 充值
-//          addr[IN]：钱包地址
-//          pValue[IN]：4字节增(减)值，低位在前
-//返    回: 成功返回MI_OK
-/////////////////////////////////////////////////////////////////////
-/*char PcdValue(u8 dd_mode,u8 addr,u8 *pValue)
+u8 Read_Block(uint8_t block,uint8_t *pbuf,uint8_t *psw)
 {
-    char status;
-    u8  unLen;
-    u8 ucComMF522Buf[MAXRLEN];
-    //u8 i;
-
-    ucComMF522Buf[0] = dd_mode;
-    ucComMF522Buf[1] = addr;
-    CalulateCRC(ucComMF522Buf,2,&ucComMF522Buf[2]);
-
-    status = PcdComMF522(PCD_TRANSCEIVE,ucComMF522Buf,4,ucComMF522Buf,&unLen);
-
-    if ((status != MI_OK) || (unLen != 4) || ((ucComMF522Buf[0] & 0x0F) != 0x0A))
-    {   status = MI_ERR;   }
-
-    if (status == MI_OK)
-    {
-        memcpy(ucComMF522Buf, pValue, 4);
-        //for (i=0; i<16; i++)
-        //{    ucComMF522Buf[i] = *(pValue+i);   }
-        CalulateCRC(ucComMF522Buf,4,&ucComMF522Buf[4]);
-        unLen = 0;
-        status = PcdComMF522(PCD_TRANSCEIVE,ucComMF522Buf,6,ucComMF522Buf,&unLen);
-		if (status != MI_ERR)
-        {    status = MI_OK;    }
-    }
-
-    if (status == MI_OK)
-    {
-        ucComMF522Buf[0] = PICC_TRANSFER;
-        ucComMF522Buf[1] = addr;
-        CalulateCRC(ucComMF522Buf,2,&ucComMF522Buf[2]);
-
-        status = PcdComMF522(PCD_TRANSCEIVE,ucComMF522Buf,4,ucComMF522Buf,&unLen);
-
-        if ((status != MI_OK) || (unLen != 4) || ((ucComMF522Buf[0] & 0x0F) != 0x0A))
-        {   status = MI_ERR;   }
-    }
-    return status;
-}*/
-
-/////////////////////////////////////////////////////////////////////
-//功    能：备份钱包
-//参数说明: sourceaddr[IN]：源地址
-//          goaladdr[IN]：目标地址
-//返    回: 成功返回MI_OK
-/////////////////////////////////////////////////////////////////////
-/*char PcdBakValue(u8 sourceaddr, u8 goaladdr)
-{
-    char status;
-    u8  unLen;
-    u8 ucComMF522Buf[MAXRLEN];
-
-    ucComMF522Buf[0] = PICC_RESTORE;
-    ucComMF522Buf[1] = sourceaddr;
-    CalulateCRC(ucComMF522Buf,2,&ucComMF522Buf[2]);
-
-    status = PcdComMF522(PCD_TRANSCEIVE,ucComMF522Buf,4,ucComMF522Buf,&unLen);
-
-    if ((status != MI_OK) || (unLen != 4) || ((ucComMF522Buf[0] & 0x0F) != 0x0A))
-    {   status = MI_ERR;   }
-
-    if (status == MI_OK)
-    {
-        ucComMF522Buf[0] = 0;
-        ucComMF522Buf[1] = 0;
-        ucComMF522Buf[2] = 0;
-        ucComMF522Buf[3] = 0;
-        CalulateCRC(ucComMF522Buf,4,&ucComMF522Buf[4]);
-
-        status = PcdComMF522(PCD_TRANSCEIVE,ucComMF522Buf,6,ucComMF522Buf,&unLen);
-		if (status != MI_ERR)
-        {    status = MI_OK;    }
-    }
-
-    if (status != MI_OK)
-    {    return MI_ERR;   }
-
-    ucComMF522Buf[0] = PICC_TRANSFER;
-    ucComMF522Buf[1] = goaladdr;
-
-    CalulateCRC(ucComMF522Buf,2,&ucComMF522Buf[2]);
-
-    status = PcdComMF522(PCD_TRANSCEIVE,ucComMF522Buf,4,ucComMF522Buf,&unLen);
-
-    if ((status != MI_OK) || (unLen != 4) || ((ucComMF522Buf[0] & 0x0F) != 0x0A))
-    {   status = MI_ERR;   }
-
-    return status;
-}*/
-
-
-////////////////////////////////   prejoy  fix   //////////////////////////////////////////
-void RFID_SPI_Init(void)
-{
-  __HAL_SPI_ENABLE(&hspi4);
+	char status;
+	PcdReset();//复位RC522
+	status=PcdRequest(PICC_REQALL,&RFID_DATA_BUF[0]);//寻天线区内未进入休眠状态的卡，返回卡片类型 2字节
+	if(status!=MI_OK)
+	{
+		return MI_ERR;
+	}
+	status=PcdAnticoll(&RFID_DATA_BUF[2]);//防冲撞，返回卡的序列号 4字节
+	if(status!=MI_OK)
+	{
+		return MI_ERR;
+	}
+	memcpy(MLastSelectedSnr,&RFID_DATA_BUF[2],4);//从&RevBuffer[2]这个地址开始拷贝4个字节到指针起始位置MLastSelectedSnr
+	status=PcdSelect(MLastSelectedSnr);//选卡
+	if(status!=MI_OK)
+	{
+		return MI_ERR;
+	}
+	status=PcdAuthState(PICC_AUTHENT1A,block,psw,MLastSelectedSnr);//验证密匙
+	if(status!=MI_OK)
+	{
+		return MI_ERR;
+	}
+	/*
+	status=PcdWrite(addr,&cardData[0]);//把WriteData[]数组中的数据写到M1卡某一块中
+	if(status!=MI_OK)
+	{
+		return MI_ERR;
+	}
+	*/
+	status=PcdRead(block,pbuf);//从M1卡某一块读取到的数据存放在数组中
+	if(status!=MI_OK)
+	{
+		return MI_ERR;
+	}
+	return MI_OK;
 }
 
-void InitRc522(void)
+u8 Write_Block(uint8_t block,uint8_t *pbuf,uint8_t *psw)
 {
-  RFID_SPI_Init();
-  PcdReset();
-  PcdAntennaOff();
-  delay_ms(2);
-  PcdAntennaOn();
-  M500PcdConfigISOType( 'A' );
+	char status;
+
+	PcdReset();//复位RC522
+	status=PcdRequest(PICC_REQALL,&RFID_DATA_BUF[0]);//寻天线区内未进入休眠状态的卡，返回卡片类型 2字节
+	if(status!=MI_OK)
+	{
+		return MI_ERR;
+	}
+    status=PcdAnticoll(&RFID_DATA_BUF[2]);//防冲撞，返回卡的序列号 4字节
+    if(status!=MI_OK)
+	{
+		return MI_ERR;
+	}
+    memcpy(MLastSelectedSnr,&RFID_DATA_BUF[2],4);//从&RevBuffer[2]这个地址开始拷贝4个字节到指针起始位置MLastSelectedSnr
+    status=PcdSelect(MLastSelectedSnr);//选卡
+    if(status!=MI_OK)
+	{
+		return MI_ERR;
+	}
+	status=PcdAuthState(PICC_AUTHENT1A,block,psw,MLastSelectedSnr);//验证密匙
+	if(status!=MI_OK)
+	{
+		return MI_ERR;
+	}
+	status=PcdWrite(block,pbuf);//把WriteData[]数组中的数据写到M1卡某一块中
+	if(status!=MI_OK)
+	{
+		return MI_ERR;
+	}
+	status=PcdRead(block,XM);//从M1卡某一块读取到的数据存放在Read_Data[]数组中
+	if(status!=MI_OK)
+	{
+		return MI_ERR;
+	}
+	while(Compare(pbuf,XM,8)!=MI_OK)
+	{
+		status=PcdAuthState(PICC_AUTHENT1A,block,psw,MLastSelectedSnr);//验证A密匙
+		if(status!=MI_OK)
+		{
+			return MI_ERR;
+		}
+		status=PcdWrite(block,pbuf);//把WriteData[]数组中的数据写到M1卡某一块中
+		if(status!=MI_OK)
+		{
+			return MI_ERR;
+		}
+		status=PcdRead(block,XM);//从M1卡某一块读取到的数据存放在Read_Data[]数组中
+		if(status!=MI_OK)
+		{
+			return MI_ERR;
+		}
+	}
+	if(PcdHalt()!=MI_OK)
+	{
+		return MI_ERR;
+  }
+	return MI_OK;
 }
-
-
-

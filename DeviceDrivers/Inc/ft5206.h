@@ -43,10 +43,40 @@
 #define FT_ID_G_PERIODACTIVE	0x88   		//激活状态周期设置寄存器
 
 
+
+#define KEY_1		(1U)
+#define KEY_2		(2U)
+#define KEY_3		(3U)
+#define KEY_4		(4U)
+#define KEY_5		(5U)
+#define KEY_6		(6U)
+#define KEY_7		(7U)
+#define KEY_8		(8U)
+#define KEY_9		(9U)
+#define KEY_0		(10U)
+#define KEY_PLOT	(11U)
+#define KEY_BACK	(12U)
+#define KEY_F1		(13U)
+#define KEY_F2		(14U)
+#define KEY_CHECK	KEY_F1
+#define KEY_SETTING	KEY_F2
+#define KEY_ESC		(15U)
+#define KEY_ENT		(16U)
+#define KEY_STAR	(17U)
+#define KEY_WELL	(18U)
+#define KEY_CARDPAY	KEY_WELL
+#define KEY_QRPAY	KEY_STAR
+//#define KEY_UP	(19U)
+//#define KEY_DOWN	(20U)
+
+
+
+
 u8 FT5206_WR_Reg(u16 reg,u8 *buf,u8 len);
 void FT5206_RD_Reg(u16 reg,u8 *buf,u8 len);
 u8 FT5206_Init(void);
 u8 FT5206_Scan(u8 mode);
+uint8_t TouchPadConversion(void);
 
 #endif
 

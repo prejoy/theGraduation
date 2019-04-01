@@ -8,7 +8,7 @@
 
 #define TP_PRES_DOWN 0x80  //触屏被按下	  
 #define TP_CATH_PRES 0x40  //有按键按下了 
-#define CT_MAX_TOUCH 5    //电容屏支持的点数,固定为5点
+#define CT_MAX_TOUCH 2    //电容屏支持的点数,固定为5点
 
 //触摸屏控制器
 typedef struct

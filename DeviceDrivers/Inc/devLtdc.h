@@ -36,7 +36,7 @@ void LTDC_Select_Layer(u8 layerx);			//层选择
 void LTDC_Display_Dir(u8 dir);				//显示方向控制
 void LTDC_Draw_Point(u16 x,u16 y,u32 color);//画点函数
 u32 LTDC_Read_Point(u16 x,u16 y);			//读点函数
-void LTDC_Fill(u16 sx,u16 sy,u16 ex,u16 ey,u32 color);			//矩形单色填充函数
+void LTDC_Fill(u16 sx,u16 sy,u16 ex,u16 ey,u32 color);		//矩形单色填充函数,必须从上到下，从左到右
 void LTDC_Color_Fill(u16 sx,u16 sy,u16 ex,u16 ey,u16 *color);	//矩形彩色填充函数
 void LTDC_DrawLine(u16 sx,u16 sy,u16 ex,u16 ey,u16 width,u32 color);	//补；画水平和垂直线
 void LTDC_Clear(u32 color);					//清屏函数

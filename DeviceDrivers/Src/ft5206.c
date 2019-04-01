@@ -6,8 +6,8 @@
 #include "devDelay.h"
 #include "string.h" 
 #include "sys.h"
+
 #define MAX_TOUCH_POINT 1
- 
  
 //向FT5206写入一次数据
 //reg:起始寄存器地址
@@ -91,7 +91,8 @@ u8 FT5206_Init(void)
 	FT5206_RD_Reg(FT_ID_G_LIB_VERSION,&temp[0],2);  
 	if((temp[0]==0X30&&temp[1]==0X03)||temp[1]==0X01||temp[1]==0X02)//版本:0X3003/0X0001/0X0002
 	{
-		printf("CTP ID:%x\r\n",((u16)temp[0]<<8)+temp[1]);
+//		printf("CTP ID:%x\r\n",((u16)temp[0]<<8)+temp[1]);
+	    printf("TouchPad FT5206\r\n");
 		return 0;
 	} 
 	return 1;
@@ -101,16 +102,16 @@ const u16 FT5206_TPX_TBL[5]={FT_TP1_REG,FT_TP2_REG,FT_TP3_REG,FT_TP4_REG,FT_TP5_
 //mode:0,正常扫描.
 //返回值:当前触屏状态.
 //0,触屏无触摸;1,触屏有触摸
-u8 FT5206_Scan(u8 mode)
+u8 FT5206_Scan(u8 mode)			//改动： RTOS特化，降低资源占用
 {
 	u8 buf[4];
 	u8 i=0;
 	u8 res=0;
 	u8 temp;
-	static u8 t=3;//控制查询间隔,从而降低CPU占用率   
-	t++;
-	if((t%3)==0||t<3)//空闲时,每进入10次CTP_Scan函数才检测1次,从而节省CPU使用率
-	{
+//	static u8 t=3;//控制查询间隔,从而降低CPU占用率
+//	t++;
+//	if((t%3)==0||t<3)//空闲时,每进入10次CTP_Scan函数才检测1次,从而节省CPU使用率
+//	{
 		FT5206_RD_Reg(FT_REG_NUM_FINGER,&mode,1);//读取触摸点的状态  
 		if((mode&0XF)&&((mode&0XF)<6))
 		{
@@ -131,14 +132,14 @@ u8 FT5206_Scan(u8 mode)
 						tp_dev.y[i]=((u16)(buf[2]&0X0F)<<8)+buf[3];
 					}  
 					if((buf[0]&0XF0)!=0X80)tp_dev.x[i]=tp_dev.y[i]=0;//必须是contact事件，才认为有效
-					//printf("x[%d]:%d,y[%d]:%d\r\n",i,tp_dev.x[i],i,tp_dev.y[i]);
+//					printf("x[%d]:%d,y[%d]:%d\r\n",i,tp_dev.x[i],i,tp_dev.y[i]);
 				}			
 			} 
 			res=1;
 			if(tp_dev.x[0]==0 && tp_dev.y[0]==0)mode=0;	//读到的数据都是0,则忽略此次数据
-			t=3;		//触发一次,则会最少连续监测10次,从而提高命中率
+//			t=3;		//触发一次,则会最少连续监测10次,从而提高命中率
 		}
-	}
+//	}
 	if((mode&0X1F)==0)//无触摸点按下
 	{ 
 		if(tp_dev.sta&TP_PRES_DOWN)	//之前是被按下的
@@ -151,13 +152,72 @@ u8 FT5206_Scan(u8 mode)
 			tp_dev.sta&=0XE0;	//清除点有效标记	
 		}	 
 	} 	
-	if(t>240)t=3;//重新从10开始计数
+//	if(t>240)t=3;//重新从10开始计数
 	return res;
 }
  
 
 
+uint8_t TouchPadConversion()
+{
+  if ((tp_dev.x[0] == 0xffff && tp_dev.y[0] == 0xffff))
+    return 0xff;
 
+  if (tp_dev.x[0] >= 0 && tp_dev.x[0] <= 120)
+    {
+      if (tp_dev.y[0] >= (504 + 73 * 3))
+	return KEY_0;
+      else if (tp_dev.y[0] >= (504 + 73 * 2))
+	return KEY_7;
+      else if (tp_dev.y[0] >= (504 + 73 * 1))
+	return KEY_4;
+      else if (tp_dev.y[0] >= (504))
+	return KEY_1;
+    }
+  else if (tp_dev.x[0] > 120 && tp_dev.x[0] <= 240)
+    {
+      if (tp_dev.y[0] >= (504 + 73 * 3))
+	return KEY_PLOT;
+      else if (tp_dev.y[0] >= (504 + 73 * 2))
+	return KEY_8;
+      else if (tp_dev.y[0] >= (504 + 73 * 1))
+	return KEY_5;
+      else if (tp_dev.y[0] >= (504))
+	return KEY_2;
+    }
+  else if (tp_dev.x[0] > 240 && tp_dev.x[0] <= 360)
+    {
+      if (tp_dev.y[0] >= (504 + 73 * 3))
+	return KEY_BACK;
+      else if (tp_dev.y[0] >= (504 + 73 * 2))
+	return KEY_9;
+      else if (tp_dev.y[0] >= (504 + 73 * 1))
+	return KEY_6;
+      else if (tp_dev.y[0] >= (504))
+	return KEY_3;
+    }
+  else if (tp_dev.x[0] > 360 && tp_dev.x[0] <= 480)
+    {
+      if (tp_dev.y[0] >= (504 + 73 * 3))
+	return KEY_ENT;
+      else if (tp_dev.y[0] >= (504 + 73 * 2))
+	return KEY_ESC;
+      else if (tp_dev.y[0] >= (504 + 73 * 1))
+	return KEY_SETTING;
+      else if (tp_dev.y[0] >= (504))
+	return KEY_CHECK;
+    }
+
+  if (tp_dev.y[0] >= 380 && tp_dev.y[0] <= 420)
+    {
+      if (tp_dev.x[0] >= 65 && tp_dev.x[0] <= 175)
+	return KEY_QRPAY;
+      else if(tp_dev.x[0] >= 310 && tp_dev.x[0] <= 420)
+	return KEY_CARDPAY;
+    }
+
+  return 0xff;
+}
 
 
 

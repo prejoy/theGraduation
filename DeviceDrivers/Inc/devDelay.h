@@ -12,7 +12,7 @@
 #include "tim.h"
 #include "stm32f4xx_hal.h"
 
-#undef  FREERTOS
+//#undef  FREERTOS
 
 #ifndef FREERTOS
 #define OSDelay_ms(x)	delay_ms(x)

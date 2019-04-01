@@ -79,14 +79,18 @@
 #endif
 
 //断言
+#ifdef FREERTOS_ASSERT
 #define vAssertCalled(char,int) printf("Error:%s,%d\r\n",char,int)
-#define configASSERT(x) if((x)==0) vAssertCalled(__FILE__,__LINE__)//断言
+#else
+#define vAssertCalled(char,int)  
+#endif
+#define configASSERT(x) if((x)==0) vAssertCalled(__FILE__,__LINE__)
 
 /***************************************************************************************************************/
 /*                                        FreeRTOS基础配置选项                                            */
 /***************************************************************************************************************/
 #define configUSE_PREEMPTION					1       //1使用抢占式内核，0使用协程
-#define configUSE_TIME_SLICING					1						//1使能时间片调度(默认式使能的)
+#define configUSE_TIME_SLICING					1	//1使能时间片调度(默认式使能的)
 #define configUSE_PORT_OPTIMISED_TASK_SELECTION	                1       //1启用特殊方法来选择下一个要运行的任务
                                                                         //一般是硬件计算前导零指令，如果所使用的
                                                                         //MCU没有这些硬件指令的话此宏应该设置为0！
@@ -108,10 +112,10 @@
 #define configCHECK_FOR_STACK_OVERFLOW			        0       //大于0时启用堆栈溢出检测功能，如果使用此功能
                                                                         //用户必须提供一个栈溢出钩子函数，如果使用的话
                                                                         //此值可以为1或者2，因为有两种栈溢出检测方法。
-#define configUSE_RECURSIVE_MUTEXES				0       //为1时使用递归互斥信号量
-#define configUSE_MALLOC_FAILED_HOOK			        0       //1使用内存申请失败钩子函数
-#define configUSE_APPLICATION_TASK_TAG			        0
-#define configUSE_COUNTING_SEMAPHORES			        1       //为1时使用计数信号量
+#define configUSE_RECURSIVE_MUTEXES				1                       //为1时使用递归互斥信号量
+#define configUSE_MALLOC_FAILED_HOOK			0                       //1使用内存申请失败钩子函数
+#define configUSE_APPLICATION_TASK_TAG			0                       
+#define configUSE_COUNTING_SEMAPHORES			1                       //为1时使用计数信号量
 
 /***************************************************************************************************************/
 /*                                FreeRTOS与内存申请有关配置选项                                                */
@@ -172,7 +176,7 @@
 #endif
 
 #define configLIBRARY_LOWEST_INTERRUPT_PRIORITY			15                      //中断最低优先级
-#define configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY	        5                       //系统可管理的最高中断优先级
+#define configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY	        3                       //系统可管理的最高中断优先级
 #define configKERNEL_INTERRUPT_PRIORITY 		       ( configLIBRARY_LOWEST_INTERRUPT_PRIORITY << (8 - configPRIO_BITS) )
 #define configMAX_SYSCALL_INTERRUPT_PRIORITY 	               ( configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY << (8 - configPRIO_BITS) )
 

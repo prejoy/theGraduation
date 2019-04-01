@@ -53,7 +53,7 @@ int key_scan(void)
   if(temp != 0)
 //  if((temp&KEY_ROW_Pin_ALL) != KEY_ROW_Pin_ALL)
   {
-      OSDelay_ms(5);
+      OSDelay_ms(4);
       temp = (GPIO_ReadInputData (KEY_ROW_GPIO_Port)) & KEY_ROW_Pin_ALL;
       temp ^= KEY_ROW_Pin_ALL;
         if(temp != 0)
@@ -114,4 +114,54 @@ readkey:
     }
 }
 
+}
+
+
+uint8_t KeyConversion(int keyval)
+{
+  switch(keyval)
+  {
+    case 1:
+      return KEY_BACK;
+    case 2:
+      return KEY_0;
+    case 3:
+      return KEY_PLOT;
+    case 4:
+      return KEY_ENT;
+    case 5:
+      return KEY_7;
+    case 6:
+      return KEY_8;
+    case 7:
+      return KEY_9;
+    case 8:
+      return KEY_ESC;
+    case 9:
+      return KEY_4;
+    case 10:
+      return KEY_5;
+    case 11:
+      return KEY_6;
+    case 12:
+      return KEY_DOWN;
+    case 13:
+      return KEY_1;
+    case 14:
+      return KEY_2;
+    case 15:
+      return KEY_3;
+    case 16:
+      return KEY_UP;
+    case 17:
+      return KEY_F1;
+    case 18:
+      return KEY_F2;
+    case 19:
+      return KEY_WELL;
+    case 20:
+      return KEY_STAR;
+  }
+
+  return 0xff;
 }

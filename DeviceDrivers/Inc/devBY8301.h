@@ -12,6 +12,20 @@
 #include "stm32f4xx.h"
 
 
+
+//1  SPK2		16  GND
+//2  SPK1		15
+//3			14
+//4			13
+//5			12
+//6 VCC-5v		11
+//7 TX			10
+//8 RX			9
+//
+//V:1 6 7 8 16
+
+
+
 extern UART_HandleTypeDef huart4;
 
 uint32_t SinglePlay(uint8_t Voice_NO);

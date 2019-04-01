@@ -52,6 +52,11 @@
 
 /*	App's  Include	*/
 #include "App_Pay.h"
+#include "App_Gui.h"
+
+
+
+
 
 
 int App_main(void);

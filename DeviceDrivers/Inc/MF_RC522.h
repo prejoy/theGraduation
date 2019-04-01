@@ -8,10 +8,29 @@
 #ifndef DEVICEDRIVERS_INC_MF_RC522_H_
 #define DEVICEDRIVERS_INC_MF_RC522_H_
 
-
 #include "sys.h"
 #include "main.h"
 #include "stm32f4xx.h"
+
+//{
+//修改：MF_RC522.c：
+//extern SPI_HandleTypeDef hspi1;
+//#define hspiRFID	hspi1
+//}
+
+/*usage:
+ *
+ * 连线：MISO -  MISO   ！！！！！！！！！！！！！！！！！
+ * 		MOSI - MOSI  ！！！！！！！！！！！！！！！！！
+ *
+ * u8 RFID_ID_CODE[4]={0};
+ *
+ * RFID_spi init
+   RCC522_Init();
+   RFID_Get_ID(RFID_ID_CODE);
+ *
+ * */
+
 
 /////////////////////////////////////////////////////////////////////
 //MF522命令字
@@ -126,6 +145,7 @@
 #define MI_NOTAGERR           (1)
 #define MI_ERR                (2)
 
+//操作命令的宏定义
 #define	SHAQU1	0X01
 #define	KUAI4	0X04
 #define	KUAI7	0X07
@@ -139,35 +159,28 @@
 #define SET_RC522RST()   HAL_GPIO_WritePin(RFID_RST_GPIO_Port,RFID_RST_Pin,GPIO_PIN_SET)		//拉高
 #define CLR_RC522RST()   HAL_GPIO_WritePin(RFID_RST_GPIO_Port,RFID_RST_Pin,GPIO_PIN_RESET)	//置低
 
-u8 SPIWriteByte(u8 byte);
-u8 SPIReadByte(void);
-//void SPI2_Init(void);
 
-void InitRc522(void);
-void ClearBitMask(u8   reg,u8   mask);
+
+u8 RFID_SPI_ReadWriteByte(u8 dat);
+
+
+void RCC522_GPIO_Init(void);
+char PcdReset(void);
+void CalulateCRC(u8 *pIn ,u8   len,u8 *pOut );
+char M500PcdConfigISOType(u8   type);
+void RCC522_Init(void);
+u8 ReadRawRC(u8   Address);
 void WriteRawRC(u8   Address, u8   value);
 void SetBitMask(u8   reg,u8   mask);
-char PcdComMF522(u8   Command,
-                 u8 *pIn ,
-                 u8   InLenByte,
-                 u8 *pOut ,
-                 u8  *pOutLenBit);
-void CalulateCRC(u8 *pIn ,u8   len,u8 *pOut );
-u8 ReadRawRC(u8   Address);
-void PcdAntennaOn(void);
-
-char PcdReset(void);
-char PcdRequest(unsigned char req_code,unsigned char *pTagType);
+void ClearBitMask(u8   reg,u8   mask);
 void PcdAntennaOn(void);
 void PcdAntennaOff(void);
-char M500PcdConfigISOType(unsigned char type);
-char PcdAnticoll(unsigned char *pSnr);
-char PcdSelect(unsigned char *pSnr);
-char PcdAuthState(unsigned char auth_mode,unsigned char addr,unsigned char *pKey,unsigned char *pSnr);
-char PcdWrite(unsigned char addr,unsigned char *pData);
-char PcdRead(unsigned char addr,unsigned char *pData);
-char PcdHalt(void);
-void Reset_RC522(void);
+char PcdRequest(u8 req_code,u8 *pTagType);
+char PcdAnticoll(u8 *pSnr);
+char PcdComMF522(u8 Command,u8 *pIn ,u8 InLenByte,u8 *pOut ,u8 *pOutLenBit);
+void RFID_Get_ID(u8 *pbuf);
+u8 Read_Block(uint8_t block,uint8_t *pbuf,uint8_t *psw);
+u8 Write_Block(uint8_t block,uint8_t *pbuf,uint8_t *psw);
 
 
 #endif /* DEVICEDRIVERS_INC_MF_RC522_H_ */

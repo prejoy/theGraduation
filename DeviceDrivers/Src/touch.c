@@ -31,10 +31,7 @@ _m_tp_dev tp_dev=
 	0, 
 	0,
 	0,
-	0,
-	0,	  	 		
-	0,
-	0,	  	 		
+	0
 };					
 //默认为touchtype=0的数据.
 u8 CMD_RDX=0XD0;
