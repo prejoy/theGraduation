@@ -68,7 +68,7 @@
 #define KEY_QRPAY	KEY_STAR
 //#define KEY_UP	(19U)
 //#define KEY_DOWN	(20U)
-
+#define KEY_MAX		(KEY_WELL+1)
 
 
 

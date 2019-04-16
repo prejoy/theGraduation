@@ -210,7 +210,7 @@ char PcdRequest(u8 req_code,u8 *pTagType)
 	ucComMF522Buf[0] = req_code;
 
 	status = PcdComMF522(PCD_TRANSCEIVE,ucComMF522Buf,1,ucComMF522Buf,&unLen);
-	printf("unLen:%d\r\n",unLen);
+//	printf("unLen:%d\r\n",unLen);
 
 	if ((status == MI_OK) && (unLen == 0x10))
 	{
@@ -535,10 +535,11 @@ void RFID_Get_ID(u8 *pbuf)//卡号4字节
 	int8_t status;
 	PcdReset();//复位RC522
 	status=PcdRequest(PICC_REQALL,&RFID_DATA_BUF[0]);//寻天线区内未进入休眠状态的卡，返回卡片类型 2字节
-	if(status!=MI_OK) return ;
+	if(status!=MI_OK) goto retlabel;
 	status=PcdAnticoll(&RFID_DATA_BUF[2]);//防冲撞，返回卡的序列号 4字节
-	if(status!=MI_OK) return ;
+	if(status!=MI_OK) goto retlabel;
 	memcpy(pbuf,&RFID_DATA_BUF[2],4);//拷贝卡号
+	return ;
 //	status=PcdSelect(MLastSelectedSnr);//选卡
 //	if(status!=MI_OK) return ;
 //	status=PcdAuthState(PICC_AUTHENT1A,4,(u8*)psw,MLastSelectedSnr);//验证A密钥
@@ -551,7 +552,9 @@ void RFID_Get_ID(u8 *pbuf)//卡号4字节
 //	{
 //		return ;
 //	}
-	return ;;
+retlabel:
+	memset(pbuf,0,4);
+	return ;
 }
 
 u8 Compare(u8 *x,u8 *y,u8 len)

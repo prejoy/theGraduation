@@ -29,6 +29,11 @@ void HMI_Init()		//不需要显示的全部隐藏
 	strcpy(CMD,"t4.pco=0x7fa4");
 	HAL_UART_Transmit(&huart5,(uint8_t *)&CMD,13,0xFF);
 	HAL_UART_Transmit(&huart5,(uint8_t *)&CMD_END,sizeof(CMD_END),0xFF);
+
+	HideQRCode();
+	HidePay();
+	HideRemain();
+
 }
 void SwitchQRcode(uint32_t disp)
 {
@@ -57,11 +62,19 @@ void SwitchQRcode(uint32_t disp)
 }
 
 //ex: SendQRcode("https://www.baidu.com/",sizeof("https://www.baidu.com/"));
+uint8_t QRLINK[100];
 void SendQRcode(uint8_t *str,uint32_t udLen)
 {
+//	uint8_t CMD[50]={0};
 	uint8_t CMD_END[3]={0xFF,0xFF,0xFF};
-	HAL_UART_Transmit(&huart5,(uint8_t *)str,udLen-1,0xFF);
+
+	strcpy(QRLINK,"qr0.txt=\"");
+	strcpy((QRLINK+9),(const char *)str);	// + len_pay_txt
+	strcpy(QRLINK+9+udLen-1,"\"");
+
+	HAL_UART_Transmit(&huart5,(uint8_t *)QRLINK,udLen+9,0xFF);
 	HAL_UART_Transmit(&huart5,(uint8_t *)&CMD_END,sizeof(CMD_END),0xFF);
+	DisplayQRCode();
 
 }
 void SwitchPay(uint32_t disp)
@@ -177,7 +190,7 @@ void SendPay(uint32_t Integer,uint32_t Decimal)
 	uint8_t CMD_END[3]={0xFF,0xFF,0xFF};
 	uint8_t pay_txt[10],len_pay_txt;
 	IntToChar(pay_txt,&len_pay_txt,Integer,Decimal);
-	printf("len:%d\r\n",(len_pay_txt));
+//	printf("len:%d\r\n",(len_pay_txt));
 	strcpy(CMD,"t4.txt=\"");					// 8
 	strcpy((CMD+8),(const char *)pay_txt);	// + len_pay_txt
 	HAL_UART_Transmit(&huart5,(uint8_t *)&CMD,(8+len_pay_txt),0xFF);
@@ -194,11 +207,97 @@ void SendRemain(uint32_t Integer,uint32_t Decimal)
 	uint8_t CMD_END[3]={0xFF,0xFF,0xFF};
 	uint8_t pay_txt[10],len_pay_txt;
 	IntToChar(pay_txt,&len_pay_txt,Integer,Decimal);
-	printf("len:%d\r\n",(len_pay_txt));
+//	printf("len:%d\r\n",(len_pay_txt));
 	strcpy(CMD,"t5.txt=\"");					// 8
 	strcpy((CMD+8),(const char *)pay_txt);	// + len_pay_txt
 	HAL_UART_Transmit(&huart5,(uint8_t *)&CMD,(8+len_pay_txt),0xFF);
 	HAL_UART_Transmit(&huart5,(uint8_t *)&CMD_END,sizeof(CMD_END),0xFF);
 
 	DisplayRemain();
+}
+
+
+
+void SwitchResult(uint32_t isSuccess,uint32_t errtype,uint32_t disp,uint32_t txtcolor)
+{
+	uint8_t CMD[20]={0};
+	uint8_t CMD_END[3]={0xFF,0xFF,0xFF};
+	if(isSuccess == 0)
+	{
+		if(disp == 1)
+		{
+			if(txtcolor == 0)
+			{
+				strcpy(CMD,"t6.pco=0x0000");
+				HAL_UART_Transmit(&huart5,(uint8_t *)&CMD,13,0xFF);
+				HAL_UART_Transmit(&huart5,(uint8_t *)&CMD_END,sizeof(CMD_END),0xFF);
+			}else
+			{
+				strcpy(CMD,"t6.pco=0xFFFF");
+				HAL_UART_Transmit(&huart5,(uint8_t *)&CMD,13,0xFF);
+				HAL_UART_Transmit(&huart5,(uint8_t *)&CMD_END,sizeof(CMD_END),0xFF);
+			}
+		}
+		else
+		{
+			strcpy(CMD,"t6.pco=0x7FA4");
+			HAL_UART_Transmit(&huart5,(uint8_t *)&CMD,13,0xFF);
+			HAL_UART_Transmit(&huart5,(uint8_t *)&CMD_END,sizeof(CMD_END),0xFF);
+		}
+	}
+	else
+	{
+		if(disp == 1)
+		{
+			switch(errtype)
+			{
+				case ERR_PAYFAIL:
+					strcpy(CMD,"t7.txt=\"");
+					strcpy((CMD+8),(const char *)"支付失败\"");
+//					printf("%s\r\n",CMD);
+					HAL_UART_Transmit(&huart5,(uint8_t *)&CMD,(8+9),0xFF);
+					HAL_UART_Transmit(&huart5,(uint8_t *)&CMD_END,sizeof(CMD_END),0xFF);
+					break;
+				case ERR_BALANCECHARGE:
+					strcpy(CMD,"t7.txt=\"");
+					strcpy((CMD+8),(const char *)"余额不足\"");
+//					printf("%s\r\n",CMD);
+					HAL_UART_Transmit(&huart5,(uint8_t *)&CMD,(8+9),0xFF);
+					HAL_UART_Transmit(&huart5,(uint8_t *)&CMD_END,sizeof(CMD_END),0xFF);
+					break;
+				case ERR_NOSUCHID:
+					strcpy(CMD,"t7.txt=\"");
+					strcpy((CMD+8),(const char *)"卡片未注册\"");
+//					printf("%s\r\n",CMD);
+					HAL_UART_Transmit(&huart5,(uint8_t *)&CMD,(8+11),0xFF);
+					HAL_UART_Transmit(&huart5,(uint8_t *)&CMD_END,sizeof(CMD_END),0xFF);
+					break;
+				default:
+					strcpy(CMD,"t7.txt=\"");
+					strcpy((CMD+8),(const char *)"未知错误\"");
+//					printf("%s\r\n",CMD);
+					HAL_UART_Transmit(&huart5,(uint8_t *)&CMD,(8+9),0xFF);
+					HAL_UART_Transmit(&huart5,(uint8_t *)&CMD_END,sizeof(CMD_END),0xFF);
+					break;
+			}
+
+			if(txtcolor == 0)		//黑色显示
+			{
+				strcpy(CMD,"t7.pco=0x0000");
+				HAL_UART_Transmit(&huart5,(uint8_t *)&CMD,13,0xFF);
+				HAL_UART_Transmit(&huart5,(uint8_t *)&CMD_END,sizeof(CMD_END),0xFF);
+			}else				//white display
+			{
+				strcpy(CMD,"t7.pco=0xFFFF");
+				HAL_UART_Transmit(&huart5,(uint8_t *)&CMD,13,0xFF);
+				HAL_UART_Transmit(&huart5,(uint8_t *)&CMD_END,sizeof(CMD_END),0xFF);
+			}
+		}
+		else
+		{
+			strcpy(CMD,"t7.pco=0x7FA4");
+			HAL_UART_Transmit(&huart5,(uint8_t *)&CMD,13,0xFF);
+			HAL_UART_Transmit(&huart5,(uint8_t *)&CMD_END,sizeof(CMD_END),0xFF);
+		}
+	}
 }

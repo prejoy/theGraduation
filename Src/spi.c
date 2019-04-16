@@ -84,11 +84,14 @@ void MX_SPI5_Init(void)
   hspi5.Init.FirstBit = SPI_FIRSTBIT_MSB;
   hspi5.Init.TIMode = SPI_TIMODE_DISABLE;
   hspi5.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
-  hspi5.Init.CRCPolynomial = 10;
+  hspi5.Init.CRCPolynomial = 7;
   if (HAL_SPI_Init(&hspi5) != HAL_OK)
   {
     Error_Handler();
   }
+  __HAL_SPI_ENABLE(&hspi5);                    //Ê¹ÄÜ SPI5
+
+
 
 }
 

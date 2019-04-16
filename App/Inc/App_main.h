@@ -32,6 +32,7 @@
 #include "devW25Qxx.h"
 #include "MF_RC522.h"
 #include "devBY8301.h"
+#include "devHMIScreen.h"
 
 #include "malloc.h"
 #include "nand.h"

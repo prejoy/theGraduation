@@ -12,9 +12,19 @@ u8 SPI5_ReadWriteByte(u8 TxData)
 {
     u8 Rxdata;
     HAL_SPI_TransmitReceive(&hspi5,&TxData,&Rxdata,1, 1000);
- 	return Rxdata;          		    //返回收到的数据		
+    return Rxdata;          		    //返回收到的数据
 }                           
 
+//SPI设置分频系数
+void SPI5_SetSpeed(u8 SPI_BaudRatePrescaler)
+{
+    assert_param(IS_SPI_BAUDRATE_PRESCALER(SPI_BaudRatePrescaler));
+    __HAL_SPI_DISABLE(&hspi5);
+    hspi5.Instance->CR1&=0XFFC7;
+    hspi5.Instance->CR1|=SPI_BaudRatePrescaler;
+    __HAL_SPI_ENABLE(&hspi5);
+
+}
 
 //初始化SPI FLASH的IO口
 uint32_t W25QXX_Init(void)
@@ -25,14 +35,16 @@ uint32_t W25QXX_Init(void)
     __HAL_RCC_GPIOF_CLK_ENABLE();           //使能GPIOF时钟
     
     //PF6
+    HAL_GPIO_DeInit(GPIOF,GPIO_PIN_6);
     GPIO_Initure.Pin=GPIO_PIN_6;            //PF6
     GPIO_Initure.Mode=GPIO_MODE_OUTPUT_PP;  //推挽输出
     GPIO_Initure.Pull=GPIO_PULLUP;          //上拉
     GPIO_Initure.Speed=GPIO_SPEED_FAST;     //快速
     HAL_GPIO_Init(GPIOF,&GPIO_Initure);     //初始化
     
-//	W25QXX_CS=1;			                //SPI FLASH不选中
+	W25QXX_CS=1;			                //SPI FLASH不选中
 //	SPI5_Init();		   			        //初始化SPI
+        SPI5_ReadWriteByte(0Xff);                    //启动传输
 //	SPI5_SetSpeed(SPI_BAUDRATEPRESCALER_2); //设置为45M时钟,高速模式
 	W25QXX_TYPE=W25QXX_ReadID();	        //读取FLASH ID.
     if(W25QXX_TYPE==W25Q256)                //SPI FLASH为W25Q256

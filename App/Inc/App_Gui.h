@@ -10,6 +10,14 @@
 
 #include "stm32f4xx.h"
 
+
+#define COST_MONEY_BUFFER		1
+#define COST_BUFFER_CLEAR		2
+
+#define ERR_PAYFAIL		1
+#define ERR_BALANCECHARGE	2
+#define ERR_NOSUCHID		3
+
 //draw user page 480X504	24ºÅ×ÖÌå
 //   (0,0)		(480,0)
 //  ------		¿¨ºÅ£º
@@ -65,6 +73,16 @@
 
 
 void GuiPageCostInit(void);
-void DisplayCostMoney(uint32_t CostMoney);
+void DisplayCostMoney(uint8_t *CostMoney);
+void ClearCostMoney(void);
+#define LCDCostOKWhite()	DisplayLCDCosRes(0,0,1,0)
+#define LCDCostOKBlack()	DisplayLCDCosRes(0,0,1,1)
+#define LCDCostFailWhite(n)	DisplayLCDCosRes(1,((n)),1,0)
+#define LCDCostFailBlack(n)	DisplayLCDCosRes(1,((n)),1,1)
+#define LCDCostHide()		DisplayLCDCosRes(0,0,0,1)
+
+
+
+void DisplayLCDCosRes(uint32_t isSuccess,uint32_t errtype,uint32_t disp,uint32_t txtcolor);
 
 #endif /* APP_INC_APP_GUI_H_ */

@@ -64,17 +64,79 @@ void GuiPageCostInit(void)
 }
 
 
-void DisplayCostMoney(uint32_t CostMoney)
+void DisplayCostMoney(uint8_t *CostMoney)
 {
-  char str[6]={0};
-  uint32_t Integer,Decimal;
-  Integer = CostMoney/10;
-  Decimal = CostMoney%10;
+//  char str[6]={0};
+//  uint32_t Integer,Decimal;
+//  Integer = CostMoney/10;
+//  Decimal = CostMoney%10;
   POINT_COLOR=RED;BACK_COLOR=BG_COLOR;
-  sprintf(str,"%d.%d",Integer,Decimal);
-  Show_Str(280,280,480-30,32,str,32,0);
+//  sprintf(str,"%d.%d",Integer,Decimal);
+  Show_Str(280,280,480-40,32,CostMoney,32,0);
 }
 
+void ClearCostMoney()
+{
+    char str[6]="      ";
+  POINT_COLOR=BG_COLOR;BACK_COLOR=BG_COLOR;
+  Show_Str(280,280,480-50,32,str,32,0);
+}
+
+
+//超过4个字注意居中参数变化
+void DisplayLCDCosRes(uint32_t isSuccess,uint32_t errtype,uint32_t disp,uint32_t txtcolor)
+{
+#define xCenter	240
+#define yCenter	440
+  if (isSuccess == 0)	//success
+    {
+      if (disp == 1)
+	{
+	  if (txtcolor == 0)
+	    {
+	      POINT_COLOR=BLACK;BACK_COLOR=BG_COLOR;
+	      Show_Str (xCenter - 32 * 2, yCenter, 32 * 4, 32, "支付成功", 32, 0);
+	    }
+	  else
+	    {
+	      POINT_COLOR=WHITE;BACK_COLOR=BG_COLOR;
+	      Show_Str (xCenter - 32 * 2, yCenter, 32 * 4, 32, "支付成功", 32, 0);
+	    }
+	}
+      else
+	{
+	      POINT_COLOR=BG_COLOR;BACK_COLOR=BG_COLOR;
+	      Show_Str (xCenter - 32 * 2, yCenter, 32 * 4, 32, "        ", 32, 0);
+	}
+    }
+  else
+    {
+      if(disp == 1)
+	{
+	  switch(errtype)
+	  {
+	    case ERR_NOSUCHID:
+	      POINT_COLOR=(WHITE)*txtcolor;BACK_COLOR=BG_COLOR;
+	      Show_Str (xCenter - 32 * 2, yCenter, 32 * 4, 32, "无效用户", 32, 0);
+	      break;
+	    case ERR_BALANCECHARGE:
+	      POINT_COLOR=(WHITE)*txtcolor;BACK_COLOR=BG_COLOR;
+	      Show_Str (xCenter - 32 * 2, yCenter, 32 * 4, 32, "余额不足", 32, 0);
+	      break;
+	    default:
+	      POINT_COLOR=(WHITE)*txtcolor;BACK_COLOR=BG_COLOR;
+	      Show_Str (xCenter - 32 * 2, yCenter, 32 * 4, 32, "支付失败", 32, 0);
+	      break;
+	  }
+	}
+      else
+	{
+	      POINT_COLOR=BG_COLOR;BACK_COLOR=BG_COLOR;
+	      Show_Str (xCenter - 32 * 2, yCenter, 32 * 4, 32, "        ", 32, 0);
+	}
+    }
+
+}
 
 void DisplayUserMsg()
 {

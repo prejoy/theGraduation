@@ -110,154 +110,44 @@ int main(void)
   LTDC_Init();
   tp_dev.init();
 //  HAL_UART_Receive_IT(&huart1, (uint8_t *)aRxBuffer, RXBUFFERSIZE);//配置下次中断接收的缓冲区,每次准备接收下一次了就要清一下缓冲区,再这样配置一下,这相当于是一个控制块
-  GuiPageCostInit();
+  GuiPageCostInit();		//GUI  Init
+  RCC522_Init();		//RFID Init
+  HMI_Init();			//HMI Init
+  UserTblInit(0);		//Cost Init
 
-  DisplayCostMoney(80);
-//  while(1)
-//    {
-//      if(FT5206_Scan(0)!=0)
-//      HAL_Delay(100);
-//    }
-
-//SPI4 test
-//=============================================================================
-//  		连线：MISO -  MISO   ！！！！！！！！！！！！！！！！！
-// 			MOSI - MOSI  ！！！！！！！！！！！！！！！！！
-//			 接线是反的，注意了！（）（）（）（）
-//=============================================================================
-//  uint8_t txDat=0xAC,rxDat=0xFF;
-//  while(1)
-//    {
-//      txDat++;
-//      CLR_SPI_CS();
-//      HAL_SPI_TransmitReceive(&hspi4,&txDat,&rxDat,1,0x10);
-//      SET_SPI_CS();
-//      printf("rxDat:%d\r\n",rxDat);
-//      HAL_Delay(1000);
-//    }
-
-//// w25qxx+Pay test
-////  DelAllUser(0);
-//  UserTblInit(0);
-//
-//  PayRecord_t Auser1={0x00ACCAFF,0,0,500},
-//	      Auser2={0x12125678,0,0,300};
-//
-//  AddUser(&Auser1);
-//  AddUser(&Auser2);
-////  DelAllUser(0);
-//  CheckUser(&Auser2);
-//  CostUser(&Auser2,20);
-//
-//  uint8_t Spi_Table_Buffer[4096]={0};
-//  uint8_t Spi_User_Buffer[4096]={0};
-//  W25QXX_Read(Spi_Table_Buffer,0,4096);
-//  W25QXX_Read(Spi_User_Buffer,Auser2.Addr,4096);
-
-#if 0
-// ltdc test
-//draw user page 480X504	24号字体
-//   (0,0)		(480,0)
-//  ------		卡号：
-//  |	 |		姓名：
-//  |	 |		年级：
-//  ------		专业：
-//			余额：
-//		本次消费金额：
-//  扫码支付		刷卡支付
-//   (0,504)		(480,504)
-
-//  pic:（25-145，195）
-#define PIC_SX		35
-#define PIC_SY		60
-#define PIC_WIDTH	130	//占用最大宽度PIC_SX+PIC_WIDTH不要超过 MSG_SX
-#define PIC_HEIGHT	190
-
-#define MSG_FONT	24
-#define MSG_SX		200
-#define MSG_SY		(PIC_SY)
-#define MSG_LINESPACE	12
-#define MSGn_SX(n)	MSG_SX
-#define MSGn_SY(n)	(MSG_SY+(MSG_LINESPACE+MSG_FONT)*(n-1))
-   char lcd_id[12];
-   sprintf((char*)lcd_id,"LCD ID:7084");
-   printf("%s\r\n",lcd_id);
-   LTDC_Clear(BG_COLOR);
-
-   LTDC_Fill(PIC_SX,PIC_SY,PIC_SX+PIC_WIDTH,PIC_SY+PIC_HEIGHT,WHITE);
-   POINT_COLOR=BLACK;BACK_COLOR=BG_COLOR;
-   Show_Str(MSGn_SX(1),MSGn_SY(1),480-MSG_SX,MSG_FONT,"卡号：",MSG_FONT,0);
-   Show_Str(MSGn_SX(2),MSGn_SY(2),480-MSG_SX,MSG_FONT,"姓名：",MSG_FONT,0);
-   Show_Str(MSGn_SX(3),MSGn_SY(3),480-MSG_SX,MSG_FONT,"年级：",MSG_FONT,0);
-   Show_Str(MSGn_SX(4),MSGn_SY(4),480-MSG_SX,MSG_FONT,"专业：",MSG_FONT,0);
-   Show_Str(MSGn_SX(5),MSGn_SY(5),480-MSG_SX,MSG_FONT,"余额：          元",MSG_FONT,0);
-   Show_Str(30,280,480-30,32,"请输入消费金额：      元",32,0);
-
-   POINT_COLOR=BLACK;BACK_COLOR=GRAY;
-//   LTDC_Fill(120-40,380-25,120+40,380+25,GRAY);
-//   LTDC_Fill(240-40,380-25,120+40,380+25,GRAY);
-   Show_Str(120-24*2,(PIC_SY+PIC_HEIGHT+504)/2,24*4,24,"扫码支付",24,0);
-   Show_Str(360-24*2,(PIC_SY+PIC_HEIGHT+504)/2,24*4,24,"刷卡支付",24,0);
-//   LTDC_ShowString(10,110,240,16,16,"ATOM@ALIENTEK");
-//   LTDC_ShowString(10,150,240,12,12,"2019/2/1");
-//   Show_Str(30,230,300,16,"汉字一二三，无聊六六期阿萨德",16,0);
-
-//===================    softkbd  =================
-//===================    继续添加触摸屏功能	===
-#define SOFT_KBD_LINECOLOR	0x001F	//blue
-#define SOFT_KBD_FILLCOLOR	0xFFFF	//whiite
-#define LINE_WIDTH		4
-#define XPOSI(n)		(60+((n-1)%4)*120)
-#define YPOSI(n)		(540+(n-1)/4*74)
-#define FONTSIZE		32
-//draw keyboard 480X296
-//   (0,800-296)		(480,800-296)
-//       296/4
-//   (0,800-0)	480/4	(480,800-0)
-    LTDC_Fill(0,800-1-296,480-1,800-1,SOFT_KBD_FILLCOLOR);				//fill必须从上到下，左到右
-    LTDC_DrawLine(0,800-1-296,480-1,800-1-296,LINE_WIDTH,SOFT_KBD_LINECOLOR);		//horizon
-    LTDC_DrawLine(0,800-1-296+74*1,480-1,800-1-296+74*1,LINE_WIDTH,SOFT_KBD_LINECOLOR);
-    LTDC_DrawLine(0,800-1-296+74*2,480-1,800-1-296+74*2,LINE_WIDTH,SOFT_KBD_LINECOLOR);
-    LTDC_DrawLine(0,800-1-296+74*3,480-1,800-1-296+74*3,LINE_WIDTH,SOFT_KBD_LINECOLOR);
-    LTDC_DrawLine(0+120,800-1,0+120,800-1-296,LINE_WIDTH,SOFT_KBD_LINECOLOR);		//vercital
-    LTDC_DrawLine(0+120*2,800-1,0+120*2,800-1-296,LINE_WIDTH,SOFT_KBD_LINECOLOR);
-    LTDC_DrawLine(0+120*3,800-1,0+120*3,800-1-296,LINE_WIDTH,SOFT_KBD_LINECOLOR);
-
-    POINT_COLOR=BLACK;BACK_COLOR=WHITE;
-    Show_Str((XPOSI(1)-FONTSIZE/4),(YPOSI(1)-FONTSIZE/2),FONTSIZE,FONTSIZE,"1",FONTSIZE,0);
-    Show_Str((XPOSI(2)-FONTSIZE/4),(YPOSI(2)-FONTSIZE/2),FONTSIZE,FONTSIZE,"2",FONTSIZE,0);
-    Show_Str((XPOSI(3)-FONTSIZE/4),(YPOSI(3)-FONTSIZE/2),FONTSIZE,FONTSIZE,"3",FONTSIZE,0);
-    Show_Str((XPOSI(5)-FONTSIZE/4),(YPOSI(5)-FONTSIZE/2),FONTSIZE,FONTSIZE,"4",FONTSIZE,0);
-    Show_Str((XPOSI(6)-FONTSIZE/4),(YPOSI(6)-FONTSIZE/2),FONTSIZE,FONTSIZE,"5",FONTSIZE,0);
-    Show_Str((XPOSI(7)-FONTSIZE/4),(YPOSI(7)-FONTSIZE/2),FONTSIZE,FONTSIZE,"6",FONTSIZE,0);
-    Show_Str((XPOSI(9)-FONTSIZE/4),(YPOSI(9)-FONTSIZE/2),FONTSIZE,FONTSIZE,"7",FONTSIZE,0);
-    Show_Str((XPOSI(10)-FONTSIZE/4),(YPOSI(10)-FONTSIZE/2),FONTSIZE,FONTSIZE,"8",FONTSIZE,0);
-    Show_Str((XPOSI(11)-FONTSIZE/4),(YPOSI(11)-FONTSIZE/2),FONTSIZE,FONTSIZE,"9",FONTSIZE,0);
-    Show_Str((XPOSI(13)-FONTSIZE/4),(YPOSI(13)-FONTSIZE/2),FONTSIZE,FONTSIZE,"0",FONTSIZE,0);
-    Show_Str((XPOSI(14)-FONTSIZE/4),(YPOSI(14)-FONTSIZE/2),FONTSIZE,FONTSIZE,".",FONTSIZE,0);
-    POINT_COLOR=BROWN;
-    Show_Str((XPOSI(4)-FONTSIZE),(YPOSI(4)-FONTSIZE/2),FONTSIZE*2,FONTSIZE,"查询",FONTSIZE,0);
-    Show_Str((XPOSI(8)-FONTSIZE),(YPOSI(8)-FONTSIZE/2),FONTSIZE*2,FONTSIZE,"设置",FONTSIZE,0);
-    Show_Str((XPOSI(12)-FONTSIZE),(YPOSI(12)-FONTSIZE/2),FONTSIZE*2,FONTSIZE,"取消",FONTSIZE,0);
-    Show_Str((XPOSI(15)-FONTSIZE/2),(YPOSI(15)-FONTSIZE/2),FONTSIZE,FONTSIZE,"←",FONTSIZE,0);
-    Show_Str((XPOSI(16)-FONTSIZE),(YPOSI(16)-FONTSIZE/2),FONTSIZE*2,FONTSIZE,"确定",FONTSIZE,0);
-
-  uint32_t x=0,LCDswitch=0;
-   while(1)
+  uint8_t res;
+  uint32_t total,free;
+  exfuns_init();	//为FATFS申请内存
+  res=f_mount(fs[2],"2:",1);	//0:SD卡  1：W25QXX Flash 2：Nand Flash
+  if(res==0X0D)
   {
-       //画直线 == 画矩形 == LTDC_Fill 矩形单色填充
-//       LTDC_DrawLine
-       if(LCDswitch == 1)
-	 LTDC_Switch(0);
-       if(LCDswitch == 2)
-	 LTDC_Switch(1);
-       x++;
-       if(x==12)x=0;
-       toggleLed(0);
-       HAL_Delay(1000);
-   }
+      printf("NAND Disk Formatting...\r\n");
+      res=f_mkfs("2:",1,4096);
+      if(res==0)
+      {
+	      f_setlabel((const TCHAR *)"2:NANDDISK");
+	      printf("NAND Disk Format Finish\r\n");
+      }else  printf("NAND Disk Format Error \r\n");
+  }
+  while(exf_getfree("2:",&total,&free))
+  {
+      printf("Nand Flash Fatfs Error!\r\n");
+      delay_ms(200);
+  }
+  printf("Flash Total Size:  %d MB\r\n",total>>10);
+  printf("Flash Free  Size:  %d MB\r\n",free>>10);
+  printf("FATFS OK!\r\n");
 
-#endif
+//  DelAllUser(0);
+//	PayRecord_t Auser1={0x73b36589,0,0,10000},
+//		  Auser2={0x474eb089,0,0,12000};
+//
+//	AddUser(&Auser1);
+//	AddUser(&Auser2);
+//	CheckUser(&Auser2);
+////	printf("0x474eb089 Remain:%u\r\n",Auser2.Remain);
+//	CostUser(&Auser2,200|0x80000000);
+
 //fatfs test part
 //  uint8_t res;
 //  uint32_t total,free;
@@ -284,11 +174,14 @@ int main(void)
 //
 //  FIL  textfile;
 //  uint32_t f_Retn=0;
-//  const char teststring[]="test file abcd\r\n";
+//  const char teststring[]="aabb file abcd\r\n";
 //  char readbuf[20]={0};
 //  uint32_t numberToWrite=16,index=16,pread;
+////  f_Retn = f_mkdir("2:/test");
+////	  printf("f_mkdir ret:%d\r\n",f_Retn);
 //  f_Retn = f_open(&textfile,"2:/test/test.txt",FA_OPEN_ALWAYS|FA_READ|FA_WRITE);
 //  	  printf("f_open ret:%d\r\n",f_Retn);
+//
 ////  f_Retn = f_lseek(&textfile,textfile.obj.objsize);
 ////  	  printf("f_lseek ret:%d\r\n",f_Retn);
 ////  f_Retn = f_write(&textfile,(const void*)teststring,index,(UINT*)&numberToWrite);
@@ -297,7 +190,7 @@ int main(void)
 //  printf("f_read ret:%d\r\n",f_Retn);
 //  if(!f_Retn)
 //  {
-//	  printf("context:%c%c%c%c\r\n",readbuf[0],readbuf[1],readbuf[2],readbuf[3]);
+//	  printf("context:%s\r\n",readbuf);
 //  }
 //  f_Retn = f_close(&textfile);
 //  printf("f_close ret:%d\r\n",f_Retn);
@@ -307,7 +200,7 @@ int main(void)
   //existing dirs:  2:/test
   //existing files: 2:/test/test.txt
 /*mkdirs:
-  	      f_Retn = f_mkdir("2:/test");
+         	  f_Retn = f_mkdir("2:/test");
   	  	  printf("f_mkdir ret:%d\r\n",f_Retn);
   readfiles:
   	  	  f_Retn = f_open(&textfile,"2:/test/test.txt",FA_OPEN_ALWAYS|FA_READ|FA_WRITE);
@@ -329,15 +222,7 @@ int main(void)
  * */
 
 
-//  //key_scan
-//  int keyvalue=0;
-//  while(1)
-//    {
-//      keyvalue = key_scan();
-//      if(keyvalue!=0xff)
-//	printf("keyvalue:%d\r\n",keyvalue);
-//      OSDelay_ms(35);
-//    }
+
 
 
 //汉字显示，需要初始化W25Qxx,
@@ -366,6 +251,24 @@ int main(void)
 ////      SinglePlay(2);
 //    }
 
+//// HMI test
+//  HMI_Init();
+//  SendPay(12,2);
+//  SendRemain(123,9);
+//  SendQRcode("https://www.baidu.com/",sizeof("https://www.baidu.com/"));
+//  while(1)
+//    {
+//      HAL_Delay(1000);
+//      DisplayQRCode();
+//      HAL_Delay(1000);
+//      HideQRCode();
+//      HAL_Delay(1000);
+//      HidePay();
+//      HAL_Delay(1000);
+//      DisplayPay();
+//    }
+
+
 //Next:
 /*  完成刷卡机的默认界面，作为背景，刷入NAND flash
  *  完成按键配合语音输入
@@ -381,6 +284,9 @@ int main(void)
  *  （5） 联网上报信息
  *  （） 功能键查看用户详细信息？
  * */
+//  VoiceSetVolume(30);		//设置初始音量
+//  HAL_Delay(5);
+  SinglePlay(VOICE_POWERON);
   App_main();
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
