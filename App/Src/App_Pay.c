@@ -6,13 +6,15 @@
  */
 
 #include "App_Pay.h"
-
+#include "FreeRTOS.h"
+#include "task.h"
+#include "queue.h"
 
 //u8 UserTable[((MAX_UID-1)/256+1)*4096];
 //u32  UserTable_NUM=0;
 xCostCB xCCB={0,0,0,0,0,0};
-uint32_t RecentCostDetail[2*50];	//ID Money 可以配合Nand 显示信息
-
+uint32_t RecentCostDetail[2*100]={0};	//ID Money 可以配合Nand 显示信息
+uint8_t posiRecentCostDetail=0;
 
 uint32_t UserTblInit(uint32_t addr)
 {
@@ -43,13 +45,16 @@ uint32_t UserTblInit(uint32_t addr)
 uint32_t AddUser(PayRecord_t  *user)	//重复ID检测，未实现
 {
   uint32_t UserTable_temp[1024];
-
+  taskENTER_CRITICAL();
   W25QXX_Read((uint8_t*)UserTable_temp,0,4096);
+  taskEXIT_CRITICAL();
   // 搜索重复ID，不能添加
   for (uint32_t i=0;i<MAX_UID;i++)
     {
       if(UserTable_temp[i*4] == user->ID)
+	{
 	return REPEATID;
+	}
     }
 
   UserTable_temp[ xCCB.UserNum*4] = user->ID;
@@ -57,13 +62,14 @@ uint32_t AddUser(PayRecord_t  *user)	//重复ID检测，未实现
   user->Addr = DATA_START_ADDR+4096* xCCB.UserNum;
   xCCB.UserNum+=1;
   UserTable_temp[1022] =  xCCB.UserNum;
+  taskENTER_CRITICAL();
   W25QXX_Write((uint8_t*)UserTable_temp,0,4096);
-
   memset(UserTable_temp,0,sizeof(UserTable_temp));
 //  W25QXX_Read((uint8_t*)UserTable_temp,user->Addr,4096);
 //  UserTable_temp[1000]= user->Offset = 0x00000000;
   UserTable_temp[1001]=user->Remain;
   W25QXX_Write((uint8_t*)UserTable_temp,user->Addr,4096);
+  taskEXIT_CRITICAL();
   return 0;
 }
 
@@ -71,19 +77,26 @@ uint32_t DelAllUser(uint32_t addr)
 {
   uint32_t UserTable_temp[1024];
   memset(UserTable_temp,0,4096);
+  taskENTER_CRITICAL();
   W25QXX_Write((uint8_t*)UserTable_temp,0,4096);
+  taskEXIT_CRITICAL();
   return 0;
 }
 
 uint32_t DelOneUser(PayRecord_t *user)
 {
   uint32_t UserTable_temp[1024];
+  taskENTER_CRITICAL();
   W25QXX_Read((uint8_t*)UserTable_temp,0,4096);
+  taskEXIT_CRITICAL();
   for (uint32_t i=0;i<MAX_UID;i++)
     {
       if(UserTable_temp[i*4] == user->ID)
 	{
 	  UserTable_temp[i*4] = 0x00000000;
+	  taskENTER_CRITICAL();
+	  W25QXX_Write((uint8_t*)UserTable_temp,0,4096);
+	  taskEXIT_CRITICAL();
 	  return 0;
 	}
     }
@@ -98,7 +111,9 @@ uint32_t CheckUser(PayRecord_t  *user)
   if(user->ID == 0)
     return NOSUCHID;
   else{
+      taskENTER_CRITICAL();
       W25QXX_Read((uint8_t*)UserTable_temp,0,4096);
+      taskEXIT_CRITICAL();
       for(i=0;i<MAX_UID;i++)
 	{
 	  if(UserTable_temp[i*4]!=user->ID)
@@ -111,8 +126,9 @@ uint32_t CheckUser(PayRecord_t  *user)
       if(i >= MAX_UID)
 	return NOSUCHID;
       user->Addr = UserTable_temp[i*4+1];
-
+      taskENTER_CRITICAL();
       W25QXX_Read((uint8_t*)UserTable_temp,user->Addr,4096);
+      taskEXIT_CRITICAL();
       user->Offset = UserTable_temp[1000];
       user->Remain = UserTable_temp[1001];
       return 0;
@@ -125,9 +141,9 @@ uint32_t CostUser(PayRecord_t  *user,uint32_t cost)
 
   if((user->Addr == 0)||((user->Addr)%0x1000)!=0)
     CheckUser(user);
-
+  taskENTER_CRITICAL();
   W25QXX_Read((uint8_t*)UserTable_temp,(user->Addr),4096);
-
+  taskEXIT_CRITICAL();
 //  printf("1-cost:%d\r\n",cost);
   if(((cost & 0x80000000)==0))
     {
@@ -141,6 +157,7 @@ uint32_t CostUser(PayRecord_t  *user,uint32_t cost)
 //	 printf("3-user->Remain:%d\r\n",user->Remain);
 	user->Remain -=cost;
 	xCCB.CostRecord++;
+	xCCB.CostMoney += cost;
        }
     }
   else
@@ -154,7 +171,9 @@ uint32_t CostUser(PayRecord_t  *user,uint32_t cost)
   user->Offset +=2;
   UserTable_temp[1000]=user->Offset;
   UserTable_temp[1001] = user->Remain;
+  taskENTER_CRITICAL();
   W25QXX_Write((uint8_t*)UserTable_temp,user->Addr,4096);
+  taskEXIT_CRITICAL();
   return 0;
 }
 

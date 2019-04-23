@@ -52,6 +52,8 @@ typedef struct {
 }xCostCB;
 
 extern xCostCB xCCB;
+extern uint32_t RecentCostDetail[];	//ID Money 可以配合Nand 显示信息
+extern uint8_t posiRecentCostDetail;
 
 uint32_t UserTblInit(uint32_t addr);	//交易记录初始化
 uint32_t AddUser(PayRecord_t *user);	//记录新的卡片

@@ -70,14 +70,21 @@
 //#define KEY_DOWN	(20U)
 #define KEY_MAX		(KEY_WELL+1)
 
+#define KEY_HOMEPAGE	(40U)
+#define KEY_REGCARD	(41U)
+#define KEY_VOICESWITCH	(42U)
+#define KEY_CARDCHARGE	(43U)
 
+#define KEY_PAGEBEF	(50U)
+#define KEY_PAGENEXT	(51U)
 
 u8 FT5206_WR_Reg(u16 reg,u8 *buf,u8 len);
 void FT5206_RD_Reg(u16 reg,u8 *buf,u8 len);
 u8 FT5206_Init(void);
 u8 FT5206_Scan(u8 mode);
 uint8_t TouchPadConversion(void);
-
+uint8_t SettingPageKeyConversion(void);
+uint8_t CheckPageKeyConversion(void);
 #endif
 
 

@@ -15,10 +15,10 @@ static void vTaskLed1( void * pvParameters );
 static TaskHandle_t TaskHandle_LED1;
 #define STK_SIZE_LED1	256
 
-static void vTaskPrint( void * pvParameters );
-#define Prio_Print	1
-static TaskHandle_t TaskHandle_Print;
-#define STK_SIZE_Print	256
+//static void vTaskPrint( void * pvParameters );
+//#define Prio_Print	1
+//static TaskHandle_t TaskHandle_Print;
+//#define STK_SIZE_Print	256
 
 static void vTaskKeyScan( void * pvParameters );
 #define Prio_KeyScan		3
@@ -35,15 +35,10 @@ static void vTaskRFIDReadCard( void * pvParameters );
 static TaskHandle_t TaskHandle_RFIDReadCard;
 #define STK_SIZE_RFIDReadCard 	512
 
-//static void vTaskHMIMonitor( void * pvParameters );
-//#define Prio_HMIMonitor		5
-//static TaskHandle_t TaskHandle_HMIMonitor;
-//#define STK_SIZE_HMIMonitor 	512
-
 static void vTaskMsgTrans( void * pvParameters );
 #define Prio_MsgTrans		2
 static TaskHandle_t TaskHandle_MsgTrans;
-#define STK_SIZE_MsgTrans 	512
+#define STK_SIZE_MsgTrans 	2048	//1024不够用
 
 static void vTaskCostPage( void * pvParameters );
 #define Prio_CostPage		8
@@ -54,6 +49,11 @@ static void vTaskLCDMonitor( void * pvParameters );
 #define Prio_LCDMonitor		5
 static TaskHandle_t TaskHandle_LCDMonitor;
 #define STK_SIZE_LCDMonitor 	512
+
+static void vTaskFatfs( void * pvParameters );
+#define Prio_Fatfs		4
+static TaskHandle_t TaskHandle_Fatfs;
+#define STK_SIZE_Fatfs 	1024
 
 QueueHandle_t queueKeyIn,
 	      queueKeyBuffer,
@@ -90,6 +90,7 @@ typedef struct Voice{
 
 uint8_t VoiceArray[10];
 uint8_t KeyVoiceArray[2]={VOICE_KEY,VOICE_KEY};
+uint32_t AllVoiceSwitch =1;
 
 #define Length_queueVoice 	1
 #define Size_queueVoice	    sizeof(xVoice)
@@ -168,11 +169,11 @@ typedef struct W25QOperation{			//这个可能不用，用app_pal.h里的
 typedef struct SYS_CTRL_BLOCK{
 
   uint32_t page;
-  uint32_t ProcessStatus;
-//  uint32_t InputMode;
+  uint32_t InputMode;	//区分不同的输入模式，如在充值金额时，动态显示，及案件输入
+			//page = setting时，置为1 = 软键盘输入有效
 }xSYS_CTRL_BLOCK;
 
-xSYS_CTRL_BLOCK syscb={.page=PAGE_COST,.ProcessStatus=0};
+xSYS_CTRL_BLOCK syscb={.page=PAGE_COST,0};
 
 
 //============       task funcs       ==================
@@ -220,46 +221,89 @@ void vTaskKeyScan(void * pvParameters)
   KeyIn.source = 0;
   for(;;)
     {
-      keyvalue=key_scan();		//OSdelay 替换
-      if((keyvalue != 0xff)&&(keyvalue != 0))
+      if(syscb.page == PAGE_COST)
 	{
-	  KeyIn.value=KeyConversion(keyvalue);
-	  KeyIn.source = SOURCE_IN_KEY;
-//	  if(xQueueSend(queueKeyIn,&KeyIn,10) != pdPASS)
-	  if(xQueueOverwrite(queueKeyIn,&KeyIn) != pdPASS)
+	  keyvalue=key_scan();		//OSdelay 替换
+	  if((keyvalue != 0xff)&&(keyvalue != 0))
 	    {
-	      printf("Err:%s:%d\r\n",__FILE__,__LINE__);
-	    }
-	  else
-	    {
-	      xKeyVoice.voicelist = KeyVoiceArray;
-	      xKeyVoice.udlen = 1;
-	      if(xQueueOverwrite(queueVoice,&xKeyVoice) != pdPASS)	//语音
+	      KeyIn.value=KeyConversion(keyvalue);
+	      KeyIn.source = SOURCE_IN_KEY;
+    //	  if(xQueueSend(queueKeyIn,&KeyIn,10) != pdPASS)
+	      if(xQueueOverwrite(queueKeyIn,&KeyIn) != pdPASS)
 		{
 		  printf("Err:%s:%d\r\n",__FILE__,__LINE__);
 		}
-	    }
-	}
-      else
-	{
-	  if(FT5206_Scan(0)!=0)
-	    {
-	      SotfKeyBef = TouchPadConversion();
-	      SotfKeyUpFlag = SOFTKEYDOWN;
+	      else
+		{
+		  xKeyVoice.voicelist = KeyVoiceArray;
+		  xKeyVoice.udlen = 1;
+		  if(xQueueOverwrite(queueVoice,&xKeyVoice) != pdPASS)	//语音
+		    {
+		      printf("Err:%s:%d\r\n",__FILE__,__LINE__);
+		    }
+		}
 	    }
 	  else
 	    {
-	      SotfKeyUpFlag = SOFTKEYUP;
-	    }
+	      if(FT5206_Scan(0)!=0)
+		{
+		  SotfKeyBef = TouchPadConversion();
+		  SotfKeyUpFlag = SOFTKEYDOWN;
+		}
+	      else
+		{
+		  SotfKeyUpFlag = SOFTKEYUP;
+		}
 
-	  if((SotfKeyUpFlag == SOFTKEYUP)&&(SotfKeyBef < KEY_MAX) && (SotfKeyBef > 0))
+	      if((SotfKeyUpFlag == SOFTKEYUP)&&(SotfKeyBef < KEY_MAX) && (SotfKeyBef > 0))
+		{
+		  KeyIn.value = SotfKeyBef;
+		  if(KeyIn.value != 0xff)
+		  {
+		    KeyIn.source = SOURCE_IN_TP;
+    //		printf("softKey:%u\r\n",KeyIn.value);
+	//		  if(xQueueSend(queueKeyIn,&KeyIn,10) != pdPASS)
+		    if(xQueueOverwrite(queueKeyIn,&KeyIn) != pdPASS)
+		      {
+			printf("Err:%s:%d\r\n",__FILE__,__LINE__);
+		      }
+		    else
+		      {
+			xKeyVoice.voicelist = KeyVoiceArray;
+			xKeyVoice.udlen = 1;
+			if(xQueueOverwrite(queueVoice,&xKeyVoice) != pdPASS)	//语音
+			  {
+			    printf("Err:%s:%d\r\n",__FILE__,__LINE__);
+			  }
+		      }
+
+		  }
+		  SotfKeyBef = 0xff;
+		  SotfKeyUpFlag = 0;
+		}
+
+	      }
+	  }
+      else if(syscb.page == PAGE_CHECK)
+	{
+	  if(FT5206_Scan(0)!=0)
+	  {
+	    SotfKeyBef = CheckPageKeyConversion();
+	    SotfKeyUpFlag = SOFTKEYDOWN;
+//	    printf("SotfKeyBef:%d\n",SotfKeyBef);
+	  }
+	else
+	  {
+	    SotfKeyUpFlag = SOFTKEYUP;
+	  }
+
+	  if((SotfKeyUpFlag == SOFTKEYUP)&& (SotfKeyBef > 0))
 	    {
 	      KeyIn.value = SotfKeyBef;
 	      if(KeyIn.value != 0xff)
 	      {
 		KeyIn.source = SOURCE_IN_TP;
-//		printf("softKey:%u\r\n",KeyIn.value);
-    //		  if(xQueueSend(queueKeyIn,&KeyIn,10) != pdPASS)
+//  		printf("softKey:%u\r\n",KeyIn.value);
 		if(xQueueOverwrite(queueKeyIn,&KeyIn) != pdPASS)
 		  {
 		    printf("Err:%s:%d\r\n",__FILE__,__LINE__);
@@ -278,7 +322,45 @@ void vTaskKeyScan(void * pvParameters)
 	      SotfKeyBef = 0xff;
 	      SotfKeyUpFlag = 0;
 	    }
+	}
+      else if(syscb.page == PAGE_SETTING)
+	{
+	  if(FT5206_Scan(0)!=0)
+	 	  {
+	 	    SotfKeyBef = SettingPageKeyConversion();
+	 	    SotfKeyUpFlag = SOFTKEYDOWN;
+	 //	    printf("SotfKeyBef:%d\n",SotfKeyBef);
+	 	  }
+	 	else
+	 	  {
+	 	    SotfKeyUpFlag = SOFTKEYUP;
+	 	  }
 
+	 	  if((SotfKeyUpFlag == SOFTKEYUP)&& (SotfKeyBef > 0))
+	 	    {
+	 	      KeyIn.value = SotfKeyBef;
+	 	      if(KeyIn.value != 0xff)
+	 	      {
+	 		KeyIn.source = SOURCE_IN_TP;
+	 //  		printf("softKey:%u\r\n",KeyIn.value);
+	 		if(xQueueOverwrite(queueKeyIn,&KeyIn) != pdPASS)
+	 		  {
+	 		    printf("Err:%s:%d\r\n",__FILE__,__LINE__);
+	 		  }
+	 		else
+	 		  {
+	 		    xKeyVoice.voicelist = KeyVoiceArray;
+	 		    xKeyVoice.udlen = 1;
+	 		    if(xQueueOverwrite(queueVoice,&xKeyVoice) != pdPASS)	//语音
+	 		      {
+	 			printf("Err:%s:%d\r\n",__FILE__,__LINE__);
+	 		      }
+	 		  }
+
+	 	      }
+	 	      SotfKeyBef = 0xff;
+	 	      SotfKeyUpFlag = 0;
+	 	    }
 	}
       vTaskDelay( pdMS_TO_TICKS(20) );	//添加队列发送信息
     }
@@ -294,16 +376,22 @@ void vTaskVoiceBoardcast(void * pvParameters)
       {
         if(xQueueReceive(queueVoice,&VoiceList,portMAX_DELAY) == pdPASS)
 	  {
-//	    printf("VoiceList len:%d\r\n",VoiceList.udlen);
-            vTaskDelay( pdMS_TO_TICKS(6) );
-            taskENTER_CRITICAL();
-            if(VoiceList.udlen == 1)
-              SinglePlay((*VoiceList.voicelist));
+            if(AllVoiceSwitch == 1)
+              {
+		vTaskDelay( pdMS_TO_TICKS(6) );
+    //            taskENTER_CRITICAL();
+		if(VoiceList.udlen == 1)
+		  SinglePlay((*VoiceList.voicelist));
+		else
+		  {
+		    ContinuePlay(VoiceList.voicelist,VoiceList.udlen);
+		  }
+    //            taskEXIT_CRITICAL();
+              }
             else
               {
-        	ContinuePlay(VoiceList.voicelist,VoiceList.udlen);
+        	// 语音没有打开
               }
-            taskEXIT_CRITICAL();
 
 	  }
 	else
@@ -320,7 +408,9 @@ void vTaskRFIDReadCard(void * pvParameters)
   uint32_t CardId=0,CardIdTemp=0xFFFFFFFF;
     for(;;)
       {
+//	taskENTER_CRITICAL();
 	RFID_Get_ID((uint8_t *)&CardId);			//在使用时添加临界保护
+//	taskEXIT_CRITICAL();
 //	printf("CARDID:%x\r\n",CardId);
 //	if((CardId != 0)&&(CardId != CardIdTemp))
 //	  {
@@ -339,26 +429,229 @@ void vTaskRFIDReadCard(void * pvParameters)
 }
 
 
-void vTaskHMIMonitor(void * pvParameters)
-{
-
-    for(;;)
-      {
-
-	vTaskDelay( pdMS_TO_TICKS(5000) );
-      }
-}
-
 
 void vTaskMsgTrans(void * pvParameters)
 {
 	xKeyIn KeyInTemp;
-	uint8_t KeyBuffer[8]={0};
+	uint8_t KeyBuffer[8]={0},i;
 	uint8_t posi = 0;
-	uint32_t CardInTemp=0,_CardInTemp = 0xFFFFFFFF;
+	uint32_t CardInTemp=0,_CardInTemp = 0xFFFFFFFF,RegCaidID;
 	xqueueLcdShow xLcdShow = {KeyBuffer,0,0};
+	PayRecord_t UserToAdd={0};
+	uint8_t voicelsts[2]={0};
+	xVoice VoiceList={voicelsts,0};
     for(;;)
       {
+	if(syscb.page == PAGE_CHECK)
+	  {
+	    if(xQueueReceive(queueKeyIn,&KeyInTemp,0) == pdPASS)		//按键输入信息
+	      {
+		if(KeyInTemp.value == KEY_HOMEPAGE)
+		  {
+//		    syscb.page = PAGE_COST;	//到LCD任务切回
+		    xLcdShow.Type = TOPAGECOST;
+		    xQueueOverwrite(queueLCDShow,&xLcdShow);
+		  }
+		else if(KeyInTemp.value == KEY_PAGEBEF)
+		  {
+
+		  }
+		else if(KeyInTemp.value == KEY_PAGENEXT)
+		  {
+
+		  }
+	      }
+	  }
+	else if(syscb.page == PAGE_SETTING)
+	  {
+	    if(xQueueReceive(queueKeyIn,&KeyInTemp,0) == pdPASS)		//按键输入信息
+	      {
+		if(KeyInTemp.value == KEY_HOMEPAGE)
+		  {
+//		    syscb.page = PAGE_COST;	//到LCD任务切回
+		    xLcdShow.Type = TOPAGECOST;
+		    xQueueOverwrite(queueLCDShow,&xLcdShow);
+		  }
+		else if(KeyInTemp.value == KEY_REGCARD)
+		  {
+		    HideCardRegOK();
+		    for(i=0;i<12;i++)
+		      {
+			xQueueReceive(queueCardIn,&RegCaidID,pdMS_TO_TICKS(500));
+
+			if((RegCaidID != 0))
+			  {
+			    UserToAdd.ID = RegCaidID;
+			    if(AddUser(&UserToAdd)==0)
+			      {
+//				printf("REG Card OK\r\n");
+				  VoiceList.voicelist[0] = VOICE_CORRECT;
+				  VoiceList.udlen = 1;
+				  xQueueOverwrite(queueVoice,&VoiceList);
+				ShowCardRegOK();pdMS_TO_TICKS(100);HideCardRegOK();pdMS_TO_TICKS(100);ShowCardRegOK();
+				break;
+			      }
+			    else
+//			      printf("Repeat ID\r\n");
+			      VoiceList.voicelist[0] = VOICE_WARNING;
+			      VoiceList.udlen = 1;
+			      xQueueOverwrite(queueVoice,&VoiceList);
+			      ShowCardRegFail();pdMS_TO_TICKS(100);HideCardRegFail();pdMS_TO_TICKS(100);ShowCardRegFail();
+			      break;
+			  }
+		      }
+		    if(i==12)
+		      {
+			 VoiceList.voicelist[0] = VOICE_WARNING;
+			VoiceList.udlen = 1;
+			xQueueOverwrite(queueVoice,&VoiceList);
+			ShowCardRegFail();
+		      }
+		  }
+		else if(KeyInTemp.value == KEY_VOICESWITCH)
+		  {
+		    AllVoiceSwitch = 1 - AllVoiceSwitch;
+		    if(AllVoiceSwitch == 1)
+		      ShowVoiceOn();
+		    else
+		      ShowVoiceOff();
+		  }
+		else if(KeyInTemp.value == KEY_CARDCHARGE)
+		  {
+		    //这个涉及到显示屏和按键
+
+		    xKeyIn chargekey={0,0};
+		    uint8_t chargeKeyBuffer[8]={0};
+		    xqueueLcdShow xChargeShow;
+		    uint32_t ChargeCardId;
+		    uint32_t chargeAmount=0;
+		    PayRecord_t Chargeuser={0,0,0,0};
+		    GuiPageSettingInput();
+		    syscb.InputMode = 1;
+		    posi = 0;
+		    memset(chargeKeyBuffer,0,sizeof(chargeKeyBuffer));
+		    do
+		      {
+			if(xQueueReceive(queueKeyIn,&chargekey,portMAX_DELAY) == pdPASS){}
+//			  printf("charge Key:%d\r\n",chargekey.value);
+			if(posi >= 6){posi = 0;memset(chargeKeyBuffer,0,sizeof(chargeKeyBuffer));}
+			if(chargekey.value>=KEY_1&&chargekey.value<=KEY_BACK)chargeKeyBuffer[posi++]=chargekey.value;
+
+			 if(chargekey.value == KEY_BACK)
+			  {
+				if(posi>=2)	posi-=2;
+				else		posi=0;
+				chargeKeyBuffer[posi] = 0;
+				chargeKeyBuffer[posi+1] = 0;
+
+			  }else if(chargekey.value == KEY_ENT)
+			    {
+			      //处理，得到金额值
+			      for (uint8_t i=0;chargeKeyBuffer[i]!=0&&i<6;i++)
+				{
+				  if( chargeKeyBuffer[i] != KEY_PLOT)
+				    {
+				      if(chargeKeyBuffer[i] != KEY_0)
+				      chargeAmount =chargeAmount*10+chargeKeyBuffer[i];
+				      else
+				      chargeAmount =chargeAmount*10;
+				    }
+				  else
+				    {
+				      if(chargeKeyBuffer[i+1] != KEY_0)
+				      chargeAmount =chargeAmount*10+chargeKeyBuffer[i+1];
+				      else
+				      chargeAmount =chargeAmount*10;
+				      break;
+				    }
+				}
+
+			      for (uint8_t j=0;j<6;j++)
+				{
+				  if(j>=6-1){chargeAmount*=10;break;}
+				  if(chargeKeyBuffer[j]!=KEY_PLOT)continue;
+				  if(j<6-1) break;
+				  chargeAmount*=10;  break;
+				}
+			      break;
+			    }
+			  else if(chargekey.value == KEY_ESC)		//退出充值
+			    {
+			      posi = 0;
+			      memset(chargeKeyBuffer,0,sizeof(chargeKeyBuffer));
+			      GuiPageSettingInit();
+			      goto nullnext;
+			      break;
+			    }
+			  xChargeShow.Buffer = chargeKeyBuffer;
+			  xChargeShow.Type   = CHARGEDISPLAY;		//在显示任务中显示
+			  xChargeShow.len    = posi;
+			  xQueueOverwrite(queueLCDShow,&xChargeShow);	//LCD
+		      }while(chargekey.value != KEY_ENT || chargekey.value != KEY_ESC);
+
+		    //第一次如果输入小数，会跳回主页面的问题？？？
+		    printf("charge amount:%d\r\n",chargeAmount);
+		    ChargeCardId = 0;
+		    i=16;
+		    do {
+			xQueueReceive(queueCardIn,&ChargeCardId,pdMS_TO_TICKS(500));
+		       }while((ChargeCardId == 0)&&(i--));
+
+		    Chargeuser.ID = ChargeCardId;
+		    CheckUser(&Chargeuser);
+		    if(ChargeCardId != 0)
+		    printf("cardID:%x\r\n",ChargeCardId);
+
+//		    if(ChargeCardId != 0)	//已转换
+//		      {
+//			uint8_t *pchargeBuffer;
+//			  for (pchargeBuffer=chargeKeyBuffer;*(pchargeBuffer + 1)!=0;pchargeBuffer++)
+//			  {
+//				  if((*pchargeBuffer) == KEY_0) *pchargeBuffer =0;
+//				  if((*pchargeBuffer) != KEY_PLOT)
+//				    chargeAmount = chargeAmount*10 + *pchargeBuffer;
+//				  continue;
+//			  }
+//			  if(*(pchargeBuffer-2) != KEY_PLOT)
+//			    chargeAmount*=10;
+//		      }
+
+		    if((ChargeCardId != 0)&&(ChargeUser(&Chargeuser,chargeAmount) == 0))
+		      {
+//			printf("charge ok\r\n");
+			  VoiceList.voicelist[0] = VOICE_CORRECT;
+			  VoiceList.udlen = 1;
+			  xQueueOverwrite(queueVoice,&VoiceList);
+			  GuiPageSettingInit();
+			  ShowCardChargeOK();
+		      }
+		    else
+		      {
+//			printf("charge fail\r\n");
+			  VoiceList.voicelist[0] = VOICE_WARNING;
+			  VoiceList.udlen = 1;
+			  xQueueOverwrite(queueVoice,&VoiceList);
+			  GuiPageSettingInit();
+			  ShowCardChargeFail();
+		      }
+
+//		    syscb.page = PAGE_COST;
+//		    GuiPageCostInit();
+		      posi = 0;
+		      memset(chargeKeyBuffer,0,sizeof(chargeKeyBuffer));
+		      goto nullnext;
+
+		  }
+	      }
+	    else
+	      {
+nullnext:
+		KeyInTemp.value = 0;
+	      }
+	  }
+
+
+	if(syscb.page != PAGE_COST) goto errret;
 		if(xQueueReceive(queueKeyIn,&KeyInTemp,0) == pdPASS)		//按键输入信息
 		{
 		    // 选择支付方式单独处理
@@ -367,6 +660,7 @@ void vTaskMsgTrans(void * pvParameters)
 				KeyBuffer[posi++]=KeyInTemp.value;
 			if((KeyInTemp.value == KEY_ENT)||(KeyInTemp.value == KEY_ESC)||(KeyInTemp.value == KEY_CHECK)||(KeyInTemp.value == KEY_SETTING))
 			{
+			    // 添加 扫码支付和刷卡支付 这两个按键的情况
 			      if(KeyInTemp.value == KEY_ENT)
 				{
 				  KeyBuffer[posi] = '\0';
@@ -387,11 +681,21 @@ void vTaskMsgTrans(void * pvParameters)
 				{
 				  posi = 0;
 				  memset(KeyBuffer,0,sizeof(KeyBuffer));
+				  syscb.page = PAGE_CHECK;
+
+				  xLcdShow.Type = TOPAGECHECK;
+				  xQueueOverwrite(queueLCDShow,&xLcdShow);
+
 				}
 			      else if(KeyInTemp.value == KEY_SETTING)
 				{
 				  posi = 0;
 				  memset(KeyBuffer,0,sizeof(KeyBuffer));
+				  syscb.page = PAGE_SETTING;
+
+				  xLcdShow.Type = TOPAGESETTING;
+				  xQueueOverwrite(queueLCDShow,&xLcdShow);
+
 				}
 			}else if(KeyInTemp.value == KEY_BACK)
 			{
@@ -405,19 +709,22 @@ void vTaskMsgTrans(void * pvParameters)
 			/*
 			 * 再创建一个队列，用于显示临时的buffer到LCD上
 			 * */
-			if((posi > 0)&&(posi <6))
+			if(syscb.page == PAGE_COST)
 			  {
-			    xLcdShow.len = posi;
-			    xLcdShow.Type = COST_MONEY_BUFFER;
-			    xQueueOverwrite(queueLCDShow,&xLcdShow);
-			  }
-			else if((posi >=6)||(posi == 0))
-			  {
-			    memset(KeyBuffer,0,sizeof(KeyBuffer));
-			    posi = 0;
-			    xLcdShow.len = posi;
-			    xLcdShow.Type = COST_BUFFER_CLEAR;
-			    xQueueOverwrite(queueLCDShow,&xLcdShow);
+			    if((posi > 0)&&(posi <6))
+			      {
+				xLcdShow.len = posi;
+				xLcdShow.Type = COST_MONEY_BUFFER;
+				xQueueOverwrite(queueLCDShow,&xLcdShow);
+			      }
+			    else if((posi >=6)||(posi == 0))
+			      {
+				memset(KeyBuffer,0,sizeof(KeyBuffer));
+				posi = 0;
+				xLcdShow.len = posi;
+				xLcdShow.Type = COST_BUFFER_CLEAR;
+				xQueueOverwrite(queueLCDShow,&xLcdShow);
+			      }
 			  }
 
 			//补充清除和隐藏 显示金额的函数
@@ -437,7 +744,7 @@ cardpeek:
 				}
 
 		}
-
+errret:
 		vTaskDelay( pdMS_TO_TICKS(4) );
       }
 }
@@ -606,6 +913,14 @@ checkCard:
 //    			    printf("CardID:%x  ",Auser.ID);
 //    			    printf("Remain:%x\r\n",Auser.Remain);
     			    SendRemain(Auser.Remain/10,Auser.Remain%10);	//HMI Send Reamin
+
+    			    uint8_t LcdRemainShowBuffer[7];
+    			    memset(LcdRemainShowBuffer,'\0',sizeof(LcdRemainShowBuffer));
+    			    xLcdShow.Type = CARDREMAINSHOW;
+    			    sprintf(LcdRemainShowBuffer,"%d.%d\0",Auser.Remain/10,Auser.Remain%10);
+//    			    printf("%s\r\n",LcdRemainShowBuffer);
+    			    xLcdShow.Buffer = LcdRemainShowBuffer;
+    			    xQueueOverwrite(queueLCDShow,&xLcdShow);
     			    xFlag.CardOn = 1;								//放置card
     			  }
     		    }else
@@ -615,6 +930,8 @@ checkCard:
 			  xFlag.CardUp =1;
 		      memset(&Auser,0,sizeof(Auser));
 		      HideRemain();
+		      xLcdShow.Type = CARDREMAINHIDE;
+		      xQueueOverwrite(queueLCDShow,&xLcdShow);
 		    }
     		}
 
@@ -629,6 +946,9 @@ costlabel:	//HMI 屏幕反馈还没有添加
 	      if(CostUser(&Auser,ToCost) == 0)
 			{
 			  printf("cost OK\r\n");
+
+			  RecentCostDetail[posiRecentCostDetail++] = Auser.ID;
+			  RecentCostDetail[posiRecentCostDetail++] = ToCost;
 
 			  VoiceList.voicelist[0] = VOICE_CORRECT;
 			  VoiceList.udlen = 1;
@@ -684,34 +1004,88 @@ void vTaskLCDMonitor (void * pvParameters)
     {
       if (xQueueReceive (queueLCDShow, &xLcdShow, portMAX_DELAY) == pdPASS)
 	{
-	  switch (xLcdShow.Type)
+	  if(syscb.page == PAGE_COST)
 	    {
-	    case COST_MONEY_BUFFER:
-	      memcpy (costbuffer, xLcdShow.Buffer, xLcdShow.len);
-//	      printf ("xLcdShow.Buffer:%x %x %x %x\r\n", xLcdShow.Buffer[0],xLcdShow.Buffer[1], xLcdShow.Buffer[2], xLcdShow.Buffer[3]);
-//	      printf("xLcdShow.len = %d\r\n",xLcdShow.len);
-	      for (i = 0; i < xLcdShow.len; i++)
+	      switch (xLcdShow.Type)
 		{
-		  if ((costbuffer[i] > 0) && (costbuffer[i] < 10))
-		    costbuffer[i] += '0';
-		  else if (costbuffer[i] == KEY_0)
-		    costbuffer[i] = '0';
-		  else if (costbuffer[i] == KEY_PLOT)
-		    costbuffer[i] = '.';
-		}
-		  costbuffer[i] = 0;
+		case COST_MONEY_BUFFER:
+		  memcpy (costbuffer, xLcdShow.Buffer, xLcdShow.len);
+    //	      printf ("xLcdShow.Buffer:%x %x %x %x\r\n", xLcdShow.Buffer[0],xLcdShow.Buffer[1], xLcdShow.Buffer[2], xLcdShow.Buffer[3]);
+    //	      printf("xLcdShow.len = %d\r\n",xLcdShow.len);
+		  for (i = 0; i < xLcdShow.len; i++)
+		    {
+		      if ((costbuffer[i] > 0) && (costbuffer[i] < 10))
+			costbuffer[i] += '0';
+		      else if (costbuffer[i] == KEY_0)
+			costbuffer[i] = '0';
+		      else if (costbuffer[i] == KEY_PLOT)
+			costbuffer[i] = '.';
+		    }
+		      costbuffer[i] = 0;
+		      ClearCostMoney();
+		  DisplayCostMoney (costbuffer);	//80毛
+		  break;
+		case COST_BUFFER_CLEAR:
+		  memset(costbuffer,0,sizeof(costbuffer));
 		  ClearCostMoney();
-	      DisplayCostMoney (costbuffer);	//80毛
-	      break;
-	    case COST_BUFFER_CLEAR:
-	      memset(costbuffer,0,sizeof(costbuffer));
-	      ClearCostMoney();
-	      break;
-	    default:
-	      break;
+		  break;
+		case CARDREMAINSHOW:
+		  DispalyCardRemain(xLcdShow.Buffer);
+		  break;
+		case CARDREMAINHIDE:
+		  clearCardRemain();
+		  break;
+		default:
+		  break;
+		}
+	    }
+	  else if(syscb.page == PAGE_CHECK)
+	    {
+	      switch (xLcdShow.Type)
+	      {
+		case TOPAGECHECK:
+		  GuiPageCheckInit();
+		  break;
+		case TOPAGECOST:
+		  GuiPageCostInit();
+		  syscb.page = PAGE_COST;
+		  break;
+		default:
+		  GuiPageCheckInit();
+		  break;
+	      }
+	    }
+	  else if(syscb.page == PAGE_SETTING)
+	    {
+	      switch (xLcdShow.Type)
+	      {
+		case TOPAGESETTING:
+		  GuiPageSettingInit();
+		  break;
+		case TOPAGECOST:
+		  GuiPageCostInit();
+		  syscb.page = PAGE_COST;
+		  break;
+		case CHARGEDISPLAY:
+		  GuiPageSettingChargeAmount(xLcdShow.Buffer);
+		  break;
+		default:
+		  GuiPageSettingInit();
+		  break;
+	      }
 	    }
 	}
+      taskYIELD();
 
+    }
+}
+
+void vTaskFatfs (void * pvParameters)
+{
+  for(;;)
+    {
+//      taskYIELD();
+      vTaskDelay( pdMS_TO_TICKS(5000) );
     }
 }
 
@@ -755,20 +1129,24 @@ int App_main()
     {
       printf("QUEUE:queueLCDShow Create fail\r\n");
     }
-
+  queueUserMsg =  xQueueCreate( Length_queueUserMsg, Size_queueUserMsg );
+  if(queueUserMsg == NULL)
+    {
+      printf("QUEUE:queueUserMsg Create fail\r\n");
+    }
 
   //================      Task Create        ========================
-  Retn = xTaskCreate( vTaskLed1, "Task_Led1", STK_SIZE_LED1, NULL, Prio_LED1, &TaskHandle_Print );
+  Retn = xTaskCreate( vTaskLed1, "Task_Led1", STK_SIZE_LED1, NULL, Prio_LED1, &TaskHandle_LED1 );
   if(Retn!=pdPASS)
   {
       printf("Task_Led1 create fail\r\n");
   }
 
-  Retn = xTaskCreate( vTaskPrint, "Task_Print", STK_SIZE_Print, NULL, Prio_Print, &TaskHandle_LED1 );
-  if(Retn!=pdPASS)
-  {
-      printf("Task_Print create fail\r\n");
-  }
+//  Retn = xTaskCreate( vTaskPrint, "Task_Print", STK_SIZE_Print, NULL, Prio_Print, &TaskHandle_Print );
+//  if(Retn!=pdPASS)
+//  {
+//      printf("Task_Print create fail\r\n");
+//  }
 
   Retn = xTaskCreate( vTaskKeyScan, "Task_KeyScan", STK_SIZE_KeyScan, NULL, Prio_KeyScan, &TaskHandle_KeyScan );
   if(Retn!=pdPASS)
@@ -788,12 +1166,6 @@ int App_main()
       printf("vTaskRFIDReadCard create fail\r\n");
   }
 
-//  Retn = xTaskCreate( vTaskHMIMonitor, "vTaskHMIMonitor", STK_SIZE_HMIMonitor, NULL, Prio_HMIMonitor, &TaskHandle_HMIMonitor );
-//  if(Retn!=pdPASS)
-//  {
-//      printf("vTaskHMIMonitor create fail\r\n");
-//  }
-
   Retn = xTaskCreate( vTaskMsgTrans, "vTaskMsgTrans", STK_SIZE_MsgTrans, NULL, Prio_MsgTrans, &TaskHandle_MsgTrans );
   if(Retn!=pdPASS)
   {
@@ -812,30 +1184,13 @@ int App_main()
       printf("vTaskLCDMonitor create fail\r\n");
   }
 
+  Retn = xTaskCreate( vTaskFatfs, "vTaskFatfs", STK_SIZE_Fatfs, NULL, Prio_Fatfs, &TaskHandle_Fatfs );
+  if(Retn!=pdPASS)
+  {
+      printf("vTaskFatfs create fail\r\n");
+  }
 
-  //to do copy 工作电脑中改好的 BY8301 to here ，主要添加了语音打断功能
-  // then modify the by8301 task
-  // 显示屏HMI，语音配合按键
   vTaskStartScheduler();
   for(;;);
   return 0;
-
-/*  HAL_UART_Receive_IT(&huart1, (uint8_t *)aRxBuffer, RXBUFFERSIZE);//配置下次中断接收的缓冲区,每次准备接收下一次了就要清一下缓冲区,再这样配置一下,这相当于是一个控制块
-  while (1)
-    {
-      toggleLed(0);
-      Delaysomenop(800*1000);
-      toggleLed(0);
-      Delaysomenop(800*1000);
-      printf("in blink\r\n");
-      printf("%s\r\n",aRxBuffer);
-      if(keyScan(0) == 0)
-	{
-	  do{
-	      setLedOn(0,0);
-	      printf("in keyscan\r\n");
-	  }while(keyScan(0) == 0);
-	}
-    }
-  return 0;*/
 }

@@ -208,33 +208,113 @@ uint8_t TouchPadConversion()
 	return KEY_CHECK;
     }
 
-  if (tp_dev.y[0] >= 380 && tp_dev.y[0] <= 420)
+  //按键里暂时去掉
+//  if (tp_dev.y[0] >= 380 && tp_dev.y[0] <= 420)
+//    {
+//      if (tp_dev.x[0] >= 65 && tp_dev.x[0] <= 175)
+//	return KEY_QRPAY;
+//      else if(tp_dev.x[0] >= 310 && tp_dev.x[0] <= 420)
+//	return KEY_CARDPAY;
+//    }
+
+  return 0xff;
+}
+
+typedef struct SYS_CTRL_BLOCK{
+
+  uint32_t page;
+  uint32_t InputMode;	//区分不同的输入模式，如在充值金额时，动态显示，及案件输入
+			//page = setting时，置为1 = 软键盘输入有效
+}xSYS_CTRL_BLOCK;
+extern xSYS_CTRL_BLOCK syscb;
+uint8_t SettingPageKeyConversion()
+{
+  if ((tp_dev.x[0] == 0xffff && tp_dev.y[0] == 0xffff))
+    return 0xff;
+
+
+  if(tp_dev.x[0] >= 240-32*2 && tp_dev.x[0] <= 240+32*2 && tp_dev.y[0] >=10 && tp_dev.y[0] <= 10+32)
+    return KEY_HOMEPAGE;
+
+
+  if(tp_dev.x[0] >= 30 && tp_dev.x[0] <= 30+32*4 && tp_dev.y[0] <= 800-350)
     {
-      if (tp_dev.x[0] >= 65 && tp_dev.x[0] <= 175)
-	return KEY_QRPAY;
-      else if(tp_dev.x[0] >= 310 && tp_dev.x[0] <= 420)
-	return KEY_CARDPAY;
+      if(tp_dev.y[0] >= 60 && tp_dev.y[0] <= 60+32)
+	return KEY_REGCARD;
+      else if (tp_dev.y[0] >= 60+48 && tp_dev.y[0] <= 60+48+32)
+	return KEY_CARDCHARGE;
+      else if (tp_dev.y[0] >= 60+48*2 && tp_dev.y[0] <= 60+48*2+32)
+      	return KEY_VOICESWITCH;
     }
 
+  if(syscb.InputMode == 0) goto retlab;
+  if (tp_dev.x[0] >= 0 && tp_dev.x[0] <= 120)
+    {
+      if (tp_dev.y[0] >= (504 + 73 * 3))
+	return KEY_0;
+      else if (tp_dev.y[0] >= (504 + 73 * 2))
+	return KEY_7;
+      else if (tp_dev.y[0] >= (504 + 73 * 1))
+	return KEY_4;
+      else if (tp_dev.y[0] >= (504))
+	return KEY_1;
+    }
+  else if (tp_dev.x[0] > 120 && tp_dev.x[0] <= 240)
+    {
+      if (tp_dev.y[0] >= (504 + 73 * 3))
+	return KEY_PLOT;
+      else if (tp_dev.y[0] >= (504 + 73 * 2))
+	return KEY_8;
+      else if (tp_dev.y[0] >= (504 + 73 * 1))
+	return KEY_5;
+      else if (tp_dev.y[0] >= (504))
+	return KEY_2;
+    }
+  else if (tp_dev.x[0] > 240 && tp_dev.x[0] <= 360)
+    {
+      if (tp_dev.y[0] >= (504 + 73 * 3))
+	return KEY_BACK;
+      else if (tp_dev.y[0] >= (504 + 73 * 2))
+	return KEY_9;
+      else if (tp_dev.y[0] >= (504 + 73 * 1))
+	return KEY_6;
+      else if (tp_dev.y[0] >= (504))
+	return KEY_3;
+    }
+  else if (tp_dev.x[0] > 360 && tp_dev.x[0] <= 480)
+    {
+      if (tp_dev.y[0] >= (504 + 73 * 3))
+	return KEY_ENT;
+      else if (tp_dev.y[0] >= (504 + 73 * 2))
+	return KEY_ESC;
+     }
+retlab:
   return 0xff;
 }
 
 
 
+uint8_t CheckPageKeyConversion(void)
+{
+  if ((tp_dev.x[0] == 0xffff && tp_dev.y[0] == 0xffff))
+    return 0xff;
 
 
+  if(tp_dev.x[0] >= 240-32*2 && tp_dev.x[0] <= 240+32*2 && tp_dev.y[0] >=10 && tp_dev.y[0] <= 10+32)
+    return KEY_HOMEPAGE;
 
-
-
-
-
-
-
-
-
-
-
-
+  if(tp_dev.x[0] >= 230 && tp_dev.x[0] <= 230+24*3)
+    {
+      if(tp_dev.y[0] >= 160 && tp_dev.y[0] <= 160+24)
+	return KEY_PAGEBEF;
+    }
+  if(tp_dev.x[0] >= 320 && tp_dev.x[0] <= 320+24*3)
+      {
+        if(tp_dev.y[0] >= 160 && tp_dev.y[0] <= 160+24)
+  	return KEY_PAGENEXT;
+      }
+  return 0xff;
+}
 
 
 

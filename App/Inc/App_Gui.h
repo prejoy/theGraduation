@@ -13,6 +13,12 @@
 
 #define COST_MONEY_BUFFER		1
 #define COST_BUFFER_CLEAR		2
+#define TOPAGECHECK			3
+#define TOPAGESETTING			4
+#define TOPAGECOST			5
+#define CHARGEDISPLAY			6
+#define CARDREMAINSHOW			7
+#define CARDREMAINHIDE			8
 
 #define ERR_PAYFAIL		1
 #define ERR_BALANCECHARGE	2
@@ -73,16 +79,34 @@
 
 
 void GuiPageCostInit(void);
+void GuiPageSettingInit(void);
+void GuiPageCheckInit(void);
+void GuiPageSettingInput(void);
+void GuiPageSettingChargeAmount(uint8_t *ChargeMoney);
 void DisplayCostMoney(uint8_t *CostMoney);
+void DispalyCardRemain(uint8_t *RemainMoney);
 void ClearCostMoney(void);
+void clearCardRemain(void);
 #define LCDCostOKWhite()	DisplayLCDCosRes(0,0,1,0)
 #define LCDCostOKBlack()	DisplayLCDCosRes(0,0,1,1)
 #define LCDCostFailWhite(n)	DisplayLCDCosRes(1,((n)),1,0)
 #define LCDCostFailBlack(n)	DisplayLCDCosRes(1,((n)),1,1)
 #define LCDCostHide()		DisplayLCDCosRes(0,0,0,1)
-
-
+//page setting
+#define ShowCardRegOK()		DisplaySettingPageRes(0,0)
+#define HideCardRegOK()		DisplaySettingPageRes(0,1)
+#define ShowCardRegFail()	DisplaySettingPageRes(1,0)
+#define HideCardRegFail()	DisplaySettingPageRes(1,1)
+#define ShowCardChargeOK()	DisplaySettingPageRes(2,0)
+#define HideCardChargeOK()	DisplaySettingPageRes(2,1)
+#define ShowCardChargeFail()	DisplaySettingPageRes(3,0)
+#define HideCardChargeFail()	DisplaySettingPageRes(3,1)
+#define ShowVoiceOn()		DisplaySettingPageRes(4,0)
+#define HideVoiceOn()		DisplaySettingPageRes(4,1)
+#define ShowVoiceOff()		DisplaySettingPageRes(5,0)
+#define HideVoiceOff()		DisplaySettingPageRes(5,1)
 
 void DisplayLCDCosRes(uint32_t isSuccess,uint32_t errtype,uint32_t disp,uint32_t txtcolor);
+void DisplaySettingPageRes(uint32_t No,uint32_t disp);
 
 #endif /* APP_INC_APP_GUI_H_ */

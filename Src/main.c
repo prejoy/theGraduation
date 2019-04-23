@@ -138,6 +138,31 @@ int main(void)
   printf("Flash Free  Size:  %d MB\r\n",free>>10);
   printf("FATFS OK!\r\n");
 
+//  GuiPageSettingInit();
+//  GuiPageSettingInput();
+//  uint8_t udRtn;
+//  while(1)
+//    {
+//      if(FT5206_Scan(0)==1)
+//	{
+//	udRtn = SettingPageKeyConversion();
+//	printf("udRtn:%d\r\n",udRtn);
+//	}
+//      HAL_Delay(500);
+//    }
+
+//  GuiPageCheckInit();
+//  uint8_t udRtn;
+//  while(1)
+//    {
+//            if(FT5206_Scan(0)==1)
+//      	{
+//      	udRtn = CheckPageKeyConversion();
+//      	printf("udRtn:%d\r\n",udRtn);
+//      	}
+//            HAL_Delay(500);
+//    }
+
 //  DelAllUser(0);
 //	PayRecord_t Auser1={0x73b36589,0,0,10000},
 //		  Auser2={0x474eb089,0,0,12000};
@@ -147,6 +172,11 @@ int main(void)
 //	CheckUser(&Auser2);
 ////	printf("0x474eb089 Remain:%u\r\n",Auser2.Remain);
 //	CostUser(&Auser2,200|0x80000000);
+//    uint32_t Spi_Table_Buffer[1024]={0};
+//    uint32_t Spi_User_Buffer[1024]={0};
+//    W25QXX_Read((u8*)Spi_Table_Buffer,0,4096);
+//    W25QXX_Read((u8*)Spi_User_Buffer,0x1000,4096);
+
 
 //fatfs test part
 //  uint8_t res;
