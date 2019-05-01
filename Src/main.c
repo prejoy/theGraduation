@@ -138,6 +138,8 @@ int main(void)
   printf("Flash Free  Size:  %d MB\r\n",free>>10);
   printf("FATFS OK!\r\n");
 
+  piclib_init();			//picture functions setting
+
 //  GuiPageSettingInit();
 //  GuiPageSettingInput();
 //  uint8_t udRtn;
@@ -202,30 +204,67 @@ int main(void)
 //  printf("Flash Total Size:  %d MB\r\n",total>>10);
 //  printf("Flash Free  Size:  %d MB\r\n",free>>10);
 //
+//
+
 //  FIL  textfile;
 //  uint32_t f_Retn=0;
-//  const char teststring[]="aabb file abcd\r\n";
+//  const char teststring[4][30]={"[1]:路人甲 [2]:1 [3]:1 ",
+//				"[1]:路人乙 [2]:2 [3]:2 ",
+//				"[1]:路人丙 [2]:2 [3]:3 ",
+//				"[1]:路人丁 [2]:3 [3]:1 "};
 //  char readbuf[20]={0};
-//  uint32_t numberToWrite=16,index=16,pread;
+//  uint32_t numberToWrite=16,index=30,pread;
 ////  f_Retn = f_mkdir("2:/test");
 ////	  printf("f_mkdir ret:%d\r\n",f_Retn);
-//  f_Retn = f_open(&textfile,"2:/test/test.txt",FA_OPEN_ALWAYS|FA_READ|FA_WRITE);
+//  f_Retn = f_open(&textfile,"2:/897a81a1.txt",FA_CREATE_ALWAYS|FA_READ|FA_WRITE);
 //  	  printf("f_open ret:%d\r\n",f_Retn);
 //
 ////  f_Retn = f_lseek(&textfile,textfile.obj.objsize);
 ////  	  printf("f_lseek ret:%d\r\n",f_Retn);
-////  f_Retn = f_write(&textfile,(const void*)teststring,index,(UINT*)&numberToWrite);
-////  	  printf("f_write ret:%d\r\n",f_Retn);
-//  f_Retn = f_read(&textfile,readbuf,15,(UINT*)&pread);
-//  printf("f_read ret:%d\r\n",f_Retn);
+//  f_Retn = f_write(&textfile,(const void*)teststring[0],index,(UINT*)&numberToWrite);
+//  	  printf("f_write ret:%d\r\n",f_Retn);
+////  f_Retn = f_read(&textfile,readbuf,15,(UINT*)&pread);
+////  printf("f_read ret:%d\r\n",f_Retn);
 //  if(!f_Retn)
 //  {
-//	  printf("context:%s\r\n",readbuf);
+//	  printf("context:%s\r\n",teststring[0]);
 //  }
 //  f_Retn = f_close(&textfile);
 //  printf("f_close ret:%d\r\n",f_Retn);
-
-
+//
+//  //234
+//  f_Retn = f_open(&textfile,"2:/8347ede3.txt",FA_CREATE_ALWAYS|FA_READ|FA_WRITE);
+//  	  printf("f_open ret:%d\r\n",f_Retn);
+//  f_Retn = f_write(&textfile,(const void*)teststring[1],index,(UINT*)&numberToWrite);
+//	  printf("f_write ret:%d\r\n",f_Retn);
+//  if(!f_Retn)
+//  {
+//	  printf("context:%s\r\n",teststring[1]);
+//  }
+//  f_Retn = f_close(&textfile);
+//  printf("f_close ret:%d\r\n",f_Retn);
+//
+//  f_Retn = f_open(&textfile,"2:/73b36589.txt",FA_CREATE_ALWAYS|FA_READ|FA_WRITE);
+//  	  printf("f_open ret:%d\r\n",f_Retn);
+//  f_Retn = f_write(&textfile,(const void*)teststring[2],index,(UINT*)&numberToWrite);
+//	  printf("f_write ret:%d\r\n",f_Retn);
+//  if(!f_Retn)
+//  {
+//	  printf("context:%s\r\n",teststring[2]);
+//  }
+//  f_Retn = f_close(&textfile);
+//  printf("f_close ret:%d\r\n",f_Retn);
+//
+//  f_Retn = f_open(&textfile,"2:/474eb089.txt",FA_CREATE_ALWAYS|FA_READ|FA_WRITE);
+//  	  printf("f_open ret:%d\r\n",f_Retn);
+//  f_Retn = f_write(&textfile,(const void*)teststring[3],index,(UINT*)&numberToWrite);
+//	  printf("f_write ret:%d\r\n",f_Retn);
+//  if(!f_Retn)
+//  {
+//	  printf("context:%s\r\n",teststring[3]);
+//  }
+//  f_Retn = f_close(&textfile);
+//  printf("f_close ret:%d\r\n",f_Retn);
 
   //existing dirs:  2:/test
   //existing files: 2:/test/test.txt
@@ -253,6 +292,23 @@ int main(void)
 
 
 
+// Pictures display
+//  char pname[25]={"2:/test/pic1.jpg"};
+//  LTDC_Clear(BLACK);
+//  piclib_init();
+//  while(1)
+//    {
+//      int i=0;
+//      for (i=0;i<7;i++)
+//	{
+//	  sprintf(pname,"2:/test/pic%d.jpg",i+1);
+//	  ai_load_picfile(pname,PIC_SX-5,PIC_SY-5,PIC_SX+PIC_WIDTH+5,PIC_SY+PIC_HEIGHT+5,1);//显示图片
+//	  Show_Str(2,2,lcdltdc.width,16,pname,16,1); 				//显示图片名字
+//	  HAL_Delay(1000);
+//	}
+//
+//      i=0;
+//    }
 
 
 //汉字显示，需要初始化W25Qxx,

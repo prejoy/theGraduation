@@ -46,6 +46,9 @@
 #include "text.h"
 #include "fontupd.h"
 
+/*	Picture's  Include	*/
+#include "piclib.h"
+
 /*	FreeRTOS's  Include	*/
 #include "FreeRTOS.h"
 #include "task.h"
@@ -54,7 +57,7 @@
 /*	App's  Include	*/
 #include "App_Pay.h"
 #include "App_Gui.h"
-
+#include "App_UserMsg.h"
 
 
 

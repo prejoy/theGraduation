@@ -19,7 +19,7 @@ void GuiPageCostInit(void)
 //   printf("%s\r\n",lcd_id);
    LTDC_Clear(BG_COLOR);
 
-   LTDC_Fill(PIC_SX,PIC_SY,PIC_SX+PIC_WIDTH,PIC_SY+PIC_HEIGHT,WHITE);
+//   LTDC_Fill(PIC_SX,PIC_SY,PIC_SX+PIC_WIDTH,PIC_SY+PIC_HEIGHT,WHITE);
    POINT_COLOR=BLACK;BACK_COLOR=BG_COLOR;
    Show_Str(MSGn_SX(1),MSGn_SY(1),480-MSG_SX,MSG_FONT,"卡号：",MSG_FONT,0);
    Show_Str(MSGn_SX(2),MSGn_SY(2),480-MSG_SX,MSG_FONT,"姓名：",MSG_FONT,0);
@@ -63,6 +63,10 @@ void GuiPageCostInit(void)
     Show_Str((XPOSI(16)-FONTSIZE),(YPOSI(16)-FONTSIZE/2),FONTSIZE*2,FONTSIZE,"确定",FONTSIZE,0);
 }
 
+inline void HidePicture(void)
+{
+  LTDC_Fill(PIC_SX,PIC_SY,PIC_SX+PIC_WIDTH+10,PIC_SY+PIC_HEIGHT+20,BG_COLOR);
+}
 
 void DisplayCostMoney(uint8_t *CostMoney)
 {
@@ -84,15 +88,32 @@ void ClearCostMoney()
 
 void DispalyCardRemain(uint8_t *RemainMoney)
 {
+  uint8_t *pdata=RemainMoney,i=0;
+  uint8_t Remoneymoeydisplay[7]={0},CardIdDisplay[9]={0};
+
+  do{
+      Remoneymoeydisplay[i++] = *pdata;
+  }while(*pdata++ != ' ');
+  Remoneymoeydisplay[i-1]=0;
+
+  i=0;
+  while(*pdata != '\0')
+    CardIdDisplay[i++] = *pdata++;
+
+//  printf("11:%s\r\n",Remoneymoeydisplay);
+//  printf("22:%s\r\n",CardIdDisplay);
   POINT_COLOR=RED;BACK_COLOR=BG_COLOR;
-  Show_Str(MSGn_SX(5)+24*3,MSGn_SY(5),480-40,24,RemainMoney,24,0);
+  Show_Str(MSGn_SX(5)+24*3,MSGn_SY(5),480-40,24,Remoneymoeydisplay,24,0);
+  POINT_COLOR=WHITE;BACK_COLOR=BLACK;
+  Show_Str(MSGn_SX(1)+24*3,MSGn_SY(1),480-MSG_SX,MSG_FONT,CardIdDisplay,MSG_FONT,0);
 }
 
 void clearCardRemain()
 {
-  char str[6]="      ";
+//  char str1[6]="      ";
   POINT_COLOR=BG_COLOR;BACK_COLOR=BG_COLOR;
-  Show_Str(MSGn_SX(5)+24*3,MSGn_SY(5),480-40,24,str,24,0);
+  Show_Str(MSGn_SX(5)+24*3,MSGn_SY(5),480-40,24,"      ",24,0);
+  Show_Str(MSGn_SX(1)+24*3,MSGn_SY(1),480-MSG_SX,MSG_FONT,"        ",MSG_FONT,0);
 }
 
 //超过4个字注意居中参数变化
@@ -306,10 +327,56 @@ void GuiPageCheckInit(void)
     }
 }
 
-void DisplayUserMsg()
+
+
+
+const char Gradedisplay[8][5]={"空","大一","大二","大三","大四","大五","大六"};	//只能两个字
+const char ProfessionDisplay[8][9]={"空","电气工程","软件","财管","冶金","物流","英语","其他"};//最多四个字
+void DisplayUserMsg(uint8_t* buffer)
 {
+  uint8_t *pbuffer=buffer;
+
+  POINT_COLOR=BLACK;BACK_COLOR=BG_COLOR;
+  while(*pbuffer!='\0')
+    {
+      if(*pbuffer == '[' && *(pbuffer+2) == ']' )
+	{
+	  char *pstring = pbuffer+4;
+	  char lcdnameshow[9]={0};
+	  uint8_t _i=0;
+	  switch(*(pbuffer+1))
+	  {
+	    case '1':
+	      while(*pstring++ != ' ')_i++;
+	      memcpy(lcdnameshow,(pbuffer+4),_i);
+//	      printf("lcd show:%s\r\n",lcdnameshow);
+	      Show_Str(MSGn_SX(2)+MSG_FONT*3,MSGn_SY(2),480-MSG_SX,MSG_FONT,lcdnameshow,MSG_FONT,0);
+	      break;
+	    case '2':
+	      Show_Str(MSGn_SX(3)+MSG_FONT*3,MSGn_SY(3),480-MSG_SX,MSG_FONT,(u8*)Gradedisplay[(*pstring)-'0'],MSG_FONT,0);
+	      break;
+	    case '3':
+	      Show_Str(MSGn_SX(4)+MSG_FONT*3,MSGn_SY(4),480-MSG_SX,MSG_FONT,(u8*)ProfessionDisplay[(*pstring)-'0'],MSG_FONT,0);
+	      break;
+	    default:
+	      break;
+	  }
+	}
+
+	pbuffer++;
+    }
 
 }
+
+void HideUserMsg(void)
+{
+  POINT_COLOR=BG_COLOR;BACK_COLOR=BG_COLOR;
+  Show_Str(MSGn_SX(2)+MSG_FONT*3,MSGn_SY(2),480-MSG_SX,MSG_FONT,"        ",MSG_FONT,0);
+  Show_Str(MSGn_SX(3)+MSG_FONT*3,MSGn_SY(3),480-MSG_SX,MSG_FONT,"        ",MSG_FONT,0);
+  Show_Str(MSGn_SX(4)+MSG_FONT*3,MSGn_SY(4),480-MSG_SX,MSG_FONT,"        ",MSG_FONT,0);
+
+}
+
 
 void PageRefresh()
 {

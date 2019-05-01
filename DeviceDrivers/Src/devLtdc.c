@@ -433,6 +433,8 @@ void LTDC_Init(void)
   lcdltdc.vbp=23;				    //垂直后廊
   lcdltdc.hfp=210;			    //水平前廊
   lcdltdc.vfp=22;				    //垂直前廊
+  lcdltdc.width=800;			    //面板宽度,单位:像素
+  lcdltdc.height=480;		    //面板高度,单位:像素
 //  LTDC_Clk_Set(80,2,RCC_PLLSAIDIVR_2);		//设置像素时钟 33M(如果开双显,需要降低DCLK到:18.75Mhz  300/4/4,才会比较好)
 
   lcdltdc.pixsize=2;				//每个像素占2个字节

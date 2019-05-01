@@ -19,6 +19,11 @@
 #define CHARGEDISPLAY			6
 #define CARDREMAINSHOW			7
 #define CARDREMAINHIDE			8
+#define SOME_USER_MSG			9
+#define DISPLAY_PICTURE			10
+#define HIDE_USER_MSG			11
+#define HIDE_PICTURE			12
+#define NULL_USER_MSG			13
 
 #define ERR_PAYFAIL		1
 #define ERR_BALANCECHARGE	2
@@ -36,10 +41,10 @@
 //   (0,504)		(480,504)
 
 //  pic:（25-145，195）
-#define PIC_SX		35
-#define PIC_SY		60
-#define PIC_WIDTH	130	//占用最大宽度PIC_SX+PIC_WIDTH不要超过 MSG_SX
-#define PIC_HEIGHT	190
+#define PIC_SX		20
+#define PIC_SY		30
+#define PIC_WIDTH	140	//占用最大宽度PIC_SX+PIC_WIDTH不要超过 MSG_SX
+#define PIC_HEIGHT	200
 
 #define MSG_FONT	24
 #define MSG_SX		200
@@ -87,6 +92,9 @@ void DisplayCostMoney(uint8_t *CostMoney);
 void DispalyCardRemain(uint8_t *RemainMoney);
 void ClearCostMoney(void);
 void clearCardRemain(void);
+void DisplayUserMsg(uint8_t* buffer);
+void HideUserMsg(void);
+void HidePicture(void);
 #define LCDCostOKWhite()	DisplayLCDCosRes(0,0,1,0)
 #define LCDCostOKBlack()	DisplayLCDCosRes(0,0,1,1)
 #define LCDCostFailWhite(n)	DisplayLCDCosRes(1,((n)),1,0)
