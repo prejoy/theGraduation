@@ -44,7 +44,7 @@ RAM (xrw)      : ORIGIN = 0x20000000, LENGTH = 192K
 CCMRAM (rw)      : ORIGIN = 0x10000000, LENGTH = 64K
 FLASH (rx)      : ORIGIN = 0x8000000, LENGTH = 1024K
 LTDCBUF(xrw)     : ORIGIN = 0xC0000000, LENGTH = 3072K
-MYMALLOC(xrw)   : ORIGIN = 0xC0300000, LENGTH = 4096K
+MYMALLOC(xrw)   : ORIGIN = 0xC0300000, LENGTH = 8192K
 }
 
 /* Define output sections */
@@ -179,7 +179,7 @@ SECTIONS
 	*(.mymalloc*)
    . = ALIGN(4);
   } AT > MYMALLOC
-
+  
   /* User_heap_stack section, used to check that there is enough RAM left */
   ._user_heap_stack :
   {

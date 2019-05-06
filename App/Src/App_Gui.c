@@ -11,6 +11,8 @@
 #include "text.h"
 #include "App_Pay.h"
 
+#define MONEY_LEN	(96)	//origin 480-40
+
 void GuiPageCostInit(void)
 {
   //=============             user page        ==========================
@@ -76,14 +78,14 @@ void DisplayCostMoney(uint8_t *CostMoney)
 //  Decimal = CostMoney%10;
   POINT_COLOR=RED;BACK_COLOR=BG_COLOR;
 //  sprintf(str,"%d.%d",Integer,Decimal);
-  Show_Str(280,280,480-40,32,CostMoney,32,0);
+  Show_Str(280,280,MONEY_LEN,32,CostMoney,32,0);
 }
 
 void ClearCostMoney()
 {
-    char str[6]="      ";
+//    char str[6]="      ";
   POINT_COLOR=BG_COLOR;BACK_COLOR=BG_COLOR;
-  Show_Str(280,280,480-50,32,str,32,0);
+  Show_Str(280,280,96,32,"      ",32,0);
 }
 
 void DispalyCardRemain(uint8_t *RemainMoney)
@@ -103,17 +105,19 @@ void DispalyCardRemain(uint8_t *RemainMoney)
 //  printf("11:%s\r\n",Remoneymoeydisplay);
 //  printf("22:%s\r\n",CardIdDisplay);
   POINT_COLOR=RED;BACK_COLOR=BG_COLOR;
-  Show_Str(MSGn_SX(5)+24*3,MSGn_SY(5),480-40,24,Remoneymoeydisplay,24,0);
+  Show_Str(MSGn_SX(5)+24*3,MSGn_SY(5),MONEY_LEN,24,Remoneymoeydisplay,24,0);
   POINT_COLOR=WHITE;BACK_COLOR=BLACK;
-  Show_Str(MSGn_SX(1)+24*3,MSGn_SY(1),480-MSG_SX,MSG_FONT,CardIdDisplay,MSG_FONT,0);
+//  Show_Str(MSGn_SX(1)+24*3,MSGn_SY(1),480-MSG_SX,MSG_FONT,CardIdDisplay,MSG_FONT,0);		//ori
+  Show_Str(MSGn_SX(1)+24*3,MSGn_SY(1),MONEY_LEN,MSG_FONT,CardIdDisplay,MSG_FONT,0);
 }
 
 void clearCardRemain()
 {
 //  char str1[6]="      ";
   POINT_COLOR=BG_COLOR;BACK_COLOR=BG_COLOR;
-  Show_Str(MSGn_SX(5)+24*3,MSGn_SY(5),480-40,24,"      ",24,0);
-  Show_Str(MSGn_SX(1)+24*3,MSGn_SY(1),480-MSG_SX,MSG_FONT,"        ",MSG_FONT,0);
+  Show_Str(MSGn_SX(5)+24*3,MSGn_SY(5),MONEY_LEN,24,"      ",24,0);
+//  Show_Str(MSGn_SX(1)+24*3,MSGn_SY(1),480-MSG_SX,MSG_FONT,"        ",MSG_FONT,0);		//ori
+  Show_Str(MSGn_SX(1)+24*3,MSGn_SY(1),MONEY_LEN,MSG_FONT,"        ",MSG_FONT,0);
 }
 
 //超过4个字注意居中参数变化
@@ -194,7 +198,7 @@ void GuiPageSettingInit(void)
 void GuiPageSettingInput(void)
 {
   POINT_COLOR=BLACK;BACK_COLOR=BG_COLOR;
-  Show_Str(240-9*16,800-1-296-40,480-30,32,"充值金额：      元",32,0);
+  Show_Str(240-9*16,800-1-296-40,480-30,32,"充值金额：        元",32,0);
   //===================    softkbd  =================
    LTDC_Fill(0,800-1-296,480-1,800-1,SOFT_KBD_FILLCOLOR);				//fill必须从上到下，左到右
    LTDC_DrawLine(0,800-1-296,480-1,800-1-296,LINE_WIDTH,SOFT_KBD_LINECOLOR);		//horizon
@@ -230,7 +234,8 @@ void GuiPageSettingChargeAmount(uint8_t *ChargeMoney)
   char strtoshow[6]={0};
   uint8_t i=0;
   POINT_COLOR=BG_COLOR;BACK_COLOR=BG_COLOR;
-  Show_Str(240-9*16+5*32,800-1-296-40,480-30,32,"      ",32,0);
+//  Show_Str(240-9*16+5*32,800-1-296-40,480-30,32,"      ",32,0);		//ori
+  Show_Str(240-9*16+5*32,800-1-296-40,MONEY_LEN,32,"      ",32,0);
   for(;ChargeMoney[i]!='\0' && i<6;i++)
     {
       if(ChargeMoney[i] == KEY_PLOT)
@@ -248,7 +253,8 @@ void GuiPageSettingChargeAmount(uint8_t *ChargeMoney)
 
     }
   POINT_COLOR=RED;BACK_COLOR=BG_COLOR;
-  Show_Str(240-9*16+5*32,800-1-296-40,480-30,32,(u8*)strtoshow,32,0);
+//  Show_Str(240-9*16+5*32,800-1-296-40,480-30,32,(u8*)strtoshow,32,0);		//ori
+  Show_Str(240-9*16+5*32,800-1-296-40,MONEY_LEN,32,(u8*)strtoshow,32,0);
 }
 
 void DisplaySettingPageRes(uint32_t No,uint32_t disp)
@@ -296,15 +302,21 @@ void GuiPageCheckInit(void)
   POINT_COLOR=BLACK;BACK_COLOR=GRAY;
   Show_Str(240-32*2,10,32*4,32,"返回主页",Font_Setting,0);
   POINT_COLOR=BLACK;BACK_COLOR=BG_COLOR;
-  Show_Str(30,50,480-30,32,"本次交易次数：",32,0);
-  Show_Str(30+32*9,50,480-30,32,(u8 *)countbuff,32,0);
+//  Show_Str(30,50,480-30,32,"本次交易次数：",32,0);		//ori
+  Show_Str(30,50,7*32,32,"本次交易次数：",32,0);
+//  Show_Str(30+32*9,50,480-30,32,(u8 *)countbuff,32,0);	//ori
+    Show_Str(30+32*9,50,128,32,(u8 *)countbuff,32,0);
   Show_Str(30,50+40,480-30,32,"开机交易金额：",32,0);
-  Show_Str(30+32*8,50+40,480-30,32,(u8 *)numberbuff,32,0);
+//  Show_Str(30+32*8,50+40,480-30,32,(u8 *)numberbuff,32,0);	//ori
+  Show_Str(30+32*8,50+40,128,32,(u8 *)numberbuff,32,0);
 
-  Show_Str(30,120+40,480-30,24,"开机交易详情：",24,0);
+//  Show_Str(30,120+40,480-30,24,"开机交易详情：",24,0);	//ori
+  Show_Str(30,120+40,7*24,24,"开机交易详情：",24,0);
   POINT_COLOR=BLACK;BACK_COLOR=GRAY;
-  Show_Str(30+200,120+40,480-30,24,"上一页",24,0);
-  Show_Str(30+290,120+40,480-30,24,"下一页",24,0);
+//  Show_Str(30+200,120+40,480-30,24,"上一页",24,0);		//ori
+  Show_Str(30+200,120+40,3*24,24,"上一页",24,0);
+//  Show_Str(30+290,120+40,480-30,24,"下一页",24,0);		//ori
+  Show_Str(30+290,120+40,3*24,24,"下一页",24,0);
 
   memset(costlist,'\0',sizeof(costlist));
   for( i =0;i<100;i++)
@@ -318,12 +330,17 @@ void GuiPageCheckInit(void)
 	break;
     }
   POINT_COLOR=WHITE;BACK_COLOR=BLACK;
-  Show_Str(30,200,480-30,24,"卡片ID",24,0);
-  Show_Str(360,200,480-30,24,"金额",24,0);
+//  Show_Str(30,200,480-30,24,"卡片ID",24,0);		//ori
+  Show_Str(30,200,4*24,24,"卡片ID",24,0);
+//  Show_Str(360,200,480-30,24,"金额",24,0);		//ori
+  Show_Str(360,200,2*24,24,"金额",24,0);
   for(j=0;((j<i)&&(j<10));j++)
     {
-      Show_Str(30,240+j*30,480-30,24,costlist[j][0],24,0);
-      Show_Str(360,240+j*30,480-30,24,costlist[j][1],24,0);
+//      Show_Str(30,240+j*30,480-30,24,costlist[j][0],24,0);	//ori
+//      Show_Str(360,240+j*30,480-30,24,costlist[j][1],24,0);	//ori
+
+      Show_Str(30,240+j*30,128,24,costlist[j][0],24,0);
+      Show_Str(360,240+j*30,128,24,costlist[j][1],24,0);
     }
 }
 

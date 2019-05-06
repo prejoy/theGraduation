@@ -176,7 +176,7 @@
 #endif
 
 #define configLIBRARY_LOWEST_INTERRUPT_PRIORITY			15                      //中断最低优先级
-#define configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY	        3                       //系统可管理的最高中断优先级
+#define configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY	        8                       //系统可管理的最高中断优先级
 #define configKERNEL_INTERRUPT_PRIORITY 		       ( configLIBRARY_LOWEST_INTERRUPT_PRIORITY << (8 - configPRIO_BITS) )
 #define configMAX_SYSCALL_INTERRUPT_PRIORITY 	               ( configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY << (8 - configPRIO_BITS) )
 
@@ -193,6 +193,8 @@ void xPortSysTickHandler( void );
 /*                               new modified                                           */
 /***************************************************************************************************************/
 #define configSUPPORT_STATIC_ALLOCATION  0
+
+#define OS_CRITICAL_METHOD		//for lwip critical protect
 
 #endif /* FREERTOS_CONFIG_H */
 

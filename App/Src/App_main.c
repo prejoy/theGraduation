@@ -6,19 +6,23 @@
  */
 
 #include "App_main.h"
-#include "stdio.h"
 
+#if 1
+//1:lan8720.c
+//2:这里
+//3:打开lwip相关注释
+//4:添加lwip文件
+#include "lwip_comm.h"
+#include "lwip/netif.h"
+#include "lwipopts.h"
+#include "lwip_client_app.h"
+#endif
 
 //========     TCBs      ===========
 static void vTaskLed1( void * pvParameters );
 #define Prio_LED1	1
 static TaskHandle_t TaskHandle_LED1;
-#define STK_SIZE_LED1	256
-
-//static void vTaskPrint( void * pvParameters );
-//#define Prio_Print	1
-//static TaskHandle_t TaskHandle_Print;
-//#define STK_SIZE_Print	256
+#define STK_SIZE_LED1	256				//128则太小，或任务栈溢出，破坏其他任务的的堆栈，从而程序错乱！！
 
 static void vTaskKeyScan( void * pvParameters );
 #define Prio_KeyScan		3
@@ -36,7 +40,7 @@ static TaskHandle_t TaskHandle_RFIDReadCard;
 #define STK_SIZE_RFIDReadCard 	512
 
 static void vTaskMsgTrans( void * pvParameters );
-#define Prio_MsgTrans		2
+#define Prio_MsgTrans		3
 static TaskHandle_t TaskHandle_MsgTrans;
 #define STK_SIZE_MsgTrans 	2048	//1024不够用
 
@@ -48,12 +52,18 @@ static TaskHandle_t TaskHandle_CostPage;
 static void vTaskLCDMonitor( void * pvParameters );
 #define Prio_LCDMonitor		5
 static TaskHandle_t TaskHandle_LCDMonitor;
-#define STK_SIZE_LCDMonitor 	1024
+#define STK_SIZE_LCDMonitor 	(1024)
 
 static void vTaskFatfs( void * pvParameters );
 #define Prio_Fatfs		4
 static TaskHandle_t TaskHandle_Fatfs;
 #define STK_SIZE_Fatfs 	1024
+
+static void vTaskLwip( void * pvParameters );
+#define Prio_Lwip		2
+static TaskHandle_t TaskHandle_Lwip;
+#define STK_SIZE_Lwip 	512
+
 
 QueueHandle_t queueKeyIn,
 	      queueKeyBuffer,
@@ -64,6 +74,14 @@ QueueHandle_t queueKeyIn,
 	      queueVoice,
 	      queueUserMsg,
 	      queueLCDShow;
+
+//========     Eth in  and out    ===========
+#define Length_queueEthIn	3
+#define Size_queueEthIn		sizeof(EthIn)
+
+#define Length_queueEthOut	2
+#define Size_queueEthOut	sizeof(EthOut)
+
 
 //========     key and touchpad      ===========
 typedef struct Key_In{
@@ -178,38 +196,26 @@ xSYS_CTRL_BLOCK syscb={.page=PAGE_COST,0};
 
 
 //============       task funcs       ==================
-
+uint32_t count=0;
 void vTaskLed1( void * pvParameters )
 {
 //  xUserMsg  atestuser = {0x12345678,"路人甲",GradeOne,EE,WriteFile};
 ////  xQueueOverwrite(queueUserMsg,&atestuser);
 //  atestuser.operationtype = ReadFile;
 ////  vTaskDelay( pdMS_TO_TICKS(500) );
+
+
     for(;;)
     {
 	toggleLed(0);
 //	xQueueOverwrite(queueUserMsg,&atestuser);
-	vTaskDelay( pdMS_TO_TICKS(800) );
-    }
 
-}
-void vTaskPrint( void * pvParameters )
-{
-  xKeyIn DeviceIn;
-  uint32_t CardIdIn;
-    for(;;)
-    {
-//	if(xQueueReceive(queueKeyIn,&DeviceIn,pdMS_TO_TICKS(10)) == pdPASS)
-//	  {
-//	    printf("Message:%d,from:%d\r\n",DeviceIn.value,DeviceIn.source);
-//	  }
-//
-//	if(xQueueReceive(queueCardIn,&CardIdIn,0) == pdPASS)
-//	  {
-//	    printf("CardIdIn:%x\r\n",CardIdIn);
-//	  }
-//	delay_ms(500);
-	vTaskDelay( pdMS_TO_TICKS(5) );
+	if(++count == 0xfffffffff){
+	  count = 0;
+	}
+	  printf("tck:%u\r\n",count);
+//	 printf("running\r\n");
+	vTaskDelay( pdMS_TO_TICKS(1000) );
     }
 
 }
@@ -434,7 +440,7 @@ void vTaskRFIDReadCard(void * pvParameters)
 }
 
 
-
+//extern uint8_t EthCostMsgBuff[40];
 void vTaskMsgTrans(void * pvParameters)
 {
 	xKeyIn KeyInTemp;
@@ -611,6 +617,12 @@ void vTaskMsgTrans(void * pvParameters)
 		    if((ChargeCardId != 0)&&(ChargeUser(&Chargeuser,chargeAmount) == 0))
 		      {
 //			printf("charge ok\r\n");
+//			  hEthMsg.type = CostMsgOut;
+//			  hEthMsg.CardId = Chargeuser.ID;
+//			  hEthMsg.costamount = chargeAmount;
+//			  xQueueSend(queueEthOut,&hEthMsg,portMAX_DELAY);
+			  tcp_client_flag++;
+
 			  VoiceList.voicelist[0] = VOICE_CORRECT;
 			  VoiceList.udlen = 1;
 			  xQueueOverwrite(queueVoice,&VoiceList);
@@ -742,6 +754,7 @@ errret:
 }
 
 uint8_t xCostVoice[10];
+//uint8_t EthCostMsgBuff[40];
 void vTaskCostPage(void * pvParameters)
 {
     uint8_t KeyBuffer[12],bufferlen;
@@ -957,6 +970,7 @@ checkCard:
 costlabel:	//HMI 屏幕反馈还没有添加
 	  if((xFlag.WaitingCost == 1)&&(xFlag.CardUp == 1)&&(xFlag.CardOn == 1)&&(ToCost >0))
 	    {
+
 //		  printf("balance to Cost: %5d\r\n",ToCost);
 //		  printf("Auser.ID: %x\r\n",Auser.ID);
 	      //对卡片消费
@@ -966,6 +980,13 @@ costlabel:	//HMI 屏幕反馈还没有添加
 
 			  RecentCostDetail[posiRecentCostDetail++] = Auser.ID;
 			  RecentCostDetail[posiRecentCostDetail++] = ToCost;
+
+
+//			  hEthMsg.type = CostMsgOut;
+//			  hEthMsg.CardId = Auser.ID;
+//			  hEthMsg.costamount = ToCost;
+//			  xQueueOverwrite(queueEthOut,&hEthMsg);
+			  tcp_client_flag++;
 
 			  VoiceList.voicelist[0] = VOICE_CORRECT;
 			  VoiceList.udlen = 1;
@@ -987,7 +1008,6 @@ costlabel:	//HMI 屏幕反馈还没有添加
 	      else
 			{
 //			  printf("Balance need to charge \r\n");
-
 			  VoiceList.voicelist[0] = VOICE_WARNING;
 			  VoiceList.udlen = 1;
 			  xQueueOverwrite(queueVoice,&VoiceList);
@@ -1006,7 +1026,7 @@ costlabel:	//HMI 屏幕反馈还没有添加
 
 		}
 
-		}
+	  }
 Taskyield:
     	vTaskDelay( pdMS_TO_TICKS(200) );
       }
@@ -1151,7 +1171,6 @@ void vTaskFatfs (void * pvParameters)
   xqueueLcdShow xLcdShow={readwritebuf,50,SOME_USER_MSG};
   for(;;)
     {
-//      taskYIELD();		//会死机
       memset(&aUserMsg,0,sizeof(aUserMsg));
       memset(readwritebuf,0,sizeof(readwritebuf));
       if(xQueueReceive(queueUserMsg,&aUserMsg,portMAX_DELAY) != pdPASS)
@@ -1223,15 +1242,6 @@ void vTaskFatfs (void * pvParameters)
 	      xLcdShow.Type = DISPLAY_PICTURE;
 	      sprintf(UserPicturePath,"2:/%x.jpg",aUserMsg.CardID);
 	      xLcdShow.Buffer = (uint8_t*)UserPicturePath;
-//	      switch (aUserMsg.CardID)
-//	      {
-//		case 0x12345678:
-//		  xLcdShow.Buffer = (uint8_t*)UserPicturePath[0];
-//		break;
-//		default:
-//		  xLcdShow.Buffer = (uint8_t*)UserPicturePath[6];
-//		break;
-//	      }
 	      xQueueSend(queueLCDShow,&xLcdShow,portMAX_DELAY);
 
 	      break;
@@ -1258,9 +1268,30 @@ void vTaskFatfs (void * pvParameters)
 
 retFatfs:
       vTaskDelay( pdMS_TO_TICKS(3) );
-//	taskYIELD();
+//	taskYIELD();	//会死机
     }
 }
+
+
+void vTaskLwip( void * pvParameters )
+{
+  while (lwip_comm_init ())
+    {
+      delay_ms (500);
+    }
+  while (tcp_client_init ())
+    {
+      delay_ms (500);
+    }
+  taskENTER_CRITICAL();
+#if LWIP_DHCP
+    lwip_comm_dhcp_creat(); //创建DHCP任务
+#endif
+  vTaskDelete(TaskHandle_Lwip);
+  taskEXIT_CRITICAL();
+}
+
+
 
 
 //==================      app_main   func   ===========================
@@ -1307,6 +1338,16 @@ int App_main()
     {
       printf("QUEUE:queueUserMsg Create fail\r\n");
     }
+  queueEthIn =  xQueueCreate( Length_queueEthIn, Size_queueEthIn );
+  if(queueEthIn == NULL)
+    {
+      printf("QUEUE:queueEthIn Create fail\r\n");
+    }
+  queueEthOut =  xQueueCreate( Length_queueEthOut, Size_queueEthOut );
+  if(queueEthOut == NULL)
+    {
+      printf("QUEUE:queueEthOut Create fail\r\n");
+    }
 
   //================      Task Create        ========================
   Retn = xTaskCreate( vTaskLed1, "Task_Led1", STK_SIZE_LED1, NULL, Prio_LED1, &TaskHandle_LED1 );
@@ -1314,12 +1355,6 @@ int App_main()
   {
       printf("Task_Led1 create fail\r\n");
   }
-
-//  Retn = xTaskCreate( vTaskPrint, "Task_Print", STK_SIZE_Print, NULL, Prio_Print, &TaskHandle_Print );
-//  if(Retn!=pdPASS)
-//  {
-//      printf("Task_Print create fail\r\n");
-//  }
 
   Retn = xTaskCreate( vTaskKeyScan, "Task_KeyScan", STK_SIZE_KeyScan, NULL, Prio_KeyScan, &TaskHandle_KeyScan );
   if(Retn!=pdPASS)
@@ -1361,6 +1396,12 @@ int App_main()
   if(Retn!=pdPASS)
   {
       printf("vTaskFatfs create fail\r\n");
+  }
+
+  Retn = xTaskCreate( vTaskLwip, "vTaskLwip", STK_SIZE_Lwip, NULL, Prio_Lwip, &TaskHandle_Lwip );
+  if(Retn!=pdPASS)
+  {
+      printf("vTaskLwip create fail\r\n");
   }
 
   vTaskStartScheduler();
