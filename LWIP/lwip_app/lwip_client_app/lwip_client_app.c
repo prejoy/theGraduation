@@ -9,13 +9,13 @@
 #include "task.h"
 #include "malloc.h"
 
-
+extern QueueHandle_t queueEthIn,queueEthOut;
 //char *tcp_client_sendbuf="Explorer STM32F407 NETCONN TCP Client send data\r\n";
 char tcp_client_sendbuf[100]="abccc\n";
 struct netconn *tcp_clientconn=NULL;			//TCP CLIENT网络连接结构体
 u8 tcp_client_recvbuf[TCP_CLIENT_RX_BUFSIZE];	//TCP客户端接收数据缓冲区
 volatile uint8_t tcp_client_flag = 0;		                        //TCP客户端数据发送标志位
-//char costbuff[50];
+char costbuff[60];
 //char costbufftemp[10];
 
 uint32_t tcptxbuflen=0,tcprxbuflen=0;
@@ -23,10 +23,13 @@ uint32_t tcptxbuflen=0,tcprxbuflen=0;
 //uint8_t  tcp_rx[1024*1024]__attribute__((section(".mymalloc")))__attribute__((aligned(32)));
 
 #define   TCPCLIENT_TASK_PRIO      10
-#define   TCPCLIENT_STK_SIZE       256
+#define   TCPCLIENT_STK_SIZE       1024
 TaskHandle_t TCPCLIENTTask_Handler;
 
 
+const char fileexpname[4][4]={
+    "nul","txt","jpg"
+};
 //tcp客户端任务函数
 void tcp_client_thread(void *arg)
 {
@@ -36,9 +39,17 @@ void tcp_client_thread(void *arg)
 	static ip_addr_t server_ipaddr,loca_ipaddr;
 	static u16_t 		 server_port,loca_port;
 
-	uint8_t *tcp_rx;
-	tcp_rx=mymalloc(1,(800*1024));		//1MB的tcp应用接收buff
-	memset(tcp_rx,0,(800*1024));
+	uint8_t *pdat=0,i=0,j=0,filetype=0;
+	uint16_t filesize=0,recvnumber=0;
+	EthOut hEthMsg;
+	EthIn hEthIn;
+	uint8_t *tcp_rx,*filecontext;
+	tcp_rx=mymalloc(1,(80*1024));		//1MB的tcp应用接收buff
+	filecontext = mymalloc(1,(80*1024));
+	memset(tcp_rx,0,(80*1024));
+	memset(filecontext,0,(80*1024));
+
+
 
 	LWIP_UNUSED_ARG(arg);
 	server_port = REMOTE_PORT;
@@ -58,13 +69,39 @@ void tcp_client_thread(void *arg)
 			tcp_clientconn->recv_timeout = 10;			//阻塞读取信息时间，影响实时性
 			netconn_getaddr(tcp_clientconn,&loca_ipaddr,&loca_port,1); //获取本地IP主机IP地址和端口号
 			printf("连接上服务器%d.%d.%d.%d,本机端口号为:%d\r\n",lwipdev.remoteip[0],lwipdev.remoteip[1], lwipdev.remoteip[2],lwipdev.remoteip[3],loca_port);
-			netconn_write(tcp_clientconn ,"Tcp Client connected\r\n",strlen("Tcp Client connected\r\n"),NETCONN_COPY); //发送tcp_server_sentbuf中的数据
+			netconn_write(tcp_clientconn ,"消费机终端已连接：TCP客户端\n",strlen("消费机终端已连接：TCP客户端\n"),NETCONN_COPY); //发送tcp_server_sentbuf中的数据
 			tcp_client_flag = 0;
 			while(1)
 			{
-
 			    if(tcp_client_flag>0)
 			      {
+				if(xQueueReceive(queueEthOut,&hEthMsg,0) == pdPASS)
+				  {
+				    switch(hEthMsg.type)
+				    {
+				      case CostMsgOut:
+					sprintf(costbuff,"卡号：%x 金额：￥ -%u.%u \n",hEthMsg.CardId,hEthMsg.costamount/10,hEthMsg.costamount%10);
+					break;
+				      case ChargeMsgOut:
+					sprintf(costbuff,"卡号：%x 金额：￥ +%u.%u \n",hEthMsg.CardId,hEthMsg.costamount/10,hEthMsg.costamount%10);
+					break;
+				      case MsgFeedBack:
+					sprintf(costbuff,"%s \n",hEthMsg.text);
+					break;
+				      case SysTicks:
+					sprintf(costbuff,"通信正常：%u次 \n",hEthMsg.costamount);
+					break;
+				      default:
+					break;
+				    }
+				    err = netconn_write(tcp_clientconn ,costbuff,strlen((char*)costbuff),NETCONN_COPY); //发送tcp_server_sentbuf中的数据
+				    if(err != ERR_OK)
+				    {
+					    printf("发送失败\r\n");
+				    }
+
+				    memset(costbuff,0,sizeof(costbuff));
+				  }
 				tcp_client_flag--;
 			      }
 //				if((tcp_client_flag & LWIP_SEND_DATA) == LWIP_SEND_DATA) //有数据要发送
@@ -105,9 +142,102 @@ void tcp_client_thread(void *arg)
 //					printf("%s\r\n",tcp_client_recvbuf);
 //					netbuf_delete(recvbuf);
 
+					/*
+					 * 约定：接收一个文件需要先发送该文件的类型和大小（字节），该为预文件，后面再发真实需要的文件
+					 * 预文件： 1:[ftype]_2:[size]_3:[card id]
+					 * 文件
+					 * */
 					tcp_rx[tcprxbuflen]='\0';
+					//recv data handle start
+//					printf("%s",tcp_rx);
+
+					if(filetype>0 && filesize>0)
+					{
+					    memcpy(filecontext+recvnumber,tcp_rx,tcprxbuflen);
+					    recvnumber +=tcprxbuflen;
+					    if(recvnumber >= filesize-1)	//临界值再调式一下得到 精确值
+					      {
+						//send mesg
+						hEthIn.type = filetype;
+						hEthIn.text = filecontext;
+						hEthIn.len = filesize;
+						sprintf(hEthIn.filename,"%s.%s",hEthIn.filename,fileexpname[hEthIn.type]);	//静态的对象化细想
+						if(xQueueSend(queueEthIn,&hEthIn,portMAX_DELAY) != pdPASS)	//发给其他fatfs任务去记录
+						  {
+						    printf("EthIn send error\r\n");
+						  }
+
+//						printf("filesize:%u\r\n",hEthIn.len);
+//						printf("filename:%s\r\n",hEthIn.filename);
+
+						memset(&hEthIn,0,sizeof(hEthIn));
+
+						filetype = 0;
+						filesize = 0;
+						recvnumber =0;
+					      }
+					}
+
+					pdat = tcp_rx;
+					i=0;
+					while(i<3)	//判断前3个字节是否有有效信息起始
+					  {
+					    if((*pdat == '1') && (*(pdat+1) == ':') && (*(pdat+6) == '2') && (*(pdat+7) == ':'))
+					      {
+						if(memcmp((pdat+2),"txt",3)==0)	//equal
+						  {
+						    filetype = txtfile;
+						  }
+						else if (memcmp((pdat+2),"jpg",3)==0)	//equal
+						  {
+						    filetype = jpgfile;
+						  }
+						else
+						  {
+						    filetype = errorfile;
+						  }
+
+
+
+
+						char *pnum;
+						pnum = pdat+8;
+						filesize = 0;
+						while(*pnum>='0'&&*pnum<='9')
+						  {
+						    filesize = filesize*10+(*pnum)-'0';
+						    pnum++;
+						  }
+						if(filesize > 0xF000)	//60KB
+						  {
+						    filesize = 0;
+						    filetype = errorfile;
+						  }
+
+						//name
+
+						for(;*pnum!='3' && *(pnum+1)!=':';pnum++){
+
+						}
+						memcpy(hEthIn.filename,pnum+2,8);
+
+						recvnumber = 0;
+//						i=4;
+						break;
+					      }
+					    else
+					      {
+						i++;
+						pdat++;
+					      }
+					  }
+
+//					printf("filetype:%d\r\n",filetype);
+//					printf("filesize:%u\r\n",filesize);
+//					printf("filename:%s\r\n",hEthIn.filename);
+					//recv data handle end
+
 					tcprxbuflen = 0;
-					printf("%s",tcp_rx);
 					netbuf_delete(recvbuf);
 
 				}else if(recv_err == ERR_CLSD)  //关闭连接

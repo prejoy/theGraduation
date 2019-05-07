@@ -363,16 +363,16 @@ void DisplayUserMsg(uint8_t* buffer)
 	  uint8_t _i=0;
 	  switch(*(pbuffer+1))
 	  {
-	    case '1':
+	    case '1':				//name
 	      while(*pstring++ != ' ')_i++;
 	      memcpy(lcdnameshow,(pbuffer+4),_i);
 //	      printf("lcd show:%s\r\n",lcdnameshow);
 	      Show_Str(MSGn_SX(2)+MSG_FONT*3,MSGn_SY(2),480-MSG_SX,MSG_FONT,lcdnameshow,MSG_FONT,0);
 	      break;
-	    case '2':
+	    case '2':				//grade
 	      Show_Str(MSGn_SX(3)+MSG_FONT*3,MSGn_SY(3),480-MSG_SX,MSG_FONT,(u8*)Gradedisplay[(*pstring)-'0'],MSG_FONT,0);
 	      break;
-	    case '3':
+	    case '3':				//profession
 	      Show_Str(MSGn_SX(4)+MSG_FONT*3,MSGn_SY(4),480-MSG_SX,MSG_FONT,(u8*)ProfessionDisplay[(*pstring)-'0'],MSG_FONT,0);
 	      break;
 	    default:

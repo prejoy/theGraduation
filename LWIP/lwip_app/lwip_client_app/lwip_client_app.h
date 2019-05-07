@@ -12,6 +12,7 @@ typedef struct{
   uint8_t flags;
   uint16_t len;
   char *text;
+  char filename[16];
 }EthIn;
 
 typedef struct{
@@ -26,10 +27,18 @@ typedef struct{
 typedef enum{
   NullMsg =0,
   CostMsgOut,
+  ChargeMsgOut,
   UserMsgIn,
-  UserPictIn
+  UserPictIn,
+  SysTicks,
+  MsgFeedBack
 }eEthMsgType;
 
+typedef enum{
+  errorfile = 0,
+  txtfile,
+  jpgfile
+}sysfiletypes;
 extern u8 tcp_client_recvbuf[TCP_CLIENT_RX_BUFSIZE];	//TCP客户端接收数据缓冲区
 extern volatile uint8_t tcp_client_flag;		    //TCP客户端数据发送标志位
 

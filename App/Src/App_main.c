@@ -199,22 +199,25 @@ xSYS_CTRL_BLOCK syscb={.page=PAGE_COST,0};
 uint32_t count=0;
 void vTaskLed1( void * pvParameters )
 {
-//  xUserMsg  atestuser = {0x12345678,"路人甲",GradeOne,EE,WriteFile};
-////  xQueueOverwrite(queueUserMsg,&atestuser);
-//  atestuser.operationtype = ReadFile;
-////  vTaskDelay( pdMS_TO_TICKS(500) );
-
-
+  EthOut hEthMsg={
+      .type = SysTicks
+  };
     for(;;)
     {
 	toggleLed(0);
-//	xQueueOverwrite(queueUserMsg,&atestuser);
-
 	if(++count == 0xfffffffff){
-	  count = 0;
+	    count = 0;
 	}
-	  printf("tck:%u\r\n",count);
-//	 printf("running\r\n");
+	if((count%10)==0)
+	  {
+	    hEthMsg.costamount = count/10;
+	    taskENTER_CRITICAL();
+	    if(xQueueSend(queueEthOut,&hEthMsg,10) == pdPASS)
+	      tcp_client_flag++;
+	    taskEXIT_CRITICAL();
+	  }
+
+//	  printf("t:%u\r\n",count);
 	vTaskDelay( pdMS_TO_TICKS(1000) );
     }
 
@@ -451,6 +454,7 @@ void vTaskMsgTrans(void * pvParameters)
 	PayRecord_t UserToAdd={0};
 	uint8_t voicelsts[2]={0};
 	xVoice VoiceList={voicelsts,0};
+	EthOut hEthMsg;
     for(;;)
       {
 	if(syscb.page == PAGE_CHECK)
@@ -617,11 +621,13 @@ void vTaskMsgTrans(void * pvParameters)
 		    if((ChargeCardId != 0)&&(ChargeUser(&Chargeuser,chargeAmount) == 0))
 		      {
 //			printf("charge ok\r\n");
-//			  hEthMsg.type = CostMsgOut;
-//			  hEthMsg.CardId = Chargeuser.ID;
-//			  hEthMsg.costamount = chargeAmount;
-//			  xQueueSend(queueEthOut,&hEthMsg,portMAX_DELAY);
+			  hEthMsg.type = ChargeMsgOut;
+			  hEthMsg.CardId = Chargeuser.ID;
+			  hEthMsg.costamount = chargeAmount;
+			  taskENTER_CRITICAL();
+			  xQueueSend(queueEthOut,&hEthMsg,portMAX_DELAY);
 			  tcp_client_flag++;
+			  taskEXIT_CRITICAL();
 
 			  VoiceList.voicelist[0] = VOICE_CORRECT;
 			  VoiceList.udlen = 1;
@@ -772,6 +778,7 @@ void vTaskCostPage(void * pvParameters)
     	unsigned CardOn:1;
     	unsigned WaitingCost:1;
     }xFlag;
+    EthOut hEthMsg;
 ////////////    xFlag      Init      /////////////
     for(;;)
       {
@@ -982,10 +989,10 @@ costlabel:	//HMI 屏幕反馈还没有添加
 			  RecentCostDetail[posiRecentCostDetail++] = ToCost;
 
 
-//			  hEthMsg.type = CostMsgOut;
-//			  hEthMsg.CardId = Auser.ID;
-//			  hEthMsg.costamount = ToCost;
-//			  xQueueOverwrite(queueEthOut,&hEthMsg);
+			  hEthMsg.type = CostMsgOut;
+			  hEthMsg.CardId = Auser.ID;
+			  hEthMsg.costamount = ToCost;
+			  xQueueOverwrite(queueEthOut,&hEthMsg);
 			  tcp_client_flag++;
 
 			  VoiceList.voicelist[0] = VOICE_CORRECT;
@@ -1158,23 +1165,51 @@ void vTaskLCDMonitor (void * pvParameters)
 //};
 
 
+char EthFeedBack[30];
 char UserPicturePath[25];
 const char nullmessage[]="[1]:空 [2]:0 [3]:0 ";
 void vTaskFatfs (void * pvParameters)
 {
   FIL  textfile;
   uint32_t f_Retn=0;
-  char FilePath[20];
+  char FilePath[30];
   char readwritebuf[50]={0};
   uint32_t numberToWrite=50,numberToRead=50,pwrite,pread;
   xUserMsg aUserMsg;
   xqueueLcdShow xLcdShow={readwritebuf,50,SOME_USER_MSG};
+  EthIn hEthIn;					//同一时间只能发一个文件
+  EthOut hEthMsg;
   for(;;)
     {
+      //从网络写入，转换queuestruct
+//	  taskENTER_CRITICAL();			//下面写入文件也加保护
+      if(xQueueReceive(queueEthIn,&hEthIn,0) == pdPASS)
+	{
+	  if(hEthIn.type == txtfile)
+	    aUserMsg.operationtype = WriteFile;
+	  else if (hEthIn.type == jpgfile)
+	    aUserMsg.operationtype = WritePicture;
+	  else
+	    aUserMsg.operationtype = 0;
+
+	  sprintf(FilePath,"2:/%s",hEthIn.filename);
+	  goto savfile;
+
+	  printf("filesize:%u\r\n",hEthIn.len);
+	  printf("filename:%s\r\n",hEthIn.filename);
+	}
+//	  taskEXIT_CRITICAL();
+
+
+
+      //du qu
+
       memset(&aUserMsg,0,sizeof(aUserMsg));
       memset(readwritebuf,0,sizeof(readwritebuf));
-      if(xQueueReceive(queueUserMsg,&aUserMsg,portMAX_DELAY) != pdPASS)
-	printf("Fatfs queue recv error\r\n");
+      if(xQueueReceive(queueUserMsg,&aUserMsg,0) != pdPASS)
+	{
+//	  printf("Fatfs queue recv error\r\n");
+	}
       else
 	{
 //	  printf("user id:%x\r\n",aUserMsg.CardID);
@@ -1188,6 +1223,7 @@ void vTaskFatfs (void * pvParameters)
 
 	   //测试用
 //	  aUserMsg.CardID = 0x12345678;
+savfile:
 	  switch(aUserMsg.operationtype)
 	  {
 	    case ReadFile:
@@ -1218,24 +1254,34 @@ void vTaskFatfs (void * pvParameters)
 	      break;
 
 	    case WriteFile:
-	      sprintf(FilePath,"2:/%x.txt",aUserMsg.CardID);	//卡号全部小写,sprintf后自动补 \0
-	      sprintf(readwritebuf,"[1]:%s ",aUserMsg.name);
-	      sprintf(readwritebuf+strlen(readwritebuf),"[2]:%d ",aUserMsg.Grade);
-	      sprintf(readwritebuf+strlen(readwritebuf),"[3]:%d ",aUserMsg.profession);
+	    case WritePicture:
+//	      sprintf(FilePath,"2:/%x.txt",aUserMsg.CardID);	//卡号全部小写,sprintf后自动补 \0
+//	      sprintf(readwritebuf,"[1]:%s ",aUserMsg.name);
+//	      sprintf(readwritebuf+strlen(readwritebuf),"[2]:%d ",aUserMsg.Grade);
+//	      sprintf(readwritebuf+strlen(readwritebuf),"[3]:%d ",aUserMsg.profession);
 //	      printf("write:%s\r\n",readwritebuf);
 
 	      f_Retn = f_open(&textfile,FilePath,FA_OPEN_ALWAYS|FA_READ|FA_WRITE);
 		if(f_Retn != FR_OK)
 		  printf("f_open err:%d\r\n",f_Retn);
 //	      f_Retn = f_lseek(&textfile,textfile.obj.objsize);
-//		if(f_Retn != FR_OK)
-//		  printf("f_lseek ret:%d\r\n",f_Retn);
-	      f_Retn = f_write(&textfile,(const void*)readwritebuf,numberToWrite,(UINT*)&pwrite);
+		f_Retn = f_lseek(&textfile,0);
+		if(f_Retn != FR_OK)
+		  printf("f_lseek ret:%d\r\n",f_Retn);
+	      f_Retn = f_write(&textfile,(const void*)hEthIn.text,hEthIn.len+1,(UINT*)&pwrite);
 		if(f_Retn != FR_OK)
 		  printf("f_write err:%d\r\n",f_Retn);
 	      f_Retn = f_close(&textfile);
 	      if(f_Retn != FR_OK)
 		printf("f_close err:%d\r\n",f_Retn);
+
+	      hEthMsg.text = EthFeedBack;
+	      hEthMsg.type = MsgFeedBack;
+	      taskENTER_CRITICAL();
+	      sprintf(EthFeedBack,"更新文件：%s",FilePath+3);
+	      xQueueSend(queueEthOut,&hEthMsg,100);
+	      tcp_client_flag++;
+	      taskEXIT_CRITICAL();
 	      break;
 
 	    case ReadPicture:
@@ -1246,8 +1292,8 @@ void vTaskFatfs (void * pvParameters)
 
 	      break;
 
-	    case WritePicture:
-	      break;
+//	    case WritePicture:
+//	      break;
 
 	    case HideFatfsMsg:
 //	      HideUserMsg();
@@ -1267,7 +1313,7 @@ void vTaskFatfs (void * pvParameters)
 	}
 
 retFatfs:
-      vTaskDelay( pdMS_TO_TICKS(3) );
+      vTaskDelay( pdMS_TO_TICKS(5) );
 //	taskYIELD();	//会死机
     }
 }
