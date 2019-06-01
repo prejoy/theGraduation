@@ -10,8 +10,7 @@
 #include "task.h"
 #include "queue.h"
 
-//u8 UserTable[((MAX_UID-1)/256+1)*4096];
-//u32  UserTable_NUM=0;
+
 xCostCB xCCB={0,0,0,0,0,0};
 uint32_t RecentCostDetail[2*100]={0};	//ID Money 可以配合Nand 显示信息
 uint8_t posiRecentCostDetail=0;
@@ -42,7 +41,7 @@ uint32_t UserTblInit(uint32_t addr)
 }
 
 
-uint32_t AddUser(PayRecord_t  *user)	//重复ID检测，未实现
+uint32_t AddUser(PayRecord_t  *user)
 {
   uint32_t UserTable_temp[1024];
   taskENTER_CRITICAL();
@@ -65,8 +64,6 @@ uint32_t AddUser(PayRecord_t  *user)	//重复ID检测，未实现
   taskENTER_CRITICAL();
   W25QXX_Write((uint8_t*)UserTable_temp,0,4096);
   memset(UserTable_temp,0,sizeof(UserTable_temp));
-//  W25QXX_Read((uint8_t*)UserTable_temp,user->Addr,4096);
-//  UserTable_temp[1000]= user->Offset = 0x00000000;
   UserTable_temp[1001]=user->Remain;
   W25QXX_Write((uint8_t*)UserTable_temp,user->Addr,4096);
   taskEXIT_CRITICAL();
@@ -144,17 +141,14 @@ uint32_t CostUser(PayRecord_t  *user,uint32_t cost)
   taskENTER_CRITICAL();
   W25QXX_Read((uint8_t*)UserTable_temp,(user->Addr),4096);
   taskEXIT_CRITICAL();
-//  printf("1-cost:%d\r\n",cost);
   if(((cost & 0x80000000)==0))
     {
      if((cost)>user->Remain)
        {
-//    	  printf("line 136 \r\n");
 	 return BALANCECHANGE;
        }
      else
        {
-//	 printf("3-user->Remain:%d\r\n",user->Remain);
 	user->Remain -=cost;
 	xCCB.CostRecord++;
 	xCCB.CostMoney += cost;
@@ -162,11 +156,9 @@ uint32_t CostUser(PayRecord_t  *user,uint32_t cost)
     }
   else
     {
-//	  printf("4\r\n");
       user->Remain +=(cost&0x7FFFFFFF);
     }
 
-//  printf("5\r\n");
   UserTable_temp[user->Offset] = cost;
   user->Offset +=2;
   UserTable_temp[1000]=user->Offset;
@@ -182,6 +174,6 @@ inline uint32_t ChargeUser(PayRecord_t  *user,uint32_t cost)
 	return (CostUser(user,(cost|0x80000000)));
 }
 
-
-uint32_t CheckCostMsg(PayRecord_t  *user,uint32_t list);	//涉及 刷卡，显示
-uint32_t DelCostMsg(PayRecord_t  *user);
+//
+//uint32_t CheckCostMsg(PayRecord_t  *user,uint32_t list);	//涉及 刷卡，显示
+//uint32_t DelCostMsg(PayRecord_t  *user);

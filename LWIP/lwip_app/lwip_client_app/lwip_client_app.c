@@ -104,20 +104,11 @@ void tcp_client_thread(void *arg)
 				  }
 				tcp_client_flag--;
 			      }
-//				if((tcp_client_flag & LWIP_SEND_DATA) == LWIP_SEND_DATA) //有数据要发送
-//				{
-//					err = netconn_write(tcp_clientconn ,tcp_client_sendbuf,strlen((char*)tcp_client_sendbuf),NETCONN_COPY); //发送tcp_server_sentbuf中的数据
-//					if(err != ERR_OK)
-//					{
-//						printf("发送失败\r\n");
-//					}
-//					tcp_client_flag &= ~LWIP_SEND_DATA;
-//				}
+
 					
 				if((recv_err = netconn_recv(tcp_clientconn,&recvbuf)) == ERR_OK)  //接收到数据
 				{	
 					taskENTER_CRITICAL();
-			//		memset(tcp_client_recvbuf,0,TCP_CLIENT_RX_BUFSIZE);  //数据接收缓冲区清零
 					for(q=recvbuf->p;q!=NULL;q=q->next)  //遍历完整个pbuf链表
 					{
 						//判断要拷贝到TCP_CLIENT_RX_BUFSIZE中的数据是否大于TCP_CLIENT_RX_BUFSIZE的剩余空间，如果大于
@@ -137,10 +128,6 @@ void tcp_client_thread(void *arg)
 						    tcprxbuflen += q->len;
 					}
 					taskEXIT_CRITICAL();
-//    origin
-//					data_len=0;  //复制完成后data_len要清零。
-//					printf("%s\r\n",tcp_client_recvbuf);
-//					netbuf_delete(recvbuf);
 
 					/*
 					 * 约定：接收一个文件需要先发送该文件的类型和大小（字节），该为预文件，后面再发真实需要的文件
@@ -149,7 +136,6 @@ void tcp_client_thread(void *arg)
 					 * */
 					tcp_rx[tcprxbuflen]='\0';
 					//recv data handle start
-//					printf("%s",tcp_rx);
 
 					if(filetype>0 && filesize>0)
 					{
@@ -166,9 +152,6 @@ void tcp_client_thread(void *arg)
 						  {
 						    printf("EthIn send error\r\n");
 						  }
-
-//						printf("filesize:%u\r\n",hEthIn.len);
-//						printf("filename:%s\r\n",hEthIn.filename);
 
 						memset(&hEthIn,0,sizeof(hEthIn));
 
@@ -196,9 +179,6 @@ void tcp_client_thread(void *arg)
 						  {
 						    filetype = errorfile;
 						  }
-
-
-
 
 						char *pnum;
 						pnum = pdat+8;
@@ -231,10 +211,6 @@ void tcp_client_thread(void *arg)
 						pdat++;
 					      }
 					  }
-
-//					printf("filetype:%d\r\n",filetype);
-//					printf("filesize:%u\r\n",filesize);
-//					printf("filename:%s\r\n",hEthIn.filename);
 					//recv data handle end
 
 					tcprxbuflen = 0;

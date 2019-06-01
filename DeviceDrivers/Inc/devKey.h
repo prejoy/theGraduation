@@ -42,26 +42,7 @@
  * | 5  | 6  | 7  | 8  |
  * | 1  | 2  | 3  | 4  |
  * */
-//#define KEY_NUM1	13
-//#define KEY_NUM2	14
-//#define KEY_NUM3	15
-//#define KEY_NUM4	9
-//#define KEY_NUM5	10
-//#define KEY_NUM6	11
-//#define KEY_NUM7	5
-//#define KEY_NUM8	6
-//#define KEY_NUM9	7
-//#define KEY_NUM0	2
-//#define KEY_F1		17
-//#define KEY_F2		18
-//#define KEY_WELL	19
-//#define KEY_STAR	20
-//#define KEY_ESC		8
-//#define KEY_ENT		4
-//#define KEY_UP		16
-//#define KEY_DOWN	12
-//#define KEY_LEFT	1
-//#define KEY_RIGHT	3
+
 
 #define KEY_1		(1U)
 #define KEY_2		(2U)

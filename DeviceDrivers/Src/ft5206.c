@@ -108,10 +108,6 @@ u8 FT5206_Scan(u8 mode)			//改动： RTOS特化，降低资源占用
 	u8 i=0;
 	u8 res=0;
 	u8 temp;
-//	static u8 t=3;//控制查询间隔,从而降低CPU占用率
-//	t++;
-//	if((t%3)==0||t<3)//空闲时,每进入10次CTP_Scan函数才检测1次,从而节省CPU使用率
-//	{
 		FT5206_RD_Reg(FT_REG_NUM_FINGER,&mode,1);//读取触摸点的状态  
 		if((mode&0XF)&&((mode&0XF)<6))
 		{
@@ -137,9 +133,7 @@ u8 FT5206_Scan(u8 mode)			//改动： RTOS特化，降低资源占用
 			} 
 			res=1;
 			if(tp_dev.x[0]==0 && tp_dev.y[0]==0){mode=0;res=0;}	//读到的数据都是0,则忽略此次数据
-//			t=3;		//触发一次,则会最少连续监测10次,从而提高命中率
 		}
-//	}
 	if((mode&0X1F)==0)//无触摸点按下
 	{ 
 		if(tp_dev.sta&TP_PRES_DOWN)	//之前是被按下的
@@ -152,7 +146,6 @@ u8 FT5206_Scan(u8 mode)			//改动： RTOS特化，降低资源占用
 			tp_dev.sta&=0XE0;	//清除点有效标记	
 		}	 
 	} 	
-//	if(t>240)t=3;//重新从10开始计数
 	return res;
 }
  

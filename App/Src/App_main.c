@@ -7,11 +7,7 @@
 
 #include "App_main.h"
 
-#if 1
-//1:lan8720.c
-//2:这里
-//3:打开lwip相关注释
-//4:添加lwip文件
+#if 1		//LWIP
 #include "lwip_comm.h"
 #include "lwip/netif.h"
 #include "lwipopts.h"
@@ -22,7 +18,7 @@
 static void vTaskLed1( void * pvParameters );
 #define Prio_LED1	1
 static TaskHandle_t TaskHandle_LED1;
-#define STK_SIZE_LED1	256				//128则太小，或任务栈溢出，破坏其他任务的的堆栈，从而程序错乱！！
+#define STK_SIZE_LED1	256		//128则太小，或任务栈溢出，破坏其他任务的的堆栈，从而程序错乱！！
 
 static void vTaskKeyScan( void * pvParameters );
 #define Prio_KeyScan		3
@@ -148,7 +144,7 @@ typedef struct queueLcdShow{
 typedef struct CostMsg{
   uint32_t CostMoney;
   uint32_t TradeType;	//??全局变量
-  uint8_t* QRCode;
+  uint8_t* QRCode;	//二维码
   uint32_t QRLen;
 }xCostMsg;
 
@@ -217,7 +213,6 @@ void vTaskLed1( void * pvParameters )
 	    taskEXIT_CRITICAL();
 	  }
 
-//	  printf("t:%u\r\n",count);
 	vTaskDelay( pdMS_TO_TICKS(1000) );
     }
 
@@ -241,7 +236,7 @@ void vTaskKeyScan(void * pvParameters)
 	    {
 	      KeyIn.value=KeyConversion(keyvalue);
 	      KeyIn.source = SOURCE_IN_KEY;
-    //	  if(xQueueSend(queueKeyIn,&KeyIn,10) != pdPASS)
+
 	      if(xQueueOverwrite(queueKeyIn,&KeyIn) != pdPASS)
 		{
 		  printf("Err:%s:%d\r\n",__FILE__,__LINE__);
@@ -274,8 +269,7 @@ void vTaskKeyScan(void * pvParameters)
 		  if(KeyIn.value != 0xff)
 		  {
 		    KeyIn.source = SOURCE_IN_TP;
-    //		printf("softKey:%u\r\n",KeyIn.value);
-	//		  if(xQueueSend(queueKeyIn,&KeyIn,10) != pdPASS)
+
 		    if(xQueueOverwrite(queueKeyIn,&KeyIn) != pdPASS)
 		      {
 			printf("Err:%s:%d\r\n",__FILE__,__LINE__);
@@ -303,7 +297,6 @@ void vTaskKeyScan(void * pvParameters)
 	  {
 	    SotfKeyBef = CheckPageKeyConversion();
 	    SotfKeyUpFlag = SOFTKEYDOWN;
-//	    printf("SotfKeyBef:%d\n",SotfKeyBef);
 	  }
 	else
 	  {
@@ -316,7 +309,6 @@ void vTaskKeyScan(void * pvParameters)
 	      if(KeyIn.value != 0xff)
 	      {
 		KeyIn.source = SOURCE_IN_TP;
-//  		printf("softKey:%u\r\n",KeyIn.value);
 		if(xQueueOverwrite(queueKeyIn,&KeyIn) != pdPASS)
 		  {
 		    printf("Err:%s:%d\r\n",__FILE__,__LINE__);
@@ -342,7 +334,6 @@ void vTaskKeyScan(void * pvParameters)
 	 	  {
 	 	    SotfKeyBef = SettingPageKeyConversion();
 	 	    SotfKeyUpFlag = SOFTKEYDOWN;
-	 //	    printf("SotfKeyBef:%d\n",SotfKeyBef);
 	 	  }
 	 	else
 	 	  {
@@ -355,7 +346,6 @@ void vTaskKeyScan(void * pvParameters)
 	 	      if(KeyIn.value != 0xff)
 	 	      {
 	 		KeyIn.source = SOURCE_IN_TP;
-	 //  		printf("softKey:%u\r\n",KeyIn.value);
 	 		if(xQueueOverwrite(queueKeyIn,&KeyIn) != pdPASS)
 	 		  {
 	 		    printf("Err:%s:%d\r\n",__FILE__,__LINE__);
@@ -383,7 +373,6 @@ void vTaskKeyScan(void * pvParameters)
 //带改动： 添加播放状态查询，打断播放之类的问题
 void vTaskVoiceBoardcast(void * pvParameters)
 {
-  //  uint8_t voiceList[10]={21,22,23,14,15,16,17,18,19,20};
     xVoice VoiceList={VoiceArray,0};
     for(;;)
       {
@@ -425,25 +414,15 @@ void vTaskRFIDReadCard(void * pvParameters)
 	taskENTER_CRITICAL();
 	RFID_Get_ID((uint8_t *)&CardId);			//在使用时添加临界保护
 	taskEXIT_CRITICAL();
-//	printf("CARDID:%x\r\n",CardId);
-//	if((CardId != 0)&&(CardId != CardIdTemp))
-//	  {
-//	    xQueueOverwrite(queueCardIn,&CardId);
-//	    CardIdTemp = CardId;
-//	    CardId = 0;
-//	  }else if((CardId == 0)&&(CardIdTemp != 0 ))
-//	    {
-//	      CardIdTemp =0;
-//	      xQueueOverwrite(queueCardIn,&CardId);
-//	    }
-		xQueueOverwrite(queueCardIn,&CardId);
-		CardId = 0;
-		vTaskDelay( pdMS_TO_TICKS(500) );
+
+	xQueueOverwrite(queueCardIn,&CardId);
+	CardId = 0;
+	vTaskDelay( pdMS_TO_TICKS(500) );
       }
 }
 
 
-//extern uint8_t EthCostMsgBuff[40];
+
 void vTaskMsgTrans(void * pvParameters)
 {
 	xKeyIn KeyInTemp;
@@ -463,7 +442,6 @@ void vTaskMsgTrans(void * pvParameters)
 	      {
 		if(KeyInTemp.value == KEY_HOMEPAGE)
 		  {
-//		    syscb.page = PAGE_COST;	//到LCD任务切回
 		    xLcdShow.Type = TOPAGECOST;
 		    xQueueSend(queueLCDShow,&xLcdShow,portMAX_DELAY);
 		  }
@@ -483,7 +461,6 @@ void vTaskMsgTrans(void * pvParameters)
 	      {
 		if(KeyInTemp.value == KEY_HOMEPAGE)
 		  {
-//		    syscb.page = PAGE_COST;	//到LCD任务切回
 		    xLcdShow.Type = TOPAGECOST;
 		    xQueueSend(queueLCDShow,&xLcdShow,portMAX_DELAY);
 		  }
@@ -499,7 +476,6 @@ void vTaskMsgTrans(void * pvParameters)
 			    UserToAdd.ID = RegCaidID;
 			    if(AddUser(&UserToAdd)==0)
 			      {
-//				printf("REG Card OK\r\n");
 				  VoiceList.voicelist[0] = VOICE_CORRECT;
 				  VoiceList.udlen = 1;
 				  xQueueOverwrite(queueVoice,&VoiceList);
@@ -507,7 +483,6 @@ void vTaskMsgTrans(void * pvParameters)
 				break;
 			      }
 			    else
-//			      printf("Repeat ID\r\n");
 			      VoiceList.voicelist[0] = VOICE_WARNING;
 			      VoiceList.udlen = 1;
 			      xQueueOverwrite(queueVoice,&VoiceList);
@@ -548,7 +523,6 @@ void vTaskMsgTrans(void * pvParameters)
 		    do
 		      {
 			if(xQueueReceive(queueKeyIn,&chargekey,portMAX_DELAY) == pdPASS){}
-//			  printf("charge Key:%d\r\n",chargekey.value);
 			if(posi >= 6){posi = 0;memset(chargeKeyBuffer,0,sizeof(chargeKeyBuffer));}
 			if(chargekey.value>=KEY_1&&chargekey.value<=KEY_BACK)chargeKeyBuffer[posi++]=chargekey.value;
 
@@ -604,8 +578,7 @@ void vTaskMsgTrans(void * pvParameters)
 			  xQueueSend(queueLCDShow,&xChargeShow,portMAX_DELAY);	//LCD
 		      }while(chargekey.value != KEY_ENT || chargekey.value != KEY_ESC);
 
-		    //第一次如果输入小数，会跳回主页面的问题？？？
-//		    printf("charge amount:%d\r\n",chargeAmount);
+
 		    ChargeCardId = 0;
 		    i=16;
 		    do {
@@ -614,13 +587,9 @@ void vTaskMsgTrans(void * pvParameters)
 
 		    Chargeuser.ID = ChargeCardId;
 		    CheckUser(&Chargeuser);
-		    if(ChargeCardId != 0)
-//		    printf("cardID:%x\r\n",ChargeCardId);
-
 
 		    if((ChargeCardId != 0)&&(ChargeUser(&Chargeuser,chargeAmount) == 0))
 		      {
-//			printf("charge ok\r\n");
 			  hEthMsg.type = ChargeMsgOut;
 			  hEthMsg.CardId = Chargeuser.ID;
 			  hEthMsg.costamount = chargeAmount;
@@ -637,7 +606,6 @@ void vTaskMsgTrans(void * pvParameters)
 		      }
 		    else
 		      {
-//			printf("charge fail\r\n");
 			  VoiceList.voicelist[0] = VOICE_WARNING;
 			  VoiceList.udlen = 1;
 			  xQueueOverwrite(queueVoice,&VoiceList);
@@ -645,8 +613,6 @@ void vTaskMsgTrans(void * pvParameters)
 			  ShowCardChargeFail();
 		      }
 
-//		    syscb.page = PAGE_COST;
-//		    GuiPageCostInit();
 		      posi = 0;
 		      memset(chargeKeyBuffer,0,sizeof(chargeKeyBuffer));
 		      goto nullnext;
@@ -713,12 +679,8 @@ nullnext:
 				else		posi=0;
 				KeyBuffer[posi] = 0;
 				KeyBuffer[posi+1] = 0;
-//				printf("KeyBuffer: %x %x %x %x\r\n",KeyBuffer[0],KeyBuffer[1],KeyBuffer[2],KeyBuffer[3]);
-//				printf("posi = %d\r\n",posi);
 			}
-			/*
-			 * 再创建一个队列，用于显示临时的buffer到LCD上
-			 * */
+
 			if(syscb.page == PAGE_COST)
 			  {
 			    if((posi > 0)&&(posi <6))
@@ -737,7 +699,6 @@ nullnext:
 			      }
 			  }
 
-			//补充清除和隐藏 显示金额的函数
 		}
 cardpeek:
 		if(xQueueReceive(queueCardIn,&CardInTemp,0) == pdPASS)		//Card输入信息
@@ -746,7 +707,6 @@ cardpeek:
 			  {
 				xQueueOverwrite(queueCardBuffer,&CardInTemp);
 				_CardInTemp = CardInTemp;
-//				CardInTemp = 0;
 			  }else if((CardInTemp == 0))
 				{
 				  _CardInTemp =0;
@@ -760,7 +720,6 @@ errret:
 }
 
 uint8_t xCostVoice[10];
-//uint8_t EthCostMsgBuff[40];
 void vTaskCostPage(void * pvParameters)
 {
     uint8_t KeyBuffer[12],bufferlen;
@@ -786,8 +745,6 @@ void vTaskCostPage(void * pvParameters)
     	{
     		if(xQueueReceive(queueKeyBuffer,KeyBuffer,0) == pdPASS)		//len = strlen(KeyBuffer)-1 ,最后一字节为确定，取消键之类的
     		{
-//    			for (i=0;i<12;i++)printf("keybuffer:%d\r\n",KeyBuffer[i]);
-//				printf("len:%d\r\n",strlen(KeyBuffer));
     			bufferlen = strlen(KeyBuffer)-1;
     			if(bufferlen == 0)
     			  {
@@ -809,7 +766,6 @@ void vTaskCostPage(void * pvParameters)
 
     			if(*(pKeyBuffer) == KEY_ENT)		//该键表示消费，还有其他
     			{
-//    				printf("CostAmount:%5d角\r\n",CostAmount);
     				if(CostAmount > 0 )
     				{
     					if(CostAmount < 10000)
@@ -835,7 +791,7 @@ void vTaskCostPage(void * pvParameters)
 							    VoiceList.voicelist[i++] = VOICE_YUAN;
 							    VoiceList.udlen = i;
 							  }
-							else if(ToCost<1000)	//xx.x
+							else if(ToCost<1000)	//xx.x  待完善
 							  {
 							    i=0;
 							    VoiceList.voicelist[i++] = ToCost/100;
@@ -870,7 +826,6 @@ void vTaskCostPage(void * pvParameters)
     					{
     						//一次不能超过999.9元
     						//错误处理
-    						printf("超过单次交易上限\r\n");
 						xFlag.WaitingCost = 0;
 						ToCost = 0;
 						CostAmount = 0;
@@ -935,7 +890,6 @@ checkCard:
 				memset(LcdRemainShowBuffer,'\0',sizeof(LcdRemainShowBuffer));
 				xLcdShow.Type = CARDREMAINSHOW;
 				sprintf(LcdRemainShowBuffer,"%d.%d ",Auser.Remain/10,Auser.Remain%10);
-    //    			    printf("%s\r\n",LcdRemainShowBuffer);
 				sprintf(LcdRemainShowBuffer+strlen(LcdRemainShowBuffer),"%x",CardIDBuffer);
 				xLcdShow.Buffer = LcdRemainShowBuffer;
 				xQueueSend(queueLCDShow,&xLcdShow,portMAX_DELAY);
@@ -952,7 +906,6 @@ checkCard:
     			  }
     		    }else
 		    {
-//		      printf("No Card On\r\n");
 			  xFlag.CardOn = 0;
 			  xFlag.CardUp =1;
 		      if(CardIdbef != 0)
@@ -974,20 +927,14 @@ checkCard:
 
 
 
-costlabel:	//HMI 屏幕反馈还没有添加
+costlabel:
 	  if((xFlag.WaitingCost == 1)&&(xFlag.CardUp == 1)&&(xFlag.CardOn == 1)&&(ToCost >0))
 	    {
-
-//		  printf("balance to Cost: %5d\r\n",ToCost);
-//		  printf("Auser.ID: %x\r\n",Auser.ID);
 	      //对卡片消费
 	      if(CostUser(&Auser,ToCost) == 0)
 			{
-//			  printf("cost OK\r\n");
-
 			  RecentCostDetail[posiRecentCostDetail++] = Auser.ID;
 			  RecentCostDetail[posiRecentCostDetail++] = ToCost;
-
 
 			  hEthMsg.type = CostMsgOut;
 			  hEthMsg.CardId = Auser.ID;
@@ -1014,7 +961,6 @@ costlabel:	//HMI 屏幕反馈还没有添加
 			}
 	      else
 			{
-//			  printf("Balance need to charge \r\n");
 			  VoiceList.voicelist[0] = VOICE_WARNING;
 			  VoiceList.udlen = 1;
 			  xQueueOverwrite(queueVoice,&VoiceList);
@@ -1042,7 +988,7 @@ Taskyield:
 
 void vTaskLCDMonitor (void * pvParameters)
 {
-  uint8_t i, costbuffer[10];	//最大999.9元,可以把专有变量放到对应.c的文件中使用
+  uint8_t i, costbuffer[10];	//最大999.9元
   xqueueLcdShow xLcdShow;
   for (;;)
     {
@@ -1054,8 +1000,6 @@ void vTaskLCDMonitor (void * pvParameters)
 		{
 		case COST_MONEY_BUFFER:
 		  memcpy (costbuffer, xLcdShow.Buffer, xLcdShow.len);
-    //	      printf ("xLcdShow.Buffer:%x %x %x %x\r\n", xLcdShow.Buffer[0],xLcdShow.Buffer[1], xLcdShow.Buffer[2], xLcdShow.Buffer[3]);
-    //	      printf("xLcdShow.len = %d\r\n",xLcdShow.len);
 		  for (i = 0; i < xLcdShow.len; i++)
 		    {
 		      if ((costbuffer[i] > 0) && (costbuffer[i] < 10))
@@ -1141,29 +1085,6 @@ void vTaskLCDMonitor (void * pvParameters)
     }
 }
 
-//const char UserPicturePath[20][25]={
-//    "2:/test/pic1.jpg",
-//    "2:/test/pic2.jpg",
-//    "2:/test/pic3.jpg",
-//    "2:/test/pic4.jpg",
-//    "2:/test/pic5.jpg",
-//    "2:/test/pic6.jpg",
-//    "2:/test/pic7.jpg",
-//    "2:/test/pic8.jpg",
-//    "2:/test/pic9.jpg",
-//    "2:/test/pic10.jpg",
-//    "2:/test/pic11.jpg",
-//    "2:/test/pic12.jpg",
-//    "2:/test/pic13.jpg",
-//    "2:/test/pic14.jpg",
-//    "2:/test/pic15.jpg",
-//    "2:/test/pic16.jpg",
-//    "2:/test/pic17.jpg",
-//    "2:/test/pic18.jpg",
-//    "2:/test/pic19.jpg",
-//    "2:/test/pic20.jpg"
-//};
-
 
 char EthFeedBack[30];
 char UserPicturePath[25];
@@ -1194,35 +1115,26 @@ void vTaskFatfs (void * pvParameters)
 
 	  sprintf(FilePath,"2:/%s",hEthIn.filename);
 	  goto savfile;
-
-	  printf("filesize:%u\r\n",hEthIn.len);
-	  printf("filename:%s\r\n",hEthIn.filename);
 	}
 //	  taskEXIT_CRITICAL();
 
 
 
-      //du qu
-
+      //读取
       memset(&aUserMsg,0,sizeof(aUserMsg));
       memset(readwritebuf,0,sizeof(readwritebuf));
       if(xQueueReceive(queueUserMsg,&aUserMsg,0) != pdPASS)
 	{
-//	  printf("Fatfs queue recv error\r\n");
+
 	}
       else
 	{
-//	  printf("user id:%x\r\n",aUserMsg.CardID);
 	  if(aUserMsg.CardID == 0x0 || aUserMsg.CardID == 0xffffffff)
 	    {
 	      printf("CardId error\r\n");
 	      goto retFatfs;
 	    }
-//	  printf("cardid:%x\r\n",aUserMsg.CardID);
-//	  printf("optype:%d\r\n",aUserMsg.operationtype);
 
-	   //测试用
-//	  aUserMsg.CardID = 0x12345678;
 savfile:
 	  switch(aUserMsg.operationtype)
 	  {
@@ -1255,16 +1167,9 @@ savfile:
 
 	    case WriteFile:
 	    case WritePicture:
-//	      sprintf(FilePath,"2:/%x.txt",aUserMsg.CardID);	//卡号全部小写,sprintf后自动补 \0
-//	      sprintf(readwritebuf,"[1]:%s ",aUserMsg.name);
-//	      sprintf(readwritebuf+strlen(readwritebuf),"[2]:%d ",aUserMsg.Grade);
-//	      sprintf(readwritebuf+strlen(readwritebuf),"[3]:%d ",aUserMsg.profession);
-//	      printf("write:%s\r\n",readwritebuf);
-
 	      f_Retn = f_open(&textfile,FilePath,FA_OPEN_ALWAYS|FA_READ|FA_WRITE);
 		if(f_Retn != FR_OK)
 		  printf("f_open err:%d\r\n",f_Retn);
-//	      f_Retn = f_lseek(&textfile,textfile.obj.objsize);
 		f_Retn = f_lseek(&textfile,0);
 		if(f_Retn != FR_OK)
 		  printf("f_lseek ret:%d\r\n",f_Retn);
@@ -1292,11 +1197,8 @@ savfile:
 
 	      break;
 
-//	    case WritePicture:
-//	      break;
 
 	    case HideFatfsMsg:
-//	      HideUserMsg();
 	      xLcdShow.Type = HIDE_USER_MSG;
 	      xQueueSend(queueLCDShow,&xLcdShow,portMAX_DELAY);
 	      break;
@@ -1314,7 +1216,6 @@ savfile:
 
 retFatfs:
       vTaskDelay( pdMS_TO_TICKS(5) );
-//	taskYIELD();	//会死机
     }
 }
 
@@ -1341,7 +1242,6 @@ void vTaskLwip( void * pvParameters )
 
 
 //==================      app_main   func   ===========================
-
 //1 队列功能测试
 //2 带添加flash 消费记录改动，以及ID表头清除功能
 int App_main()

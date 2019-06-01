@@ -28,11 +28,11 @@ void delay_ns(u32 ns)
     __asm("nop");
     __asm("nop");
     __asm("nop");
-	__asm("nop");
-	__asm("nop");
-	__asm("nop");
-	__asm("nop");
-	__asm("nop");
+    __asm("nop");
+    __asm("nop");
+    __asm("nop");
+    __asm("nop");
+    __asm("nop");
   }
 }
 

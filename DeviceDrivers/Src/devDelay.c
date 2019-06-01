@@ -31,25 +31,11 @@ void delay_us(uint16_t nus)
   __HAL_TIM_DISABLE(&htim3);
 }
 
-//volatile static uint32_t Tcounter = 0;
-void delay_ms(uint32_t nms)
+
+inline void delay_ms(uint32_t nms)
 {
-//  Tcounter = nms ;
-//  while(Tcounter);
   HAL_Delay(nms);
 }
 
 
-
-//void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
-//{
-//  if(htim==(&htim3))
-//  {
-//      if(Tcounter)
-//	Tcounter--;
-//  }
-//  if (htim->Instance == TIM6) {
-//      HAL_IncTick();
-//    }
-//}
 

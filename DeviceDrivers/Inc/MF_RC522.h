@@ -12,11 +12,6 @@
 #include "main.h"
 #include "stm32f4xx.h"
 
-//{
-//ÐÞ¸Ä£ºMF_RC522.c£º
-//extern SPI_HandleTypeDef hspi1;
-//#define hspiRFID	hspi1
-//}
 
 /*usage:
  *

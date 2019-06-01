@@ -26989,21 +26989,6 @@ Discarded input sections
  .debug_macro   0x00000000       0x8c ./DeviceDrivers/Src/nand.o
  .debug_macro   0x00000000       0x86 ./DeviceDrivers/Src/nand.o
  .debug_macro   0x00000000       0x64 ./DeviceDrivers/Src/nand.o
- .group         0x00000000        0xc ./DeviceDrivers/Src/sys.o
- .text          0x00000000        0x0 ./DeviceDrivers/Src/sys.o
- .data          0x00000000        0x0 ./DeviceDrivers/Src/sys.o
- .bss           0x00000000        0x0 ./DeviceDrivers/Src/sys.o
- .debug_info    0x00000000       0x21 ./DeviceDrivers/Src/sys.o
- .debug_abbrev  0x00000000       0x13 ./DeviceDrivers/Src/sys.o
- .debug_aranges
-                0x00000000       0x18 ./DeviceDrivers/Src/sys.o
- .debug_macro   0x00000000       0x11 ./DeviceDrivers/Src/sys.o
- .debug_macro   0x00000000      0xa5a ./DeviceDrivers/Src/sys.o
- .debug_line    0x00000000       0x3b ./DeviceDrivers/Src/sys.o
- .debug_str     0x00000000     0x2d07 ./DeviceDrivers/Src/sys.o
- .comment       0x00000000       0x80 ./DeviceDrivers/Src/sys.o
- .ARM.attributes
-                0x00000000       0x39 ./DeviceDrivers/Src/sys.o
  .group         0x00000000        0xc ./DeviceDrivers/Src/touch.o
  .group         0x00000000        0xc ./DeviceDrivers/Src/touch.o
  .group         0x00000000        0xc ./DeviceDrivers/Src/touch.o
@@ -27438,7 +27423,7 @@ Discarded input sections
  .debug_macro   0x00000000      0x112 ./App/Src/App_Gui.o
  .debug_macro   0x00000000       0x34 ./App/Src/App_Gui.o
  .debug_macro   0x00000000       0xd6 ./App/Src/App_Gui.o
- .debug_macro   0x00000000      0x27c ./App/Src/App_Gui.o
+ .debug_macro   0x00000000      0x277 ./App/Src/App_Gui.o
  .debug_macro   0x00000000       0x94 ./App/Src/App_Gui.o
  .debug_macro   0x00000000       0x64 ./App/Src/App_Gui.o
  .debug_macro   0x00000000       0x64 ./App/Src/App_Gui.o
@@ -27674,7 +27659,7 @@ Discarded input sections
  .debug_macro   0x00000000      0x112 ./App/Src/App_Pay.o
  .debug_macro   0x00000000       0x34 ./App/Src/App_Pay.o
  .debug_macro   0x00000000       0xd6 ./App/Src/App_Pay.o
- .debug_macro   0x00000000      0x27c ./App/Src/App_Pay.o
+ .debug_macro   0x00000000      0x277 ./App/Src/App_Pay.o
  .debug_macro   0x00000000       0x94 ./App/Src/App_Pay.o
  .debug_macro   0x00000000       0x64 ./App/Src/App_Pay.o
  .debug_macro   0x00000000       0x64 ./App/Src/App_Pay.o
@@ -27866,7 +27851,7 @@ Discarded input sections
  .debug_macro   0x00000000       0xe9 ./App/Src/App_UserMsg.o
  .debug_macro   0x00000000       0xd9 ./App/Src/App_UserMsg.o
  .debug_macro   0x00000000       0x64 ./App/Src/App_UserMsg.o
- .debug_line    0x00000000      0x9f1 ./App/Src/App_UserMsg.o
+ .debug_line    0x00000000      0x9f0 ./App/Src/App_UserMsg.o
  .debug_str     0x00000000    0xe3c7c ./App/Src/App_UserMsg.o
  .comment       0x00000000       0x80 ./App/Src/App_UserMsg.o
  .debug_frame   0x00000000       0x5c ./App/Src/App_UserMsg.o
@@ -28102,7 +28087,7 @@ Discarded input sections
  .debug_macro   0x00000000      0x112 ./App/Src/App_main.o
  .debug_macro   0x00000000       0x34 ./App/Src/App_main.o
  .debug_macro   0x00000000       0xd6 ./App/Src/App_main.o
- .debug_macro   0x00000000      0x27c ./App/Src/App_main.o
+ .debug_macro   0x00000000      0x277 ./App/Src/App_main.o
  .debug_macro   0x00000000       0x94 ./App/Src/App_main.o
  .debug_macro   0x00000000       0x64 ./App/Src/App_main.o
  .debug_macro   0x00000000       0x64 ./App/Src/App_main.o
@@ -28696,7 +28681,6 @@ LOAD ./DeviceDrivers/Src/ftl.o
 LOAD ./DeviceDrivers/Src/lan8720.o
 LOAD ./DeviceDrivers/Src/malloc.o
 LOAD ./DeviceDrivers/Src/nand.o
-LOAD ./DeviceDrivers/Src/sys.o
 LOAD ./DeviceDrivers/Src/touch.o
 LOAD ./App/Src/App_Gui.o
 LOAD ./App/Src/App_Pay.o
@@ -28721,7 +28705,7 @@ LOAD d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../li
                 0x08000000                g_pfnVectors
                 0x080001ac                . = ALIGN (0x4)
 
-.text           0x080001c0    0x2f8e8
+.text           0x080001c0    0x2f8d8
                 0x080001c0                . = ALIGN (0x4)
  *(.text)
  .text          0x080001c0       0x40 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv4-sp/hard/crtbegin.o
@@ -30849,511 +30833,511 @@ LOAD d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../li
  .text.vTaskRFIDReadCard
                 0x08027254       0x48 ./App/Src/App_main.o
  .text.vTaskMsgTrans
-                0x0802729c      0x84c ./App/Src/App_main.o
+                0x0802729c      0x848 ./App/Src/App_main.o
  .text.vTaskCostPage
-                0x08027ae8      0xb7c ./App/Src/App_main.o
+                0x08027ae4      0xb74 ./App/Src/App_main.o
  .text.vTaskLCDMonitor
-                0x08028664      0x204 ./App/Src/App_main.o
+                0x08028658      0x204 ./App/Src/App_main.o
  .text.vTaskFatfs
-                0x08028868      0x3bc ./App/Src/App_main.o
+                0x0802885c      0x3bc ./App/Src/App_main.o
  .text.vTaskLwip
-                0x08028c24       0x54 ./App/Src/App_main.o
+                0x08028c18       0x54 ./App/Src/App_main.o
  .text.App_main
-                0x08028c78      0x338 ./App/Src/App_main.o
-                0x08028c78                App_main
- .text._read    0x08028fb0       0x3a ./syscalls.o
-                0x08028fb0                _read
- .text._write   0x08028fea       0x3a ./syscalls.o
-                0x08028fea                _write
- .text._sbrk    0x08029024       0x58 ./syscalls.o
-                0x08029024                _sbrk
- .text._close   0x0802907c       0x18 ./syscalls.o
-                0x0802907c                _close
- .text._fstat   0x08029094       0x20 ./syscalls.o
-                0x08029094                _fstat
- .text._isatty  0x080290b4       0x16 ./syscalls.o
-                0x080290b4                _isatty
- .text._lseek   0x080290ca       0x1a ./syscalls.o
-                0x080290ca                _lseek
- .text.__errno  0x080290e4        0xc d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-errno.o)
-                0x080290e4                __errno
+                0x08028c6c      0x338 ./App/Src/App_main.o
+                0x08028c6c                App_main
+ .text._read    0x08028fa4       0x3a ./syscalls.o
+                0x08028fa4                _read
+ .text._write   0x08028fde       0x3a ./syscalls.o
+                0x08028fde                _write
+ .text._sbrk    0x08029018       0x58 ./syscalls.o
+                0x08029018                _sbrk
+ .text._close   0x08029070       0x18 ./syscalls.o
+                0x08029070                _close
+ .text._fstat   0x08029088       0x20 ./syscalls.o
+                0x08029088                _fstat
+ .text._isatty  0x080290a8       0x16 ./syscalls.o
+                0x080290a8                _isatty
+ .text._lseek   0x080290be       0x1a ./syscalls.o
+                0x080290be                _lseek
+ .text.__errno  0x080290d8        0xc d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-errno.o)
+                0x080290d8                __errno
  .text.__libc_init_array
-                0x080290f0       0x48 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-init.o)
-                0x080290f0                __libc_init_array
- .text.memcmp   0x08029138       0x64 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-memcmp.o)
-                0x08029138                memcmp
- .text.memset   0x0802919c       0x94 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-memset.o)
-                0x0802919c                memset
- .text.printf   0x08029230       0x28 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-printf.o)
-                0x08029230                printf
- .text._puts_r  0x08029258       0x9c d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-puts.o)
-                0x08029258                _puts_r
- .text.puts     0x080292f4       0x10 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-puts.o)
-                0x080292f4                puts
- .text.sprintf  0x08029304       0x44 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-sprintf.o)
-                0x08029304                sprintf
- .text.strcpy   0x08029348       0xbc d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-strcpy.o)
-                0x08029348                strcpy
- *fill*         0x08029404        0x4 
+                0x080290e4       0x48 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-init.o)
+                0x080290e4                __libc_init_array
+ .text.memcmp   0x0802912c       0x64 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-memcmp.o)
+                0x0802912c                memcmp
+ .text.memset   0x08029190       0x94 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-memset.o)
+                0x08029190                memset
+ .text.printf   0x08029224       0x28 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-printf.o)
+                0x08029224                printf
+ .text._puts_r  0x0802924c       0x9c d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-puts.o)
+                0x0802924c                _puts_r
+ .text.puts     0x080292e8       0x10 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-puts.o)
+                0x080292e8                puts
+ .text.sprintf  0x080292f8       0x44 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-sprintf.o)
+                0x080292f8                sprintf
+ .text.strcpy   0x0802933c       0xbc d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-strcpy.o)
+                0x0802933c                strcpy
  .text._svfprintf_r
-                0x08029408     0x19cc d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-svfprintf.o)
-                0x08029408                _svfprintf_r
- *fill*         0x0802add4        0x4 
+                0x080293f8     0x19cc d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-svfprintf.o)
+                0x080293f8                _svfprintf_r
+ *fill*         0x0802adc4        0x4 
  .text._vfprintf_r
-                0x0802add8     0x1a7c d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-vfprintf.o)
-                0x0802add8                _vfprintf_r
+                0x0802adc8     0x1a7c d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-vfprintf.o)
+                0x0802adc8                _vfprintf_r
  .text.__sbprintf
-                0x0802c854       0x84 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-vfprintf.o)
+                0x0802c844       0x84 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-vfprintf.o)
  .text.__swsetup_r
-                0x0802c8d8       0xcc d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-wsetup.o)
-                0x0802c8d8                __swsetup_r
+                0x0802c8c8       0xcc d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-wsetup.o)
+                0x0802c8c8                __swsetup_r
  .text.startup.register_fini
-                0x0802c9a4       0x14 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-__call_atexit.o)
- .text.atexit   0x0802c9b8        0xc d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-atexit.o)
-                0x0802c9b8                atexit
- .text.quorem   0x0802c9c4      0x124 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-dtoa.o)
- .text._dtoa_r  0x0802cae8      0xe20 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-dtoa.o)
-                0x0802cae8                _dtoa_r
+                0x0802c994       0x14 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-__call_atexit.o)
+ .text.atexit   0x0802c9a8        0xc d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-atexit.o)
+                0x0802c9a8                atexit
+ .text.quorem   0x0802c9b4      0x124 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-dtoa.o)
+ .text._dtoa_r  0x0802cad8      0xe20 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-dtoa.o)
+                0x0802cad8                _dtoa_r
  .text.__sflush_r
-                0x0802d908      0x154 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-fflush.o)
-                0x0802d908                __sflush_r
+                0x0802d8f8      0x154 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-fflush.o)
+                0x0802d8f8                __sflush_r
  .text._fflush_r
-                0x0802da5c       0x5c d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-fflush.o)
-                0x0802da5c                _fflush_r
- .text.std      0x0802dab8       0x50 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-findfp.o)
+                0x0802da4c       0x5c d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-fflush.o)
+                0x0802da4c                _fflush_r
+ .text.std      0x0802daa8       0x50 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-findfp.o)
  .text._cleanup_r
-                0x0802db08        0xc d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-findfp.o)
-                0x0802db08                _cleanup_r
- .text.__sinit  0x0802db14       0x58 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-findfp.o)
-                0x0802db14                __sinit
+                0x0802daf8        0xc d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-findfp.o)
+                0x0802daf8                _cleanup_r
+ .text.__sinit  0x0802db04       0x58 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-findfp.o)
+                0x0802db04                __sinit
  .text.__sfp_lock_acquire
-                0x0802db6c        0xc d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-findfp.o)
-                0x0802db6c                __sfp_lock_acquire
+                0x0802db5c        0xc d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-findfp.o)
+                0x0802db5c                __sfp_lock_acquire
  .text.__sfp_lock_release
-                0x0802db78        0xc d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-findfp.o)
-                0x0802db78                __sfp_lock_release
+                0x0802db68        0xc d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-findfp.o)
+                0x0802db68                __sfp_lock_release
  .text.__libc_fini_array
-                0x0802db84       0x34 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-fini.o)
-                0x0802db84                __libc_fini_array
+                0x0802db74       0x34 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-fini.o)
+                0x0802db74                __libc_fini_array
  .text._malloc_trim_r
-                0x0802dbb8       0xa0 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-freer.o)
-                0x0802dbb8                _malloc_trim_r
- .text._free_r  0x0802dc58      0x1e8 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-freer.o)
-                0x0802dc58                _free_r
+                0x0802dba8       0xa0 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-freer.o)
+                0x0802dba8                _malloc_trim_r
+ .text._free_r  0x0802dc48      0x1e8 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-freer.o)
+                0x0802dc48                _free_r
  .text.__sfvwrite_r
-                0x0802de40      0x2fc d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-fvwrite.o)
-                0x0802de40                __sfvwrite_r
+                0x0802de30      0x2fc d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-fvwrite.o)
+                0x0802de30                __sfvwrite_r
  .text._fwalk_reent
-                0x0802e13c       0x54 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-fwalk.o)
-                0x0802e13c                _fwalk_reent
+                0x0802e12c       0x54 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-fwalk.o)
+                0x0802e12c                _fwalk_reent
  .text._localeconv_r
-                0x0802e190       0x1c d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-localeconv.o)
-                0x0802e190                _localeconv_r
+                0x0802e180       0x1c d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-localeconv.o)
+                0x0802e180                _localeconv_r
  .text.__retarget_lock_init_recursive
-                0x0802e1ac        0x4 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-lock.o)
-                0x0802e1ac                __retarget_lock_init_recursive
+                0x0802e19c        0x4 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-lock.o)
+                0x0802e19c                __retarget_lock_init_recursive
  .text.__retarget_lock_close_recursive
-                0x0802e1b0        0x4 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-lock.o)
-                0x0802e1b0                __retarget_lock_close_recursive
+                0x0802e1a0        0x4 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-lock.o)
+                0x0802e1a0                __retarget_lock_close_recursive
  .text.__retarget_lock_acquire_recursive
-                0x0802e1b4        0x4 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-lock.o)
-                0x0802e1b4                __retarget_lock_acquire_recursive
+                0x0802e1a4        0x4 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-lock.o)
+                0x0802e1a4                __retarget_lock_acquire_recursive
  .text.__retarget_lock_release_recursive
-                0x0802e1b8        0x4 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-lock.o)
-                0x0802e1b8                __retarget_lock_release_recursive
+                0x0802e1a8        0x4 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-lock.o)
+                0x0802e1a8                __retarget_lock_release_recursive
  .text.__swhatbuf_r
-                0x0802e1bc       0x5c d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-makebuf.o)
-                0x0802e1bc                __swhatbuf_r
+                0x0802e1ac       0x5c d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-makebuf.o)
+                0x0802e1ac                __swhatbuf_r
  .text.__smakebuf_r
-                0x0802e218       0x94 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-makebuf.o)
-                0x0802e218                __smakebuf_r
+                0x0802e208       0x94 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-makebuf.o)
+                0x0802e208                __smakebuf_r
  .text._malloc_r
-                0x0802e2ac      0x548 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-mallocr.o)
-                0x0802e2ac                _malloc_r
- .text.memmove  0x0802e7f4       0xc8 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-memmove.o)
-                0x0802e7f4                memmove
+                0x0802e29c      0x548 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-mallocr.o)
+                0x0802e29c                _malloc_r
+ .text.memmove  0x0802e7e4       0xc8 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-memmove.o)
+                0x0802e7e4                memmove
  .text.__malloc_lock
-                0x0802e8bc        0xc d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-mlock.o)
-                0x0802e8bc                __malloc_lock
+                0x0802e8ac        0xc d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-mlock.o)
+                0x0802e8ac                __malloc_lock
  .text.__malloc_unlock
-                0x0802e8c8        0xc d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-mlock.o)
-                0x0802e8c8                __malloc_unlock
- .text._Balloc  0x0802e8d4       0x4c d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-mprec.o)
-                0x0802e8d4                _Balloc
- .text._Bfree   0x0802e920       0x14 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-mprec.o)
-                0x0802e920                _Bfree
+                0x0802e8b8        0xc d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-mlock.o)
+                0x0802e8b8                __malloc_unlock
+ .text._Balloc  0x0802e8c4       0x4c d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-mprec.o)
+                0x0802e8c4                _Balloc
+ .text._Bfree   0x0802e910       0x14 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-mprec.o)
+                0x0802e910                _Bfree
  .text.__multadd
-                0x0802e934       0x80 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-mprec.o)
-                0x0802e934                __multadd
+                0x0802e924       0x80 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-mprec.o)
+                0x0802e924                __multadd
  .text.__hi0bits
-                0x0802e9b4       0x40 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-mprec.o)
-                0x0802e9b4                __hi0bits
+                0x0802e9a4       0x40 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-mprec.o)
+                0x0802e9a4                __hi0bits
  .text.__lo0bits
-                0x0802e9f4       0x60 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-mprec.o)
-                0x0802e9f4                __lo0bits
- .text.__i2b    0x0802ea54       0x14 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-mprec.o)
-                0x0802ea54                __i2b
+                0x0802e9e4       0x60 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-mprec.o)
+                0x0802e9e4                __lo0bits
+ .text.__i2b    0x0802ea44       0x14 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-mprec.o)
+                0x0802ea44                __i2b
  .text.__multiply
-                0x0802ea68      0x14c d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-mprec.o)
-                0x0802ea68                __multiply
+                0x0802ea58      0x14c d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-mprec.o)
+                0x0802ea58                __multiply
  .text.__pow5mult
-                0x0802ebb4       0xa0 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-mprec.o)
-                0x0802ebb4                __pow5mult
+                0x0802eba4       0xa0 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-mprec.o)
+                0x0802eba4                __pow5mult
  .text.__lshift
-                0x0802ec54       0xac d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-mprec.o)
-                0x0802ec54                __lshift
- .text.__mcmp   0x0802ed00       0x38 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-mprec.o)
-                0x0802ed00                __mcmp
- .text.__mdiff  0x0802ed38       0xec d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-mprec.o)
-                0x0802ed38                __mdiff
- .text.__d2b    0x0802ee24       0xc4 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-mprec.o)
-                0x0802ee24                __d2b
+                0x0802ec44       0xac d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-mprec.o)
+                0x0802ec44                __lshift
+ .text.__mcmp   0x0802ecf0       0x38 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-mprec.o)
+                0x0802ecf0                __mcmp
+ .text.__mdiff  0x0802ed28       0xec d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-mprec.o)
+                0x0802ed28                __mdiff
+ .text.__d2b    0x0802ee14       0xc4 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-mprec.o)
+                0x0802ee14                __d2b
  .text._realloc_r
-                0x0802eee8      0x35c d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-reallocr.o)
-                0x0802eee8                _realloc_r
- .text.frexp    0x0802f244       0x68 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-s_frexp.o)
-                0x0802f244                frexp
- .text._sbrk_r  0x0802f2ac       0x24 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-sbrkr.o)
-                0x0802f2ac                _sbrk_r
- .text.__sread  0x0802f2d0       0x24 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-stdio.o)
-                0x0802f2d0                __sread
+                0x0802eed8      0x35c d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-reallocr.o)
+                0x0802eed8                _realloc_r
+ .text.frexp    0x0802f234       0x68 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-s_frexp.o)
+                0x0802f234                frexp
+ .text._sbrk_r  0x0802f29c       0x24 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-sbrkr.o)
+                0x0802f29c                _sbrk_r
+ .text.__sread  0x0802f2c0       0x24 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-stdio.o)
+                0x0802f2c0                __sread
  .text.__swrite
-                0x0802f2f4       0x3c d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-stdio.o)
-                0x0802f2f4                __swrite
- .text.__sseek  0x0802f330       0x20 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-stdio.o)
-                0x0802f330                __sseek
+                0x0802f2e4       0x3c d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-stdio.o)
+                0x0802f2e4                __swrite
+ .text.__sseek  0x0802f320       0x20 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-stdio.o)
+                0x0802f320                __sseek
  .text.__sclose
-                0x0802f350        0x8 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-stdio.o)
-                0x0802f350                __sclose
- .text.strncpy  0x0802f358       0x64 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-strncpy.o)
-                0x0802f358                strncpy
+                0x0802f340        0x8 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-stdio.o)
+                0x0802f340                __sclose
+ .text.strncpy  0x0802f348       0x64 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-strncpy.o)
+                0x0802f348                strncpy
  .text.__ssprint_r
-                0x0802f3bc       0xf4 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-svfiprintf.o)
-                0x0802f3bc                __ssprint_r
+                0x0802f3ac       0xf4 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-svfiprintf.o)
+                0x0802f3ac                __ssprint_r
  .text.__sprint_r.part.0
-                0x0802f4b0       0x78 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-vfiprintf.o)
+                0x0802f4a0       0x78 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-vfiprintf.o)
  .text.__sprint_r
-                0x0802f528       0x14 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-vfiprintf.o)
-                0x0802f528                __sprint_r
+                0x0802f518       0x14 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-vfiprintf.o)
+                0x0802f518                __sprint_r
  .text.__swbuf_r
-                0x0802f53c       0xb0 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-wbuf.o)
-                0x0802f53c                __swbuf_r
+                0x0802f52c       0xb0 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-wbuf.o)
+                0x0802f52c                __swbuf_r
  .text._write_r
-                0x0802f5ec       0x2c d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-writer.o)
-                0x0802f5ec                _write_r
+                0x0802f5dc       0x2c d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-writer.o)
+                0x0802f5dc                _write_r
  .text.__register_exitproc
-                0x0802f618       0xc0 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-__atexit.o)
-                0x0802f618                __register_exitproc
+                0x0802f608       0xc0 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-__atexit.o)
+                0x0802f608                __register_exitproc
  .text._calloc_r
-                0x0802f6d8       0x68 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-callocr.o)
-                0x0802f6d8                _calloc_r
+                0x0802f6c8       0x68 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-callocr.o)
+                0x0802f6c8                _calloc_r
  .text._close_r
-                0x0802f740       0x24 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-closer.o)
-                0x0802f740                _close_r
+                0x0802f730       0x24 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-closer.o)
+                0x0802f730                _close_r
  .text._fclose_r
-                0x0802f764       0xd0 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-fclose.o)
-                0x0802f764                _fclose_r
+                0x0802f754       0xd0 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-fclose.o)
+                0x0802f754                _fclose_r
  .text.__fputwc
-                0x0802f834       0xa0 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-fputwc.o)
-                0x0802f834                __fputwc
+                0x0802f824       0xa0 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-fputwc.o)
+                0x0802f824                __fputwc
  .text._fputwc_r
-                0x0802f8d4       0x64 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-fputwc.o)
-                0x0802f8d4                _fputwc_r
+                0x0802f8c4       0x64 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-fputwc.o)
+                0x0802f8c4                _fputwc_r
  .text._fstat_r
-                0x0802f938       0x28 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-fstatr.o)
-                0x0802f938                _fstat_r
+                0x0802f928       0x28 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-fstatr.o)
+                0x0802f928                _fstat_r
  .text._isatty_r
-                0x0802f960       0x24 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-isattyr.o)
-                0x0802f960                _isatty_r
+                0x0802f950       0x24 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-isattyr.o)
+                0x0802f950                _isatty_r
  .text.__locale_mb_cur_max
-                0x0802f984       0x1c d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-locale.o)
-                0x0802f984                __locale_mb_cur_max
+                0x0802f974       0x1c d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-locale.o)
+                0x0802f974                __locale_mb_cur_max
  .text._lseek_r
-                0x0802f9a0       0x2c d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-lseekr.o)
-                0x0802f9a0                _lseek_r
+                0x0802f990       0x2c d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-lseekr.o)
+                0x0802f990                _lseek_r
  .text.__ascii_mbtowc
-                0x0802f9cc       0x2c d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-mbtowc_r.o)
-                0x0802f9cc                __ascii_mbtowc
- .text._read_r  0x0802f9f8       0x2c d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-readr.o)
-                0x0802f9f8                _read_r
+                0x0802f9bc       0x2c d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-mbtowc_r.o)
+                0x0802f9bc                __ascii_mbtowc
+ .text._read_r  0x0802f9e8       0x2c d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-readr.o)
+                0x0802f9e8                _read_r
  .text._wcrtomb_r
-                0x0802fa24       0x50 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-wcrtomb.o)
-                0x0802fa24                _wcrtomb_r
+                0x0802fa14       0x50 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-wcrtomb.o)
+                0x0802fa14                _wcrtomb_r
  .text.__ascii_wctomb
-                0x0802fa74       0x1c d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-wctomb_r.o)
-                0x0802fa74                __ascii_wctomb
+                0x0802fa64       0x1c d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-wctomb_r.o)
+                0x0802fa64                __ascii_wctomb
  *(.glue_7)
- .glue_7        0x0802fa90        0x0 linker stubs
+ .glue_7        0x0802fa80        0x0 linker stubs
  *(.glue_7t)
- .glue_7t       0x0802fa90        0x0 linker stubs
+ .glue_7t       0x0802fa80        0x0 linker stubs
  *(.eh_frame)
- .eh_frame      0x0802fa90        0x0 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv4-sp/hard/crtbegin.o
+ .eh_frame      0x0802fa80        0x0 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv4-sp/hard/crtbegin.o
  *(.init)
- .init          0x0802fa90        0x4 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv4-sp/hard/crti.o
-                0x0802fa90                _init
- .init          0x0802fa94        0x8 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv4-sp/hard/crtn.o
+ .init          0x0802fa80        0x4 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv4-sp/hard/crti.o
+                0x0802fa80                _init
+ .init          0x0802fa84        0x8 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv4-sp/hard/crtn.o
  *(.fini)
- .fini          0x0802fa9c        0x4 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv4-sp/hard/crti.o
-                0x0802fa9c                _fini
- .fini          0x0802faa0        0x8 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv4-sp/hard/crtn.o
-                0x0802faa8                . = ALIGN (0x4)
-                0x0802faa8                _etext = .
+ .fini          0x0802fa8c        0x4 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv4-sp/hard/crti.o
+                0x0802fa8c                _fini
+ .fini          0x0802fa90        0x8 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv4-sp/hard/crtn.o
+                0x0802fa98                . = ALIGN (0x4)
+                0x0802fa98                _etext = .
 
-.vfp11_veneer   0x0802faa8        0x0
- .vfp11_veneer  0x0802faa8        0x0 linker stubs
+.vfp11_veneer   0x0802fa98        0x0
+ .vfp11_veneer  0x0802fa98        0x0 linker stubs
 
-.v4_bx          0x0802faa8        0x0
- .v4_bx         0x0802faa8        0x0 linker stubs
+.v4_bx          0x0802fa98        0x0
+ .v4_bx         0x0802fa98        0x0 linker stubs
 
-.iplt           0x0802faa8        0x0
- .iplt          0x0802faa8        0x0 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv4-sp/hard/crtbegin.o
+.iplt           0x0802fa98        0x0
+ .iplt          0x0802fa98        0x0 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv4-sp/hard/crtbegin.o
 
-.rodata         0x0802faa8    0x33298
-                0x0802faa8                . = ALIGN (0x4)
+.rodata         0x0802fa98    0x33288
+                0x0802fa98                . = ALIGN (0x4)
  *(.rodata)
- .rodata        0x0802faa8       0xd7 ./Src/main.o
- *fill*         0x0802fb7f        0x1 
- .rodata        0x0802fb80      0x1e4 ./LWIP/lwip_app/lwip_comm/lwip_comm.o
- .rodata        0x0802fd64       0xfc ./LWIP/lwip_app/lwip_client_app/lwip_client_app.o
- .rodata        0x0802fe60      0x271 ./LWIP/lwip-1.4.1/src/netif/etharp.o
- *fill*         0x080300d1        0x3 
- .rodata        0x080300d4       0x61 ./LWIP/lwip-1.4.1/src/netif/ethernetif.o
- *fill*         0x08030135        0x3 
- .rodata        0x08030138      0x16c ./LWIP/lwip-1.4.1/src/core/ipv4/icmp.o
- .rodata        0x080302a4       0x8d ./LWIP/lwip-1.4.1/src/core/ipv4/ip.o
- *fill*         0x08030331        0x3 
- .rodata        0x08030334      0x1d0 ./LWIP/lwip-1.4.1/src/core/ipv4/ip_frag.o
- .rodata        0x08030504      0x473 ./LWIP/lwip-1.4.1/src/core/dhcp.o
- *fill*         0x08030977        0x1 
- .rodata        0x08030978      0x20f ./LWIP/lwip-1.4.1/src/core/mem.o
- *fill*         0x08030b87        0x1 
- .rodata        0x08030b88      0x154 ./LWIP/lwip-1.4.1/src/core/memp.o
- .rodata        0x08030cdc       0x65 ./LWIP/lwip-1.4.1/src/core/netif.o
- *fill*         0x08030d41        0x3 
- .rodata        0x08030d44      0x4cd ./LWIP/lwip-1.4.1/src/core/pbuf.o
- *fill*         0x08031211        0x3 
- .rodata        0x08031214      0x425 ./LWIP/lwip-1.4.1/src/core/tcp.o
- *fill*         0x08031639        0x3 
- .rodata        0x0803163c      0x2bf ./LWIP/lwip-1.4.1/src/core/tcp_in.o
- *fill*         0x080318fb        0x1 
- .rodata        0x080318fc      0x403 ./LWIP/lwip-1.4.1/src/core/tcp_out.o
- *fill*         0x08031cff        0x1 
- .rodata        0x08031d00       0x91 ./LWIP/lwip-1.4.1/src/core/timers.o
- *fill*         0x08031d91        0x3 
- .rodata        0x08031d94       0xb4 ./LWIP/lwip-1.4.1/src/core/udp.o
- .rodata        0x08031e48      0x304 ./LWIP/lwip-1.4.1/src/api/api_lib.o
- .rodata        0x0803214c      0x499 ./LWIP/lwip-1.4.1/src/api/api_msg.o
- *fill*         0x080325e5        0x3 
- .rodata        0x080325e8       0xa1 ./LWIP/lwip-1.4.1/src/api/tcpip.o
- *fill*         0x08032689        0x3 
- .rodata        0x0803268c       0x77 ./LWIP/arch/sys_arch.o
- *fill*         0x08032703        0x1 
- .rodata        0x08032704        0x5 ./FreeRTOS/tasks.o
+ .rodata        0x0802fa98       0xd7 ./Src/main.o
+ *fill*         0x0802fb6f        0x1 
+ .rodata        0x0802fb70      0x1e4 ./LWIP/lwip_app/lwip_comm/lwip_comm.o
+ .rodata        0x0802fd54       0xfc ./LWIP/lwip_app/lwip_client_app/lwip_client_app.o
+ .rodata        0x0802fe50      0x271 ./LWIP/lwip-1.4.1/src/netif/etharp.o
+ *fill*         0x080300c1        0x3 
+ .rodata        0x080300c4       0x61 ./LWIP/lwip-1.4.1/src/netif/ethernetif.o
+ *fill*         0x08030125        0x3 
+ .rodata        0x08030128      0x16c ./LWIP/lwip-1.4.1/src/core/ipv4/icmp.o
+ .rodata        0x08030294       0x8d ./LWIP/lwip-1.4.1/src/core/ipv4/ip.o
+ *fill*         0x08030321        0x3 
+ .rodata        0x08030324      0x1d0 ./LWIP/lwip-1.4.1/src/core/ipv4/ip_frag.o
+ .rodata        0x080304f4      0x473 ./LWIP/lwip-1.4.1/src/core/dhcp.o
+ *fill*         0x08030967        0x1 
+ .rodata        0x08030968      0x20f ./LWIP/lwip-1.4.1/src/core/mem.o
+ *fill*         0x08030b77        0x1 
+ .rodata        0x08030b78      0x154 ./LWIP/lwip-1.4.1/src/core/memp.o
+ .rodata        0x08030ccc       0x65 ./LWIP/lwip-1.4.1/src/core/netif.o
+ *fill*         0x08030d31        0x3 
+ .rodata        0x08030d34      0x4cd ./LWIP/lwip-1.4.1/src/core/pbuf.o
+ *fill*         0x08031201        0x3 
+ .rodata        0x08031204      0x425 ./LWIP/lwip-1.4.1/src/core/tcp.o
+ *fill*         0x08031629        0x3 
+ .rodata        0x0803162c      0x2bf ./LWIP/lwip-1.4.1/src/core/tcp_in.o
+ *fill*         0x080318eb        0x1 
+ .rodata        0x080318ec      0x403 ./LWIP/lwip-1.4.1/src/core/tcp_out.o
+ *fill*         0x08031cef        0x1 
+ .rodata        0x08031cf0       0x91 ./LWIP/lwip-1.4.1/src/core/timers.o
+ *fill*         0x08031d81        0x3 
+ .rodata        0x08031d84       0xb4 ./LWIP/lwip-1.4.1/src/core/udp.o
+ .rodata        0x08031e38      0x304 ./LWIP/lwip-1.4.1/src/api/api_lib.o
+ .rodata        0x0803213c      0x499 ./LWIP/lwip-1.4.1/src/api/api_msg.o
+ *fill*         0x080325d5        0x3 
+ .rodata        0x080325d8       0xa1 ./LWIP/lwip-1.4.1/src/api/tcpip.o
+ *fill*         0x08032679        0x3 
+ .rodata        0x0803267c       0x77 ./LWIP/arch/sys_arch.o
+ *fill*         0x080326f3        0x1 
+ .rodata        0x080326f4        0x5 ./FreeRTOS/tasks.o
+ *fill*         0x080326f9        0x3 
+ .rodata        0x080326fc        0xd ./FreeRTOS/timers.o
  *fill*         0x08032709        0x3 
- .rodata        0x0803270c        0xd ./FreeRTOS/timers.o
- *fill*         0x08032719        0x3 
- .rodata        0x0803271c       0x4a ./FatFs/exfuns.o
- *fill*         0x08032766        0x2 
- .rodata        0x08032768       0x54 ./FatFs/ff.o
- .rodata        0x080327bc       0x1d ./DeviceDrivers/Src/devBY8301.o
- *fill*         0x080327d9        0x3 
- .rodata        0x080327dc      0x19a ./DeviceDrivers/Src/devHMIScreen.o
- *fill*         0x08032976        0x2 
- .rodata        0x08032978       0x11 ./DeviceDrivers/Src/ft5206.o
- *fill*         0x08032989        0x3 
- .rodata        0x0803298c       0xd7 ./DeviceDrivers/Src/ftl.o
- *fill*         0x08032a63        0x1 
- .rodata        0x08032a64       0x94 ./DeviceDrivers/Src/nand.o
- .rodata        0x08032af8      0x1b9 ./App/Src/App_Gui.o
- *fill*         0x08032cb1        0x3 
- .rodata        0x08032cb4      0x3eb ./App/Src/App_main.o
+ .rodata        0x0803270c       0x4a ./FatFs/exfuns.o
+ *fill*         0x08032756        0x2 
+ .rodata        0x08032758       0x54 ./FatFs/ff.o
+ .rodata        0x080327ac       0x1d ./DeviceDrivers/Src/devBY8301.o
+ *fill*         0x080327c9        0x3 
+ .rodata        0x080327cc      0x19a ./DeviceDrivers/Src/devHMIScreen.o
+ *fill*         0x08032966        0x2 
+ .rodata        0x08032968       0x11 ./DeviceDrivers/Src/ft5206.o
+ *fill*         0x08032979        0x3 
+ .rodata        0x0803297c       0xd7 ./DeviceDrivers/Src/ftl.o
+ *fill*         0x08032a53        0x1 
+ .rodata        0x08032a54       0x94 ./DeviceDrivers/Src/nand.o
+ .rodata        0x08032ae8      0x1b9 ./App/Src/App_Gui.o
+ *fill*         0x08032ca1        0x3 
+ .rodata        0x08032ca4      0x3d7 ./App/Src/App_main.o
  *(.rodata*)
- *fill*         0x0803309f        0x1 
+ *fill*         0x0803307b        0x1 
  .rodata.AHBPrescTable
-                0x080330a0       0x10 ./Src/system_stm32f4xx.o
-                0x080330a0                AHBPrescTable
+                0x0803307c       0x10 ./Src/system_stm32f4xx.o
+                0x0803307c                AHBPrescTable
  .rodata.APBPrescTable
-                0x080330b0        0x8 ./Src/system_stm32f4xx.o
-                0x080330b0                APBPrescTable
+                0x0803308c        0x8 ./Src/system_stm32f4xx.o
+                0x0803308c                APBPrescTable
  .rodata._aMaskTbl
-                0x080330b8       0x20 ./Picture/Src/gif.o
-                0x080330b8                _aMaskTbl
+                0x08033094       0x20 ./Picture/Src/gif.o
+                0x08033094                _aMaskTbl
  .rodata._aInterlaceOffset
-                0x080330d8        0x4 ./Picture/Src/gif.o
-                0x080330d8                _aInterlaceOffset
+                0x080330b4        0x4 ./Picture/Src/gif.o
+                0x080330b4                _aInterlaceOffset
  .rodata._aInterlaceYPos
-                0x080330dc        0x4 ./Picture/Src/gif.o
-                0x080330dc                _aInterlaceYPos
- .rodata.Zig    0x080330e0       0x40 ./Picture/Src/tjpgd.o
- .rodata.Ipsf   0x08033120       0x80 ./Picture/Src/tjpgd.o
- .rodata.Clip8  0x080331a0      0x400 ./Picture/Src/tjpgd.o
+                0x080330b8        0x4 ./Picture/Src/gif.o
+                0x080330b8                _aInterlaceYPos
+ .rodata.Zig    0x080330bc       0x40 ./Picture/Src/tjpgd.o
+ .rodata.Ipsf   0x080330fc       0x80 ./Picture/Src/tjpgd.o
+ .rodata.Clip8  0x0803317c      0x400 ./Picture/Src/tjpgd.o
  .rodata.fileexpname
-                0x080335a0       0x10 ./LWIP/lwip_app/lwip_client_app/lwip_client_app.o
-                0x080335a0                fileexpname
+                0x0803357c       0x10 ./LWIP/lwip_app/lwip_client_app/lwip_client_app.o
+                0x0803357c                fileexpname
  .rodata.ethbroadcast
-                0x080335b0        0x6 ./LWIP/lwip-1.4.1/src/netif/etharp.o
-                0x080335b0                ethbroadcast
- *fill*         0x080335b6        0x2 
+                0x0803358c        0x6 ./LWIP/lwip-1.4.1/src/netif/etharp.o
+                0x0803358c                ethbroadcast
+ *fill*         0x08033592        0x2 
  .rodata.ethzero
-                0x080335b8        0x6 ./LWIP/lwip-1.4.1/src/netif/etharp.o
-                0x080335b8                ethzero
- *fill*         0x080335be        0x2 
+                0x08033594        0x6 ./LWIP/lwip-1.4.1/src/netif/etharp.o
+                0x08033594                ethzero
+ *fill*         0x0803359a        0x2 
  .rodata.ip_addr_any
-                0x080335c0        0x4 ./LWIP/lwip-1.4.1/src/core/ipv4/ip_addr.o
-                0x080335c0                ip_addr_any
+                0x0803359c        0x4 ./LWIP/lwip-1.4.1/src/core/ipv4/ip_addr.o
+                0x0803359c                ip_addr_any
  .rodata.ip_addr_broadcast
-                0x080335c4        0x4 ./LWIP/lwip-1.4.1/src/core/ipv4/ip_addr.o
-                0x080335c4                ip_addr_broadcast
+                0x080335a0        0x4 ./LWIP/lwip-1.4.1/src/core/ipv4/ip_addr.o
+                0x080335a0                ip_addr_broadcast
  .rodata.memp_sizes
-                0x080335c8       0x1c ./LWIP/lwip-1.4.1/src/core/memp.o
+                0x080335a4       0x1c ./LWIP/lwip-1.4.1/src/core/memp.o
  .rodata.memp_num
-                0x080335e4       0x1c ./LWIP/lwip-1.4.1/src/core/memp.o
+                0x080335c0       0x1c ./LWIP/lwip-1.4.1/src/core/memp.o
  .rodata.tcp_backoff
-                0x08033600        0xd ./LWIP/lwip-1.4.1/src/core/tcp.o
-                0x08033600                tcp_backoff
- *fill*         0x0803360d        0x3 
+                0x080335dc        0xd ./LWIP/lwip-1.4.1/src/core/tcp.o
+                0x080335dc                tcp_backoff
+ *fill*         0x080335e9        0x3 
  .rodata.tcp_persist_backoff
-                0x08033610        0x7 ./LWIP/lwip-1.4.1/src/core/tcp.o
-                0x08033610                tcp_persist_backoff
- *fill*         0x08033617        0x1 
+                0x080335ec        0x7 ./LWIP/lwip-1.4.1/src/core/tcp.o
+                0x080335ec                tcp_persist_backoff
+ *fill*         0x080335f3        0x1 
  .rodata.tcp_pcb_lists
-                0x08033618       0x10 ./LWIP/lwip-1.4.1/src/core/tcp.o
-                0x08033618                tcp_pcb_lists
+                0x080335f4       0x10 ./LWIP/lwip-1.4.1/src/core/tcp.o
+                0x080335f4                tcp_pcb_lists
  .rodata.uni2oem
-                0x08033628    0x15484 ./FatFs/cc936.o
+                0x08033604    0x15484 ./FatFs/cc936.o
  .rodata.oem2uni
-                0x08048aac    0x15484 ./FatFs/cc936.o
+                0x08048a88    0x15484 ./FatFs/cc936.o
  .rodata.cvt1.5607
-                0x0805df30      0x1f2 ./FatFs/cc936.o
- *fill*         0x0805e122        0x2 
+                0x0805df0c      0x1f2 ./FatFs/cc936.o
+ *fill*         0x0805e0fe        0x2 
  .rodata.cvt2.5608
-                0x0805e124       0xbc ./FatFs/cc936.o
+                0x0805e100       0xbc ./FatFs/cc936.o
  .rodata.FILE_TYPE_TBL
-                0x0805e1e0       0x70 ./FatFs/exfuns.o
-                0x0805e1e0                FILE_TYPE_TBL
+                0x0805e1bc       0x70 ./FatFs/exfuns.o
+                0x0805e1bc                FILE_TYPE_TBL
  .rodata.LfnOfs
-                0x0805e250        0xd ./FatFs/ff.o
- *fill*         0x0805e25d        0x3 
+                0x0805e22c        0xd ./FatFs/ff.o
+ *fill*         0x0805e239        0x3 
  .rodata.badchr.6378
-                0x0805e260       0x10 ./FatFs/ff.o
+                0x0805e23c       0x10 ./FatFs/ff.o
  .rodata.vst.6398
-                0x0805e270       0x16 ./FatFs/ff.o
- *fill*         0x0805e286        0x2 
+                0x0805e24c       0x16 ./FatFs/ff.o
+ *fill*         0x0805e262        0x2 
  .rodata.cst.6399
-                0x0805e288       0x16 ./FatFs/ff.o
- *fill*         0x0805e29e        0x2 
+                0x0805e264       0x16 ./FatFs/ff.o
+ *fill*         0x0805e27a        0x2 
  .rodata.asc2_1206
-                0x0805e2a0      0x474 ./DeviceDrivers/Src/devLtdc.o
-                0x0805e2a0                asc2_1206
+                0x0805e27c      0x474 ./DeviceDrivers/Src/devLtdc.o
+                0x0805e27c                asc2_1206
  .rodata.asc2_1608
-                0x0805e714      0x5f0 ./DeviceDrivers/Src/devLtdc.o
-                0x0805e714                asc2_1608
+                0x0805e6f0      0x5f0 ./DeviceDrivers/Src/devLtdc.o
+                0x0805e6f0                asc2_1608
  .rodata.asc2_2412
-                0x0805ed04      0xd5c ./DeviceDrivers/Src/devLtdc.o
-                0x0805ed04                asc2_2412
+                0x0805ece0      0xd5c ./DeviceDrivers/Src/devLtdc.o
+                0x0805ece0                asc2_2412
  .rodata.asc2_3216
-                0x0805fa60     0x2f80 ./DeviceDrivers/Src/devLtdc.o
-                0x0805fa60                asc2_3216
+                0x0805fa3c     0x2f80 ./DeviceDrivers/Src/devLtdc.o
+                0x0805fa3c                asc2_3216
  .rodata.FT5206_TPX_TBL
-                0x080629e0        0xa ./DeviceDrivers/Src/ft5206.o
-                0x080629e0                FT5206_TPX_TBL
- *fill*         0x080629ea        0x2 
+                0x080629bc        0xa ./DeviceDrivers/Src/ft5206.o
+                0x080629bc                FT5206_TPX_TBL
+ *fill*         0x080629c6        0x2 
  .rodata.memtblsize
-                0x080629ec        0xc ./DeviceDrivers/Src/malloc.o
-                0x080629ec                memtblsize
+                0x080629c8        0xc ./DeviceDrivers/Src/malloc.o
+                0x080629c8                memtblsize
  .rodata.memblksize
-                0x080629f8        0xc ./DeviceDrivers/Src/malloc.o
-                0x080629f8                memblksize
+                0x080629d4        0xc ./DeviceDrivers/Src/malloc.o
+                0x080629d4                memblksize
  .rodata.memsize
-                0x08062a04        0xc ./DeviceDrivers/Src/malloc.o
-                0x08062a04                memsize
+                0x080629e0        0xc ./DeviceDrivers/Src/malloc.o
+                0x080629e0                memsize
  .rodata.Gradedisplay
-                0x08062a10       0x28 ./App/Src/App_Gui.o
-                0x08062a10                Gradedisplay
+                0x080629ec       0x28 ./App/Src/App_Gui.o
+                0x080629ec                Gradedisplay
  .rodata.ProfessionDisplay
-                0x08062a38       0x48 ./App/Src/App_Gui.o
-                0x08062a38                ProfessionDisplay
+                0x08062a14       0x48 ./App/Src/App_Gui.o
+                0x08062a14                ProfessionDisplay
  .rodata.nullmessage
-                0x08062a80       0x14 ./App/Src/App_main.o
-                0x08062a80                nullmessage
+                0x08062a5c       0x14 ./App/Src/App_main.o
+                0x08062a5c                nullmessage
  .rodata._global_impure_ptr
-                0x08062a94        0x4 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-impure.o)
-                0x08062a94                _global_impure_ptr
+                0x08062a70        0x4 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-impure.o)
+                0x08062a70                _global_impure_ptr
  .rodata._puts_r.str1.4
-                0x08062a98        0x2 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-puts.o)
- *fill*         0x08062a9a        0x2 
+                0x08062a74        0x2 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-puts.o)
+ *fill*         0x08062a76        0x2 
  .rodata._svfprintf_r.str1.4
-                0x08062a9c       0x42 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-svfprintf.o)
- *fill*         0x08062ade        0x2 
+                0x08062a78       0x42 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-svfprintf.o)
+ *fill*         0x08062aba        0x2 
  .rodata.blanks.8590
-                0x08062ae0       0x10 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-svfprintf.o)
+                0x08062abc       0x10 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-svfprintf.o)
  .rodata.zeroes.8591
-                0x08062af0       0x10 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-svfprintf.o)
+                0x08062acc       0x10 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-svfprintf.o)
  .rodata._vfprintf_r.str1.4
-                0x08062b00       0x42 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-vfprintf.o)
+                0x08062adc       0x42 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-vfprintf.o)
  .rodata.blanks.8605
-                0x08062b00       0x10 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-vfprintf.o)
+                0x08062adc       0x10 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-vfprintf.o)
  .rodata.zeroes.8606
-                0x08062b10       0x10 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-vfprintf.o)
+                0x08062aec       0x10 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-vfprintf.o)
  .rodata._dtoa_r.str1.4
-                0x08062b20       0x10 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-dtoa.o)
+                0x08062afc       0x10 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-dtoa.o)
                                  0x12 (size before relaxing)
+ *fill*         0x08062b0c        0x4 
  .rodata.__mprec_bigtens
-                0x08062b30       0x28 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-mprec.o)
-                0x08062b30                __mprec_bigtens
+                0x08062b10       0x28 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-mprec.o)
+                0x08062b10                __mprec_bigtens
  .rodata.__mprec_tens
-                0x08062b58       0xc8 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-mprec.o)
-                0x08062b58                __mprec_tens
+                0x08062b38       0xc8 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-mprec.o)
+                0x08062b38                __mprec_tens
  .rodata.p05.7367
-                0x08062c20        0xc d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-mprec.o)
+                0x08062c00        0xc d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-mprec.o)
  .rodata._setlocale_r.str1.4
-                0x08062c2c        0xa d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-locale.o)
+                0x08062c0c        0xa d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-locale.o)
                                   0xd (size before relaxing)
- *fill*         0x08062c36        0x2 
+ *fill*         0x08062c16        0x2 
  .rodata.str1.4
-                0x08062c38        0x4 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-locale.o)
+                0x08062c18        0x4 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-locale.o)
                                   0x2 (size before relaxing)
  .rodata._ctype_
-                0x08062c3c      0x101 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-ctype_.o)
-                0x08062c3c                _ctype_
-                0x08062d40                . = ALIGN (0x4)
- *fill*         0x08062d3d        0x3 
+                0x08062c1c      0x101 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-ctype_.o)
+                0x08062c1c                _ctype_
+                0x08062d20                . = ALIGN (0x4)
+ *fill*         0x08062d1d        0x3 
 
 .ARM.extab
  *(.ARM.extab* .gnu.linkonce.armextab.*)
 
-.ARM            0x08062d40        0x8
-                0x08062d40                __exidx_start = .
+.ARM            0x08062d20        0x8
+                0x08062d20                __exidx_start = .
  *(.ARM.exidx*)
- .ARM.exidx     0x08062d40        0x8 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv4-sp/hard\libgcc.a(_udivmoddi4.o)
-                0x08062d48                __exidx_end = .
+ .ARM.exidx     0x08062d20        0x8 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv4-sp/hard\libgcc.a(_udivmoddi4.o)
+                0x08062d28                __exidx_end = .
 
-.rel.dyn        0x08062d48        0x0
- .rel.iplt      0x08062d48        0x0 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv4-sp/hard/crtbegin.o
+.rel.dyn        0x08062d28        0x0
+ .rel.iplt      0x08062d28        0x0 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv4-sp/hard/crtbegin.o
 
-.preinit_array  0x08062d48        0x0
-                0x08062d48                PROVIDE (__preinit_array_start = .)
+.preinit_array  0x08062d28        0x0
+                0x08062d28                PROVIDE (__preinit_array_start = .)
  *(.preinit_array*)
-                0x08062d48                PROVIDE (__preinit_array_end = .)
+                0x08062d28                PROVIDE (__preinit_array_end = .)
 
-.init_array     0x08062d48        0x8
-                0x08062d48                PROVIDE (__init_array_start = .)
+.init_array     0x08062d28        0x8
+                0x08062d28                PROVIDE (__init_array_start = .)
  *(SORT_BY_NAME(.init_array.*))
  .init_array.00000
-                0x08062d48        0x4 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-__call_atexit.o)
+                0x08062d28        0x4 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libg.a(lib_a-__call_atexit.o)
  *(.init_array*)
- .init_array    0x08062d4c        0x4 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv4-sp/hard/crtbegin.o
-                0x08062d50                PROVIDE (__init_array_end = .)
+ .init_array    0x08062d2c        0x4 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv4-sp/hard/crtbegin.o
+                0x08062d30                PROVIDE (__init_array_end = .)
 
-.fini_array     0x08062d50        0x4
-                0x08062d50                PROVIDE (__fini_array_start = .)
+.fini_array     0x08062d30        0x4
+                0x08062d30                PROVIDE (__fini_array_start = .)
  *(SORT_BY_NAME(.fini_array.*))
  *(.fini_array*)
- .fini_array    0x08062d50        0x4 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv4-sp/hard/crtbegin.o
-                0x08062d54                PROVIDE (__fini_array_end = .)
-                0x08062d54                _sidata = LOADADDR (.data)
+ .fini_array    0x08062d30        0x4 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv4-sp/hard/crtbegin.o
+                0x08062d34                PROVIDE (__fini_array_end = .)
+                0x08062d34                _sidata = LOADADDR (.data)
 
-.data           0x20000000      0xa28 load address 0x08062d54
+.data           0x20000000      0xa28 load address 0x08062d34
                 0x20000000                . = ALIGN (0x4)
                 0x20000000                _sdata = .
  *(.data)
@@ -31428,12 +31412,12 @@ LOAD d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../li
                 0x200008bc                __global_locale
                 0x20000a28                . = ALIGN (0x4)
                 0x20000a28                _edata = .
-                0x0806377c                _siccmram = LOADADDR (.ccmram)
+                0x0806375c                _siccmram = LOADADDR (.ccmram)
 
-.igot.plt       0x20000a28        0x0 load address 0x0806377c
+.igot.plt       0x20000a28        0x0 load address 0x0806375c
  .igot.plt      0x20000a28        0x0 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv4-sp/hard/crtbegin.o
 
-.ccmram         0x10000000     0xf000 load address 0x0806377c
+.ccmram         0x10000000     0xf000 load address 0x0806375c
                 0x10000000                . = ALIGN (0x4)
                 0x10000000                _sccmram = .
  *(.ccmram)
@@ -32151,7 +32135,7 @@ LOAD d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../li
                 0x00002242       0x22 d:/studying_software/cdt/gcc-arm-none-eabi-7-2018-q2-update-win32/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv4-sp/hard/crtn.o
 OUTPUT(CubeMxF429_FreeRTOS.elf elf32-littlearm)
 
-.debug_line     0x00000000    0x4fb76
+.debug_line     0x00000000    0x4fb60
  .debug_line    0x00000000       0x7f ./startup/startup_stm32f429xx.o
  .debug_line    0x0000007f      0x8b6 ./Src/dma2d.o
  .debug_line    0x00000935      0x91a ./Src/fmc.o
@@ -32171,87 +32155,87 @@ OUTPUT(CubeMxF429_FreeRTOS.elf elf32-littlearm)
  .debug_line    0x000094bd      0xb23 ./Picture/Src/piclib.o
  .debug_line    0x00009fe0     0x12e7 ./Picture/Src/tjpgd.o
  .debug_line    0x0000b2c7      0xe53 ./LWIP/lwip_app/lwip_comm/lwip_comm.o
- .debug_line    0x0000c11a      0xd35 ./LWIP/lwip_app/lwip_client_app/lwip_client_app.o
- .debug_line    0x0000ce4f     0x104f ./LWIP/lwip-1.4.1/src/netif/etharp.o
- .debug_line    0x0000de9e      0xd60 ./LWIP/lwip-1.4.1/src/netif/ethernetif.o
- .debug_line    0x0000ebfe      0xcfd ./LWIP/lwip-1.4.1/src/core/ipv4/icmp.o
- .debug_line    0x0000f8fb      0xca6 ./LWIP/lwip-1.4.1/src/core/ipv4/inet_chksum.o
- .debug_line    0x000105a1      0xdab ./LWIP/lwip-1.4.1/src/core/ipv4/ip.o
- .debug_line    0x0001134c      0xd1d ./LWIP/lwip-1.4.1/src/core/ipv4/ip_addr.o
- .debug_line    0x00012069      0xeeb ./LWIP/lwip-1.4.1/src/core/ipv4/ip_frag.o
- .debug_line    0x00012f54      0xb49 ./LWIP/lwip-1.4.1/src/core/def.o
- .debug_line    0x00013a9d     0x1427 ./LWIP/lwip-1.4.1/src/core/dhcp.o
- .debug_line    0x00014ec4      0xd1d ./LWIP/lwip-1.4.1/src/core/init.o
- .debug_line    0x00015be1      0xd3e ./LWIP/lwip-1.4.1/src/core/mem.o
- .debug_line    0x0001691f      0xdf2 ./LWIP/lwip-1.4.1/src/core/memp.o
- .debug_line    0x00017711      0xe3d ./LWIP/lwip-1.4.1/src/core/netif.o
- .debug_line    0x0001854e     0x104f ./LWIP/lwip-1.4.1/src/core/pbuf.o
- .debug_line    0x0001959d      0xd33 ./LWIP/lwip-1.4.1/src/core/raw.o
- .debug_line    0x0001a2d0     0x12ba ./LWIP/lwip-1.4.1/src/core/tcp.o
- .debug_line    0x0001b58a     0x11d0 ./LWIP/lwip-1.4.1/src/core/tcp_in.o
- .debug_line    0x0001c75a     0x1150 ./LWIP/lwip-1.4.1/src/core/tcp_out.o
- .debug_line    0x0001d8aa      0xe30 ./LWIP/lwip-1.4.1/src/core/timers.o
- .debug_line    0x0001e6da      0xedc ./LWIP/lwip-1.4.1/src/core/udp.o
- .debug_line    0x0001f5b6     0x10b2 ./LWIP/lwip-1.4.1/src/api/api_lib.o
- .debug_line    0x00020668     0x1375 ./LWIP/lwip-1.4.1/src/api/api_msg.o
- .debug_line    0x000219dd      0xceb ./LWIP/lwip-1.4.1/src/api/netbuf.o
- .debug_line    0x000226c8     0x15d4 ./LWIP/lwip-1.4.1/src/api/sockets.o
- .debug_line    0x00023c9c      0xdf6 ./LWIP/lwip-1.4.1/src/api/tcpip.o
- .debug_line    0x00024a92      0xdab ./LWIP/arch/sys_arch.o
- .debug_line    0x0002583d      0xaf8 ./FreeRTOS/portable/MemMang/heap_4.o
- .debug_line    0x00026335      0xb52 ./FreeRTOS/portable/GCC/ARM_CM4F/port.o
- .debug_line    0x00026e87      0xa71 ./FreeRTOS/list.o
- .debug_line    0x000278f8     0x106d ./FreeRTOS/queue.o
- .debug_line    0x00028965     0x12d9 ./FreeRTOS/tasks.o
- .debug_line    0x00029c3e      0xc77 ./FreeRTOS/timers.o
- .debug_line    0x0002a8b5      0xbe6 ./Fonts/fontupd.o
- .debug_line    0x0002b49b      0xb7f ./Fonts/text.o
- .debug_line    0x0002c01a       0xef ./FatFs/cc936.o
- .debug_line    0x0002c109      0xb7c ./FatFs/diskio.o
- .debug_line    0x0002cc85      0xbaa ./FatFs/exfuns.o
- .debug_line    0x0002d82f     0x1c9f ./FatFs/ff.o
- .debug_line    0x0002f4ce      0xa97 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.o
- .debug_line    0x0002ff65      0xbae ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.o
- .debug_line    0x00030b13      0xb61 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.o
- .debug_line    0x00031674      0xda3 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma2d.o
- .debug_line    0x00032417      0xf8d ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_eth.o
- .debug_line    0x000333a4      0xa9c ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.o
- .debug_line    0x00033e40     0x1881 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.o
- .debug_line    0x000356c1      0x8c8 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c_ex.o
- .debug_line    0x00035f89     0x1175 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_ltdc.o
- .debug_line    0x000370fe      0xece ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_nand.o
- .debug_line    0x00037fcc      0x996 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.o
- .debug_line    0x00038962      0xadc ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.o
- .debug_line    0x0003943e      0xa34 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.o
- .debug_line    0x00039e72      0xbeb ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_sdram.o
- .debug_line    0x0003aa5d     0x1203 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.o
- .debug_line    0x0003bc60     0x1a2b ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.o
- .debug_line    0x0003d68b      0xe32 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.o
- .debug_line    0x0003e4bd     0x1177 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.o
- .debug_line    0x0003f634      0xc1a ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_fmc.o
- .debug_line    0x0004024e      0xcf1 ./DeviceDrivers/Src/MF_RC522.o
- .debug_line    0x00040f3f      0xb48 ./DeviceDrivers/Src/ctiic.o
- .debug_line    0x00041a87      0x985 ./DeviceDrivers/Src/devBY8301.o
- .debug_line    0x0004240c      0xa60 ./DeviceDrivers/Src/devDelay.o
- .debug_line    0x00042e6c      0xa90 ./DeviceDrivers/Src/devHMIScreen.o
- .debug_line    0x000438fc      0xae7 ./DeviceDrivers/Src/devKey.o
- .debug_line    0x000443e3      0x8e9 ./DeviceDrivers/Src/devLed.o
- .debug_line    0x00044ccc      0xc49 ./DeviceDrivers/Src/devLtdc.o
- .debug_line    0x00045915      0xb0c ./DeviceDrivers/Src/devSdram.o
- .debug_line    0x00046421      0xa35 ./DeviceDrivers/Src/devUsart.o
- .debug_line    0x00046e56      0xc3c ./DeviceDrivers/Src/devW25Qxx.o
- .debug_line    0x00047a92      0xcbd ./DeviceDrivers/Src/ft5206.o
- .debug_line    0x0004874f      0xced ./DeviceDrivers/Src/ftl.o
- .debug_line    0x0004943c      0xb73 ./DeviceDrivers/Src/lan8720.o
- .debug_line    0x00049faf      0xa14 ./DeviceDrivers/Src/malloc.o
- .debug_line    0x0004a9c3      0xef9 ./DeviceDrivers/Src/nand.o
- .debug_line    0x0004b8bc      0xc2e ./DeviceDrivers/Src/touch.o
- .debug_line    0x0004c4ea      0xf15 ./App/Src/App_Gui.o
- .debug_line    0x0004d3ff      0xdfa ./App/Src/App_Pay.o
- .debug_line    0x0004e1f9     0x1442 ./App/Src/App_main.o
- .debug_line    0x0004f63b      0x53b ./syscalls.o
+ .debug_line    0x0000c11a      0xd31 ./LWIP/lwip_app/lwip_client_app/lwip_client_app.o
+ .debug_line    0x0000ce4b     0x104f ./LWIP/lwip-1.4.1/src/netif/etharp.o
+ .debug_line    0x0000de9a      0xd60 ./LWIP/lwip-1.4.1/src/netif/ethernetif.o
+ .debug_line    0x0000ebfa      0xcfd ./LWIP/lwip-1.4.1/src/core/ipv4/icmp.o
+ .debug_line    0x0000f8f7      0xca6 ./LWIP/lwip-1.4.1/src/core/ipv4/inet_chksum.o
+ .debug_line    0x0001059d      0xdab ./LWIP/lwip-1.4.1/src/core/ipv4/ip.o
+ .debug_line    0x00011348      0xd1d ./LWIP/lwip-1.4.1/src/core/ipv4/ip_addr.o
+ .debug_line    0x00012065      0xeeb ./LWIP/lwip-1.4.1/src/core/ipv4/ip_frag.o
+ .debug_line    0x00012f50      0xb49 ./LWIP/lwip-1.4.1/src/core/def.o
+ .debug_line    0x00013a99     0x1427 ./LWIP/lwip-1.4.1/src/core/dhcp.o
+ .debug_line    0x00014ec0      0xd1d ./LWIP/lwip-1.4.1/src/core/init.o
+ .debug_line    0x00015bdd      0xd3e ./LWIP/lwip-1.4.1/src/core/mem.o
+ .debug_line    0x0001691b      0xdf2 ./LWIP/lwip-1.4.1/src/core/memp.o
+ .debug_line    0x0001770d      0xe3d ./LWIP/lwip-1.4.1/src/core/netif.o
+ .debug_line    0x0001854a     0x104f ./LWIP/lwip-1.4.1/src/core/pbuf.o
+ .debug_line    0x00019599      0xd33 ./LWIP/lwip-1.4.1/src/core/raw.o
+ .debug_line    0x0001a2cc     0x12ba ./LWIP/lwip-1.4.1/src/core/tcp.o
+ .debug_line    0x0001b586     0x11d0 ./LWIP/lwip-1.4.1/src/core/tcp_in.o
+ .debug_line    0x0001c756     0x1150 ./LWIP/lwip-1.4.1/src/core/tcp_out.o
+ .debug_line    0x0001d8a6      0xe30 ./LWIP/lwip-1.4.1/src/core/timers.o
+ .debug_line    0x0001e6d6      0xedc ./LWIP/lwip-1.4.1/src/core/udp.o
+ .debug_line    0x0001f5b2     0x10b2 ./LWIP/lwip-1.4.1/src/api/api_lib.o
+ .debug_line    0x00020664     0x1375 ./LWIP/lwip-1.4.1/src/api/api_msg.o
+ .debug_line    0x000219d9      0xceb ./LWIP/lwip-1.4.1/src/api/netbuf.o
+ .debug_line    0x000226c4     0x15d4 ./LWIP/lwip-1.4.1/src/api/sockets.o
+ .debug_line    0x00023c98      0xdf6 ./LWIP/lwip-1.4.1/src/api/tcpip.o
+ .debug_line    0x00024a8e      0xdab ./LWIP/arch/sys_arch.o
+ .debug_line    0x00025839      0xaf8 ./FreeRTOS/portable/MemMang/heap_4.o
+ .debug_line    0x00026331      0xb52 ./FreeRTOS/portable/GCC/ARM_CM4F/port.o
+ .debug_line    0x00026e83      0xa71 ./FreeRTOS/list.o
+ .debug_line    0x000278f4     0x106d ./FreeRTOS/queue.o
+ .debug_line    0x00028961     0x12d9 ./FreeRTOS/tasks.o
+ .debug_line    0x00029c3a      0xc77 ./FreeRTOS/timers.o
+ .debug_line    0x0002a8b1      0xbe6 ./Fonts/fontupd.o
+ .debug_line    0x0002b497      0xb7f ./Fonts/text.o
+ .debug_line    0x0002c016       0xef ./FatFs/cc936.o
+ .debug_line    0x0002c105      0xb7c ./FatFs/diskio.o
+ .debug_line    0x0002cc81      0xbaa ./FatFs/exfuns.o
+ .debug_line    0x0002d82b     0x1c9f ./FatFs/ff.o
+ .debug_line    0x0002f4ca      0xa97 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.o
+ .debug_line    0x0002ff61      0xbae ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.o
+ .debug_line    0x00030b0f      0xb61 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.o
+ .debug_line    0x00031670      0xda3 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma2d.o
+ .debug_line    0x00032413      0xf8d ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_eth.o
+ .debug_line    0x000333a0      0xa9c ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.o
+ .debug_line    0x00033e3c     0x1881 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.o
+ .debug_line    0x000356bd      0x8c8 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c_ex.o
+ .debug_line    0x00035f85     0x1175 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_ltdc.o
+ .debug_line    0x000370fa      0xece ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_nand.o
+ .debug_line    0x00037fc8      0x996 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.o
+ .debug_line    0x0003895e      0xadc ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.o
+ .debug_line    0x0003943a      0xa34 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.o
+ .debug_line    0x00039e6e      0xbeb ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_sdram.o
+ .debug_line    0x0003aa59     0x1203 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.o
+ .debug_line    0x0003bc5c     0x1a2b ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.o
+ .debug_line    0x0003d687      0xe32 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.o
+ .debug_line    0x0003e4b9     0x1177 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.o
+ .debug_line    0x0003f630      0xc1a ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_fmc.o
+ .debug_line    0x0004024a      0xcf1 ./DeviceDrivers/Src/MF_RC522.o
+ .debug_line    0x00040f3b      0xb48 ./DeviceDrivers/Src/ctiic.o
+ .debug_line    0x00041a83      0x985 ./DeviceDrivers/Src/devBY8301.o
+ .debug_line    0x00042408      0xa60 ./DeviceDrivers/Src/devDelay.o
+ .debug_line    0x00042e68      0xa8c ./DeviceDrivers/Src/devHMIScreen.o
+ .debug_line    0x000438f4      0xae7 ./DeviceDrivers/Src/devKey.o
+ .debug_line    0x000443db      0x8e9 ./DeviceDrivers/Src/devLed.o
+ .debug_line    0x00044cc4      0xc49 ./DeviceDrivers/Src/devLtdc.o
+ .debug_line    0x0004590d      0xb0c ./DeviceDrivers/Src/devSdram.o
+ .debug_line    0x00046419      0xa35 ./DeviceDrivers/Src/devUsart.o
+ .debug_line    0x00046e4e      0xc3c ./DeviceDrivers/Src/devW25Qxx.o
+ .debug_line    0x00047a8a      0xcbd ./DeviceDrivers/Src/ft5206.o
+ .debug_line    0x00048747      0xced ./DeviceDrivers/Src/ftl.o
+ .debug_line    0x00049434      0xb71 ./DeviceDrivers/Src/lan8720.o
+ .debug_line    0x00049fa5      0xa14 ./DeviceDrivers/Src/malloc.o
+ .debug_line    0x0004a9b9      0xef9 ./DeviceDrivers/Src/nand.o
+ .debug_line    0x0004b8b2      0xc2c ./DeviceDrivers/Src/touch.o
+ .debug_line    0x0004c4de      0xf13 ./App/Src/App_Gui.o
+ .debug_line    0x0004d3f1      0xdfa ./App/Src/App_Pay.o
+ .debug_line    0x0004e1eb     0x143a ./App/Src/App_main.o
+ .debug_line    0x0004f625      0x53b ./syscalls.o
 
-.debug_info     0x00000000    0x89d23
+.debug_info     0x00000000    0x89d1e
  .debug_info    0x00000000       0x22 ./startup/startup_stm32f429xx.o
  .debug_info    0x00000022      0xeab ./Src/dma2d.o
  .debug_info    0x00000ecd     0x1170 ./Src/fmc.o
@@ -32271,87 +32255,87 @@ OUTPUT(CubeMxF429_FreeRTOS.elf elf32-littlearm)
  .debug_info    0x00013330     0x19cb ./Picture/Src/piclib.o
  .debug_info    0x00014cfb     0x2639 ./Picture/Src/tjpgd.o
  .debug_info    0x00017334     0x2680 ./LWIP/lwip_app/lwip_comm/lwip_comm.o
- .debug_info    0x000199b4     0x1d7b ./LWIP/lwip_app/lwip_client_app/lwip_client_app.o
- .debug_info    0x0001b72f     0x17c5 ./LWIP/lwip-1.4.1/src/netif/etharp.o
- .debug_info    0x0001cef4     0x16cd ./LWIP/lwip-1.4.1/src/netif/ethernetif.o
- .debug_info    0x0001e5c1      0xf34 ./LWIP/lwip-1.4.1/src/core/ipv4/icmp.o
- .debug_info    0x0001f4f5      0xc94 ./LWIP/lwip-1.4.1/src/core/ipv4/inet_chksum.o
- .debug_info    0x00020189     0x181a ./LWIP/lwip-1.4.1/src/core/ipv4/ip.o
- .debug_info    0x000219a3      0xe37 ./LWIP/lwip-1.4.1/src/core/ipv4/ip_addr.o
- .debug_info    0x000227da     0x1365 ./LWIP/lwip-1.4.1/src/core/ipv4/ip_frag.o
- .debug_info    0x00023b3f      0x9f1 ./LWIP/lwip-1.4.1/src/core/def.o
- .debug_info    0x00024530     0x1a4a ./LWIP/lwip-1.4.1/src/core/dhcp.o
- .debug_info    0x00025f7a     0x1378 ./LWIP/lwip-1.4.1/src/core/init.o
- .debug_info    0x000272f2      0xc6b ./LWIP/lwip-1.4.1/src/core/mem.o
- .debug_info    0x00027f5d     0x1599 ./LWIP/lwip-1.4.1/src/core/memp.o
- .debug_info    0x000294f6     0x189d ./LWIP/lwip-1.4.1/src/core/netif.o
- .debug_info    0x0002ad93     0x1233 ./LWIP/lwip-1.4.1/src/core/pbuf.o
- .debug_info    0x0002bfc6     0x104c ./LWIP/lwip-1.4.1/src/core/raw.o
- .debug_info    0x0002d012     0x1dbd ./LWIP/lwip-1.4.1/src/core/tcp.o
- .debug_info    0x0002edcf     0x1603 ./LWIP/lwip-1.4.1/src/core/tcp_in.o
- .debug_info    0x000303d2     0x1ae8 ./LWIP/lwip-1.4.1/src/core/tcp_out.o
- .debug_info    0x00031eba     0x188e ./LWIP/lwip-1.4.1/src/core/timers.o
- .debug_info    0x00033748     0x1494 ./LWIP/lwip-1.4.1/src/core/udp.o
- .debug_info    0x00034bdc     0x1de2 ./LWIP/lwip-1.4.1/src/api/api_lib.o
- .debug_info    0x000369be     0x1e7c ./LWIP/lwip-1.4.1/src/api/api_msg.o
- .debug_info    0x0003883a      0xcd4 ./LWIP/lwip-1.4.1/src/api/netbuf.o
- .debug_info    0x0003950e     0x288c ./LWIP/lwip-1.4.1/src/api/sockets.o
- .debug_info    0x0003bd9a     0x15b9 ./LWIP/lwip-1.4.1/src/api/tcpip.o
- .debug_info    0x0003d353     0x14a3 ./LWIP/arch/sys_arch.o
- .debug_info    0x0003e7f6      0xb95 ./FreeRTOS/portable/MemMang/heap_4.o
- .debug_info    0x0003f38b      0xc51 ./FreeRTOS/portable/GCC/ARM_CM4F/port.o
- .debug_info    0x0003ffdc      0xb57 ./FreeRTOS/list.o
- .debug_info    0x00040b33     0x1ac7 ./FreeRTOS/queue.o
- .debug_info    0x000425fa     0x1ec0 ./FreeRTOS/tasks.o
- .debug_info    0x000444ba     0x1356 ./FreeRTOS/timers.o
- .debug_info    0x00045810     0x1e81 ./Fonts/fontupd.o
- .debug_info    0x00047691     0x1abf ./Fonts/text.o
- .debug_info    0x00049150      0x1f8 ./FatFs/cc936.o
- .debug_info    0x00049348     0x147d ./FatFs/diskio.o
- .debug_info    0x0004a7c5     0x1791 ./FatFs/exfuns.o
- .debug_info    0x0004bf56     0x2aa0 ./FatFs/ff.o
- .debug_info    0x0004e9f6     0x11a3 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.o
- .debug_info    0x0004fb99     0x1627 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.o
- .debug_info    0x000511c0     0x1136 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.o
- .debug_info    0x000522f6     0x167a ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma2d.o
- .debug_info    0x00053970     0x1cb1 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_eth.o
- .debug_info    0x00055621      0xfa0 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.o
- .debug_info    0x000565c1     0x28a4 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.o
- .debug_info    0x00058e65      0xee7 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c_ex.o
- .debug_info    0x00059d4c     0x18ec ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_ltdc.o
- .debug_info    0x0005b638     0x16a9 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_nand.o
- .debug_info    0x0005cce1      0xf51 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.o
- .debug_info    0x0005dc32     0x10e0 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.o
- .debug_info    0x0005ed12      0xe8c ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.o
- .debug_info    0x0005fb9e     0x1467 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_sdram.o
- .debug_info    0x00061005     0x1d0b ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.o
- .debug_info    0x00062d10     0x2a0b ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.o
- .debug_info    0x0006571b     0x17e5 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.o
- .debug_info    0x00066f00     0x19ef ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.o
- .debug_info    0x000688ef     0x16e4 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_fmc.o
- .debug_info    0x00069fd3     0x16fc ./DeviceDrivers/Src/MF_RC522.o
- .debug_info    0x0006b6cf     0x121f ./DeviceDrivers/Src/ctiic.o
- .debug_info    0x0006c8ee      0xf89 ./DeviceDrivers/Src/devBY8301.o
- .debug_info    0x0006d877      0xe81 ./DeviceDrivers/Src/devDelay.o
- .debug_info    0x0006e6f8     0x1122 ./DeviceDrivers/Src/devHMIScreen.o
- .debug_info    0x0006f81a     0x1026 ./DeviceDrivers/Src/devKey.o
- .debug_info    0x00070840      0xa51 ./DeviceDrivers/Src/devLed.o
- .debug_info    0x00071291     0x1e0f ./DeviceDrivers/Src/devLtdc.o
- .debug_info    0x000730a0     0x11de ./DeviceDrivers/Src/devSdram.o
- .debug_info    0x0007427e     0x10cc ./DeviceDrivers/Src/devUsart.o
- .debug_info    0x0007534a     0x16df ./DeviceDrivers/Src/devW25Qxx.o
- .debug_info    0x00076a29     0x1aea ./DeviceDrivers/Src/ft5206.o
- .debug_info    0x00078513     0x14f1 ./DeviceDrivers/Src/ftl.o
- .debug_info    0x00079a04     0x1de3 ./DeviceDrivers/Src/lan8720.o
- .debug_info    0x0007b7e7      0xe02 ./DeviceDrivers/Src/malloc.o
- .debug_info    0x0007c5e9     0x1ce4 ./DeviceDrivers/Src/nand.o
- .debug_info    0x0007e2cd     0x1938 ./DeviceDrivers/Src/touch.o
- .debug_info    0x0007fc05     0x2b20 ./App/Src/App_Gui.o
- .debug_info    0x00082725     0x29ef ./App/Src/App_Pay.o
- .debug_info    0x00085114     0x3ce1 ./App/Src/App_main.o
- .debug_info    0x00088df5      0xf2e ./syscalls.o
+ .debug_info    0x000199b4     0x1d79 ./LWIP/lwip_app/lwip_client_app/lwip_client_app.o
+ .debug_info    0x0001b72d     0x17c5 ./LWIP/lwip-1.4.1/src/netif/etharp.o
+ .debug_info    0x0001cef2     0x16cd ./LWIP/lwip-1.4.1/src/netif/ethernetif.o
+ .debug_info    0x0001e5bf      0xf34 ./LWIP/lwip-1.4.1/src/core/ipv4/icmp.o
+ .debug_info    0x0001f4f3      0xc94 ./LWIP/lwip-1.4.1/src/core/ipv4/inet_chksum.o
+ .debug_info    0x00020187     0x181a ./LWIP/lwip-1.4.1/src/core/ipv4/ip.o
+ .debug_info    0x000219a1      0xe37 ./LWIP/lwip-1.4.1/src/core/ipv4/ip_addr.o
+ .debug_info    0x000227d8     0x1365 ./LWIP/lwip-1.4.1/src/core/ipv4/ip_frag.o
+ .debug_info    0x00023b3d      0x9f1 ./LWIP/lwip-1.4.1/src/core/def.o
+ .debug_info    0x0002452e     0x1a4a ./LWIP/lwip-1.4.1/src/core/dhcp.o
+ .debug_info    0x00025f78     0x1378 ./LWIP/lwip-1.4.1/src/core/init.o
+ .debug_info    0x000272f0      0xc6b ./LWIP/lwip-1.4.1/src/core/mem.o
+ .debug_info    0x00027f5b     0x1599 ./LWIP/lwip-1.4.1/src/core/memp.o
+ .debug_info    0x000294f4     0x189d ./LWIP/lwip-1.4.1/src/core/netif.o
+ .debug_info    0x0002ad91     0x1233 ./LWIP/lwip-1.4.1/src/core/pbuf.o
+ .debug_info    0x0002bfc4     0x104c ./LWIP/lwip-1.4.1/src/core/raw.o
+ .debug_info    0x0002d010     0x1dbd ./LWIP/lwip-1.4.1/src/core/tcp.o
+ .debug_info    0x0002edcd     0x1603 ./LWIP/lwip-1.4.1/src/core/tcp_in.o
+ .debug_info    0x000303d0     0x1ae8 ./LWIP/lwip-1.4.1/src/core/tcp_out.o
+ .debug_info    0x00031eb8     0x188e ./LWIP/lwip-1.4.1/src/core/timers.o
+ .debug_info    0x00033746     0x1494 ./LWIP/lwip-1.4.1/src/core/udp.o
+ .debug_info    0x00034bda     0x1de2 ./LWIP/lwip-1.4.1/src/api/api_lib.o
+ .debug_info    0x000369bc     0x1e7c ./LWIP/lwip-1.4.1/src/api/api_msg.o
+ .debug_info    0x00038838      0xcd4 ./LWIP/lwip-1.4.1/src/api/netbuf.o
+ .debug_info    0x0003950c     0x288c ./LWIP/lwip-1.4.1/src/api/sockets.o
+ .debug_info    0x0003bd98     0x15b9 ./LWIP/lwip-1.4.1/src/api/tcpip.o
+ .debug_info    0x0003d351     0x14a3 ./LWIP/arch/sys_arch.o
+ .debug_info    0x0003e7f4      0xb95 ./FreeRTOS/portable/MemMang/heap_4.o
+ .debug_info    0x0003f389      0xc51 ./FreeRTOS/portable/GCC/ARM_CM4F/port.o
+ .debug_info    0x0003ffda      0xb57 ./FreeRTOS/list.o
+ .debug_info    0x00040b31     0x1ac7 ./FreeRTOS/queue.o
+ .debug_info    0x000425f8     0x1ec0 ./FreeRTOS/tasks.o
+ .debug_info    0x000444b8     0x1356 ./FreeRTOS/timers.o
+ .debug_info    0x0004580e     0x1e81 ./Fonts/fontupd.o
+ .debug_info    0x0004768f     0x1abf ./Fonts/text.o
+ .debug_info    0x0004914e      0x1f8 ./FatFs/cc936.o
+ .debug_info    0x00049346     0x147d ./FatFs/diskio.o
+ .debug_info    0x0004a7c3     0x1791 ./FatFs/exfuns.o
+ .debug_info    0x0004bf54     0x2aa0 ./FatFs/ff.o
+ .debug_info    0x0004e9f4     0x11a3 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.o
+ .debug_info    0x0004fb97     0x1627 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.o
+ .debug_info    0x000511be     0x1136 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.o
+ .debug_info    0x000522f4     0x167a ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma2d.o
+ .debug_info    0x0005396e     0x1cb1 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_eth.o
+ .debug_info    0x0005561f      0xfa0 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.o
+ .debug_info    0x000565bf     0x28a4 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.o
+ .debug_info    0x00058e63      0xee7 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c_ex.o
+ .debug_info    0x00059d4a     0x18ec ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_ltdc.o
+ .debug_info    0x0005b636     0x16a9 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_nand.o
+ .debug_info    0x0005ccdf      0xf51 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.o
+ .debug_info    0x0005dc30     0x10e0 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.o
+ .debug_info    0x0005ed10      0xe8c ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.o
+ .debug_info    0x0005fb9c     0x1467 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_sdram.o
+ .debug_info    0x00061003     0x1d0b ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.o
+ .debug_info    0x00062d0e     0x2a0b ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.o
+ .debug_info    0x00065719     0x17e5 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.o
+ .debug_info    0x00066efe     0x19ef ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.o
+ .debug_info    0x000688ed     0x16e4 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_fmc.o
+ .debug_info    0x00069fd1     0x16fc ./DeviceDrivers/Src/MF_RC522.o
+ .debug_info    0x0006b6cd     0x121f ./DeviceDrivers/Src/ctiic.o
+ .debug_info    0x0006c8ec      0xf89 ./DeviceDrivers/Src/devBY8301.o
+ .debug_info    0x0006d875      0xe81 ./DeviceDrivers/Src/devDelay.o
+ .debug_info    0x0006e6f6     0x1122 ./DeviceDrivers/Src/devHMIScreen.o
+ .debug_info    0x0006f818     0x1026 ./DeviceDrivers/Src/devKey.o
+ .debug_info    0x0007083e      0xa51 ./DeviceDrivers/Src/devLed.o
+ .debug_info    0x0007128f     0x1e0f ./DeviceDrivers/Src/devLtdc.o
+ .debug_info    0x0007309e     0x11de ./DeviceDrivers/Src/devSdram.o
+ .debug_info    0x0007427c     0x10cc ./DeviceDrivers/Src/devUsart.o
+ .debug_info    0x00075348     0x16df ./DeviceDrivers/Src/devW25Qxx.o
+ .debug_info    0x00076a27     0x1aea ./DeviceDrivers/Src/ft5206.o
+ .debug_info    0x00078511     0x14f1 ./DeviceDrivers/Src/ftl.o
+ .debug_info    0x00079a02     0x1de3 ./DeviceDrivers/Src/lan8720.o
+ .debug_info    0x0007b7e5      0xe02 ./DeviceDrivers/Src/malloc.o
+ .debug_info    0x0007c5e7     0x1ce4 ./DeviceDrivers/Src/nand.o
+ .debug_info    0x0007e2cb     0x1938 ./DeviceDrivers/Src/touch.o
+ .debug_info    0x0007fc03     0x2b1d ./App/Src/App_Gui.o
+ .debug_info    0x00082720     0x29ef ./App/Src/App_Pay.o
+ .debug_info    0x0008510f     0x3ce1 ./App/Src/App_main.o
+ .debug_info    0x00088df0      0xf2e ./syscalls.o
 
-.debug_abbrev   0x00000000    0x1027a
+.debug_abbrev   0x00000000    0x1026b
  .debug_abbrev  0x00000000       0x12 ./startup/startup_stm32f429xx.o
  .debug_abbrev  0x00000012      0x235 ./Src/dma2d.o
  .debug_abbrev  0x00000247      0x27f ./Src/fmc.o
@@ -32371,85 +32355,85 @@ OUTPUT(CubeMxF429_FreeRTOS.elf elf32-littlearm)
  .debug_abbrev  0x000022f6      0x2e8 ./Picture/Src/piclib.o
  .debug_abbrev  0x000025de      0x352 ./Picture/Src/tjpgd.o
  .debug_abbrev  0x00002930      0x2cb ./LWIP/lwip_app/lwip_comm/lwip_comm.o
- .debug_abbrev  0x00002bfb      0x2af ./LWIP/lwip_app/lwip_client_app/lwip_client_app.o
- .debug_abbrev  0x00002eaa      0x2ea ./LWIP/lwip-1.4.1/src/netif/etharp.o
- .debug_abbrev  0x00003194      0x287 ./LWIP/lwip-1.4.1/src/netif/ethernetif.o
- .debug_abbrev  0x0000341b      0x2a3 ./LWIP/lwip-1.4.1/src/core/ipv4/icmp.o
- .debug_abbrev  0x000036be      0x238 ./LWIP/lwip-1.4.1/src/core/ipv4/inet_chksum.o
- .debug_abbrev  0x000038f6      0x275 ./LWIP/lwip-1.4.1/src/core/ipv4/ip.o
- .debug_abbrev  0x00003b6b      0x28e ./LWIP/lwip-1.4.1/src/core/ipv4/ip_addr.o
- .debug_abbrev  0x00003df9      0x2ec ./LWIP/lwip-1.4.1/src/core/ipv4/ip_frag.o
- .debug_abbrev  0x000040e5      0x1fa ./LWIP/lwip-1.4.1/src/core/def.o
- .debug_abbrev  0x000042df      0x2ed ./LWIP/lwip-1.4.1/src/core/dhcp.o
- .debug_abbrev  0x000045cc      0x1eb ./LWIP/lwip-1.4.1/src/core/init.o
- .debug_abbrev  0x000047b7      0x273 ./LWIP/lwip-1.4.1/src/core/mem.o
- .debug_abbrev  0x00004a2a      0x2aa ./LWIP/lwip-1.4.1/src/core/memp.o
- .debug_abbrev  0x00004cd4      0x2f7 ./LWIP/lwip-1.4.1/src/core/netif.o
- .debug_abbrev  0x00004fcb      0x296 ./LWIP/lwip-1.4.1/src/core/pbuf.o
- .debug_abbrev  0x00005261      0x2b3 ./LWIP/lwip-1.4.1/src/core/raw.o
- .debug_abbrev  0x00005514      0x39d ./LWIP/lwip-1.4.1/src/core/tcp.o
- .debug_abbrev  0x000058b1      0x2ab ./LWIP/lwip-1.4.1/src/core/tcp_in.o
- .debug_abbrev  0x00005b5c      0x33d ./LWIP/lwip-1.4.1/src/core/tcp_out.o
- .debug_abbrev  0x00005e99      0x2ab ./LWIP/lwip-1.4.1/src/core/timers.o
- .debug_abbrev  0x00006144      0x2fb ./LWIP/lwip-1.4.1/src/core/udp.o
- .debug_abbrev  0x0000643f      0x2ea ./LWIP/lwip-1.4.1/src/api/api_lib.o
- .debug_abbrev  0x00006729      0x31f ./LWIP/lwip-1.4.1/src/api/api_msg.o
- .debug_abbrev  0x00006a48      0x235 ./LWIP/lwip-1.4.1/src/api/netbuf.o
- .debug_abbrev  0x00006c7d      0x2ff ./LWIP/lwip-1.4.1/src/api/sockets.o
- .debug_abbrev  0x00006f7c      0x2c1 ./LWIP/lwip-1.4.1/src/api/tcpip.o
- .debug_abbrev  0x0000723d      0x3b2 ./LWIP/arch/sys_arch.o
- .debug_abbrev  0x000075ef      0x27a ./FreeRTOS/portable/MemMang/heap_4.o
- .debug_abbrev  0x00007869      0x314 ./FreeRTOS/portable/GCC/ARM_CM4F/port.o
- .debug_abbrev  0x00007b7d      0x205 ./FreeRTOS/list.o
- .debug_abbrev  0x00007d82      0x350 ./FreeRTOS/queue.o
- .debug_abbrev  0x000080d2      0x36e ./FreeRTOS/tasks.o
- .debug_abbrev  0x00008440      0x2b7 ./FreeRTOS/timers.o
- .debug_abbrev  0x000086f7      0x293 ./Fonts/fontupd.o
- .debug_abbrev  0x0000898a      0x25b ./Fonts/text.o
- .debug_abbrev  0x00008be5       0xd7 ./FatFs/cc936.o
- .debug_abbrev  0x00008cbc      0x293 ./FatFs/diskio.o
- .debug_abbrev  0x00008f4f      0x2eb ./FatFs/exfuns.o
- .debug_abbrev  0x0000923a      0x20d ./FatFs/ff.o
- .debug_abbrev  0x00009447      0x2bd ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.o
- .debug_abbrev  0x00009704      0x39f ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.o
- .debug_abbrev  0x00009aa3      0x2c3 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.o
- .debug_abbrev  0x00009d66      0x2b2 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma2d.o
- .debug_abbrev  0x0000a018      0x33a ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_eth.o
- .debug_abbrev  0x0000a352      0x289 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.o
- .debug_abbrev  0x0000a5db      0x2de ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.o
- .debug_abbrev  0x0000a8b9      0x216 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c_ex.o
- .debug_abbrev  0x0000aacf      0x2ee ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_ltdc.o
- .debug_abbrev  0x0000adbd      0x2af ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_nand.o
- .debug_abbrev  0x0000b06c      0x2b0 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.o
- .debug_abbrev  0x0000b31c      0x305 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.o
- .debug_abbrev  0x0000b621      0x25e ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.o
- .debug_abbrev  0x0000b87f      0x2a0 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_sdram.o
- .debug_abbrev  0x0000bb1f      0x2e9 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.o
- .debug_abbrev  0x0000be08      0x2ea ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.o
- .debug_abbrev  0x0000c0f2      0x2c7 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.o
- .debug_abbrev  0x0000c3b9      0x2fa ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.o
- .debug_abbrev  0x0000c6b3      0x25b ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_fmc.o
- .debug_abbrev  0x0000c90e      0x366 ./DeviceDrivers/Src/MF_RC522.o
- .debug_abbrev  0x0000cc74      0x26f ./DeviceDrivers/Src/ctiic.o
- .debug_abbrev  0x0000cee3      0x23d ./DeviceDrivers/Src/devBY8301.o
- .debug_abbrev  0x0000d120      0x22e ./DeviceDrivers/Src/devDelay.o
- .debug_abbrev  0x0000d34e      0x24c ./DeviceDrivers/Src/devHMIScreen.o
- .debug_abbrev  0x0000d59a      0x250 ./DeviceDrivers/Src/devKey.o
- .debug_abbrev  0x0000d7ea      0x1fc ./DeviceDrivers/Src/devLed.o
- .debug_abbrev  0x0000d9e6      0x34b ./DeviceDrivers/Src/devLtdc.o
- .debug_abbrev  0x0000dd31      0x284 ./DeviceDrivers/Src/devSdram.o
- .debug_abbrev  0x0000dfb5      0x216 ./DeviceDrivers/Src/devUsart.o
- .debug_abbrev  0x0000e1cb      0x30f ./DeviceDrivers/Src/devW25Qxx.o
- .debug_abbrev  0x0000e4da      0x304 ./DeviceDrivers/Src/ft5206.o
- .debug_abbrev  0x0000e7de      0x2be ./DeviceDrivers/Src/ftl.o
- .debug_abbrev  0x0000ea9c      0x2f4 ./DeviceDrivers/Src/lan8720.o
- .debug_abbrev  0x0000ed90      0x2b3 ./DeviceDrivers/Src/malloc.o
- .debug_abbrev  0x0000f043      0x37c ./DeviceDrivers/Src/nand.o
- .debug_abbrev  0x0000f3bf      0x322 ./DeviceDrivers/Src/touch.o
- .debug_abbrev  0x0000f6e1      0x326 ./App/Src/App_Gui.o
- .debug_abbrev  0x0000fa07      0x29b ./App/Src/App_Pay.o
- .debug_abbrev  0x0000fca2      0x32e ./App/Src/App_main.o
- .debug_abbrev  0x0000ffd0      0x2aa ./syscalls.o
+ .debug_abbrev  0x00002bfb      0x2a0 ./LWIP/lwip_app/lwip_client_app/lwip_client_app.o
+ .debug_abbrev  0x00002e9b      0x2ea ./LWIP/lwip-1.4.1/src/netif/etharp.o
+ .debug_abbrev  0x00003185      0x287 ./LWIP/lwip-1.4.1/src/netif/ethernetif.o
+ .debug_abbrev  0x0000340c      0x2a3 ./LWIP/lwip-1.4.1/src/core/ipv4/icmp.o
+ .debug_abbrev  0x000036af      0x238 ./LWIP/lwip-1.4.1/src/core/ipv4/inet_chksum.o
+ .debug_abbrev  0x000038e7      0x275 ./LWIP/lwip-1.4.1/src/core/ipv4/ip.o
+ .debug_abbrev  0x00003b5c      0x28e ./LWIP/lwip-1.4.1/src/core/ipv4/ip_addr.o
+ .debug_abbrev  0x00003dea      0x2ec ./LWIP/lwip-1.4.1/src/core/ipv4/ip_frag.o
+ .debug_abbrev  0x000040d6      0x1fa ./LWIP/lwip-1.4.1/src/core/def.o
+ .debug_abbrev  0x000042d0      0x2ed ./LWIP/lwip-1.4.1/src/core/dhcp.o
+ .debug_abbrev  0x000045bd      0x1eb ./LWIP/lwip-1.4.1/src/core/init.o
+ .debug_abbrev  0x000047a8      0x273 ./LWIP/lwip-1.4.1/src/core/mem.o
+ .debug_abbrev  0x00004a1b      0x2aa ./LWIP/lwip-1.4.1/src/core/memp.o
+ .debug_abbrev  0x00004cc5      0x2f7 ./LWIP/lwip-1.4.1/src/core/netif.o
+ .debug_abbrev  0x00004fbc      0x296 ./LWIP/lwip-1.4.1/src/core/pbuf.o
+ .debug_abbrev  0x00005252      0x2b3 ./LWIP/lwip-1.4.1/src/core/raw.o
+ .debug_abbrev  0x00005505      0x39d ./LWIP/lwip-1.4.1/src/core/tcp.o
+ .debug_abbrev  0x000058a2      0x2ab ./LWIP/lwip-1.4.1/src/core/tcp_in.o
+ .debug_abbrev  0x00005b4d      0x33d ./LWIP/lwip-1.4.1/src/core/tcp_out.o
+ .debug_abbrev  0x00005e8a      0x2ab ./LWIP/lwip-1.4.1/src/core/timers.o
+ .debug_abbrev  0x00006135      0x2fb ./LWIP/lwip-1.4.1/src/core/udp.o
+ .debug_abbrev  0x00006430      0x2ea ./LWIP/lwip-1.4.1/src/api/api_lib.o
+ .debug_abbrev  0x0000671a      0x31f ./LWIP/lwip-1.4.1/src/api/api_msg.o
+ .debug_abbrev  0x00006a39      0x235 ./LWIP/lwip-1.4.1/src/api/netbuf.o
+ .debug_abbrev  0x00006c6e      0x2ff ./LWIP/lwip-1.4.1/src/api/sockets.o
+ .debug_abbrev  0x00006f6d      0x2c1 ./LWIP/lwip-1.4.1/src/api/tcpip.o
+ .debug_abbrev  0x0000722e      0x3b2 ./LWIP/arch/sys_arch.o
+ .debug_abbrev  0x000075e0      0x27a ./FreeRTOS/portable/MemMang/heap_4.o
+ .debug_abbrev  0x0000785a      0x314 ./FreeRTOS/portable/GCC/ARM_CM4F/port.o
+ .debug_abbrev  0x00007b6e      0x205 ./FreeRTOS/list.o
+ .debug_abbrev  0x00007d73      0x350 ./FreeRTOS/queue.o
+ .debug_abbrev  0x000080c3      0x36e ./FreeRTOS/tasks.o
+ .debug_abbrev  0x00008431      0x2b7 ./FreeRTOS/timers.o
+ .debug_abbrev  0x000086e8      0x293 ./Fonts/fontupd.o
+ .debug_abbrev  0x0000897b      0x25b ./Fonts/text.o
+ .debug_abbrev  0x00008bd6       0xd7 ./FatFs/cc936.o
+ .debug_abbrev  0x00008cad      0x293 ./FatFs/diskio.o
+ .debug_abbrev  0x00008f40      0x2eb ./FatFs/exfuns.o
+ .debug_abbrev  0x0000922b      0x20d ./FatFs/ff.o
+ .debug_abbrev  0x00009438      0x2bd ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.o
+ .debug_abbrev  0x000096f5      0x39f ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.o
+ .debug_abbrev  0x00009a94      0x2c3 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.o
+ .debug_abbrev  0x00009d57      0x2b2 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma2d.o
+ .debug_abbrev  0x0000a009      0x33a ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_eth.o
+ .debug_abbrev  0x0000a343      0x289 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.o
+ .debug_abbrev  0x0000a5cc      0x2de ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.o
+ .debug_abbrev  0x0000a8aa      0x216 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c_ex.o
+ .debug_abbrev  0x0000aac0      0x2ee ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_ltdc.o
+ .debug_abbrev  0x0000adae      0x2af ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_nand.o
+ .debug_abbrev  0x0000b05d      0x2b0 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.o
+ .debug_abbrev  0x0000b30d      0x305 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.o
+ .debug_abbrev  0x0000b612      0x25e ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.o
+ .debug_abbrev  0x0000b870      0x2a0 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_sdram.o
+ .debug_abbrev  0x0000bb10      0x2e9 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.o
+ .debug_abbrev  0x0000bdf9      0x2ea ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.o
+ .debug_abbrev  0x0000c0e3      0x2c7 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.o
+ .debug_abbrev  0x0000c3aa      0x2fa ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.o
+ .debug_abbrev  0x0000c6a4      0x25b ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_fmc.o
+ .debug_abbrev  0x0000c8ff      0x366 ./DeviceDrivers/Src/MF_RC522.o
+ .debug_abbrev  0x0000cc65      0x26f ./DeviceDrivers/Src/ctiic.o
+ .debug_abbrev  0x0000ced4      0x23d ./DeviceDrivers/Src/devBY8301.o
+ .debug_abbrev  0x0000d111      0x22e ./DeviceDrivers/Src/devDelay.o
+ .debug_abbrev  0x0000d33f      0x24c ./DeviceDrivers/Src/devHMIScreen.o
+ .debug_abbrev  0x0000d58b      0x250 ./DeviceDrivers/Src/devKey.o
+ .debug_abbrev  0x0000d7db      0x1fc ./DeviceDrivers/Src/devLed.o
+ .debug_abbrev  0x0000d9d7      0x34b ./DeviceDrivers/Src/devLtdc.o
+ .debug_abbrev  0x0000dd22      0x284 ./DeviceDrivers/Src/devSdram.o
+ .debug_abbrev  0x0000dfa6      0x216 ./DeviceDrivers/Src/devUsart.o
+ .debug_abbrev  0x0000e1bc      0x30f ./DeviceDrivers/Src/devW25Qxx.o
+ .debug_abbrev  0x0000e4cb      0x304 ./DeviceDrivers/Src/ft5206.o
+ .debug_abbrev  0x0000e7cf      0x2be ./DeviceDrivers/Src/ftl.o
+ .debug_abbrev  0x0000ea8d      0x2f4 ./DeviceDrivers/Src/lan8720.o
+ .debug_abbrev  0x0000ed81      0x2b3 ./DeviceDrivers/Src/malloc.o
+ .debug_abbrev  0x0000f034      0x37c ./DeviceDrivers/Src/nand.o
+ .debug_abbrev  0x0000f3b0      0x322 ./DeviceDrivers/Src/touch.o
+ .debug_abbrev  0x0000f6d2      0x326 ./App/Src/App_Gui.o
+ .debug_abbrev  0x0000f9f8      0x29b ./App/Src/App_Pay.o
+ .debug_abbrev  0x0000fc93      0x32e ./App/Src/App_main.o
+ .debug_abbrev  0x0000ffc1      0x2aa ./syscalls.o
 
 .debug_aranges  0x00000000     0x38a8
  .debug_aranges
@@ -32946,7 +32930,7 @@ OUTPUT(CubeMxF429_FreeRTOS.elf elf32-littlearm)
  .debug_ranges  0x00003270       0x70 ./App/Src/App_main.o
  .debug_ranges  0x000032e0       0xa0 ./syscalls.o
 
-.debug_macro    0x00000000    0x44f30
+.debug_macro    0x00000000    0x44f26
  .debug_macro   0x00000000      0x3d1 ./Src/dma2d.o
  .debug_macro   0x000003d1      0xa5a ./Src/dma2d.o
  .debug_macro   0x00000e2b      0x1ca ./Src/dma2d.o
@@ -33053,208 +33037,208 @@ OUTPUT(CubeMxF429_FreeRTOS.elf elf32-littlearm)
  .debug_macro   0x00025d3c      0x112 ./Src/main.o
  .debug_macro   0x00025e4e       0x34 ./Src/main.o
  .debug_macro   0x00025e82       0xd6 ./Src/main.o
- .debug_macro   0x00025f58      0x27c ./Src/main.o
- .debug_macro   0x000261d4       0x94 ./Src/main.o
- .debug_macro   0x00026268       0x64 ./Src/main.o
- .debug_macro   0x000262cc       0x64 ./Src/main.o
- .debug_macro   0x00026330       0xca ./Src/main.o
- .debug_macro   0x000263fa       0x10 ./Src/main.o
- .debug_macro   0x0002640a       0xe9 ./Src/main.o
- .debug_macro   0x000264f3       0xd9 ./Src/main.o
- .debug_macro   0x000265cc       0x64 ./Src/main.o
- .debug_macro   0x00026630       0x2e ./Src/main.o
- .debug_macro   0x0002665e       0x2e ./Src/main.o
- .debug_macro   0x0002668c       0x46 ./Src/main.o
- .debug_macro   0x000266d2       0x28 ./Src/main.o
- .debug_macro   0x000266fa       0x28 ./Src/main.o
- .debug_macro   0x00026722      0x130 ./Src/main.o
- .debug_macro   0x00026852      0x3d1 ./Src/spi.o
- .debug_macro   0x00026c23      0x3c7 ./Src/stm32f4xx_hal_msp.o
- .debug_macro   0x00026fea      0x3b8 ./Src/stm32f4xx_hal_timebase_tim.o
- .debug_macro   0x000273a2      0x3d1 ./Src/stm32f4xx_it.o
- .debug_macro   0x00027773      0x3be ./Src/system_stm32f4xx.o
- .debug_macro   0x00027b31      0x3d1 ./Src/tim.o
- .debug_macro   0x00027f02      0x3d1 ./Src/usart.o
- .debug_macro   0x000282d3      0x4a9 ./Picture/Src/bmp.o
- .debug_macro   0x0002877c      0x124 ./Picture/Src/bmp.o
- .debug_macro   0x000288a0      0x512 ./Picture/Src/gif.o
- .debug_macro   0x00028db2      0x11f ./Picture/Src/gif.o
- .debug_macro   0x00028ed1      0x48d ./Picture/Src/piclib.o
- .debug_macro   0x0002935e      0x497 ./Picture/Src/tjpgd.o
- .debug_macro   0x000297f5      0x64c ./LWIP/lwip_app/lwip_comm/lwip_comm.o
- .debug_macro   0x00029e41      0x142 ./LWIP/lwip_app/lwip_comm/lwip_comm.o
- .debug_macro   0x00029f83       0x64 ./LWIP/lwip_app/lwip_comm/lwip_comm.o
- .debug_macro   0x00029fe7      0x349 ./LWIP/lwip_app/lwip_comm/lwip_comm.o
- .debug_macro   0x0002a330       0x5e ./LWIP/lwip_app/lwip_comm/lwip_comm.o
- .debug_macro   0x0002a38e      0x4ba ./LWIP/lwip_app/lwip_comm/lwip_comm.o
- .debug_macro   0x0002a848       0x70 ./LWIP/lwip_app/lwip_comm/lwip_comm.o
- .debug_macro   0x0002a8b8       0x41 ./LWIP/lwip_app/lwip_comm/lwip_comm.o
- .debug_macro   0x0002a8f9       0x52 ./LWIP/lwip_app/lwip_comm/lwip_comm.o
- .debug_macro   0x0002a94b      0x175 ./LWIP/lwip_app/lwip_comm/lwip_comm.o
- .debug_macro   0x0002aac0       0x62 ./LWIP/lwip_app/lwip_comm/lwip_comm.o
- .debug_macro   0x0002ab22      0x13b ./LWIP/lwip_app/lwip_comm/lwip_comm.o
- .debug_macro   0x0002ac5d       0x80 ./LWIP/lwip_app/lwip_comm/lwip_comm.o
- .debug_macro   0x0002acdd       0x3d ./LWIP/lwip_app/lwip_comm/lwip_comm.o
- .debug_macro   0x0002ad1a      0x240 ./LWIP/lwip_app/lwip_comm/lwip_comm.o
- .debug_macro   0x0002af5a       0x22 ./LWIP/lwip_app/lwip_comm/lwip_comm.o
- .debug_macro   0x0002af7c       0x10 ./LWIP/lwip_app/lwip_comm/lwip_comm.o
- .debug_macro   0x0002af8c       0x3a ./LWIP/lwip_app/lwip_comm/lwip_comm.o
- .debug_macro   0x0002afc6       0x46 ./LWIP/lwip_app/lwip_comm/lwip_comm.o
- .debug_macro   0x0002b00c       0x16 ./LWIP/lwip_app/lwip_comm/lwip_comm.o
- .debug_macro   0x0002b022       0x10 ./LWIP/lwip_app/lwip_comm/lwip_comm.o
- .debug_macro   0x0002b032       0x16 ./LWIP/lwip_app/lwip_comm/lwip_comm.o
- .debug_macro   0x0002b048       0x7e ./LWIP/lwip_app/lwip_comm/lwip_comm.o
- .debug_macro   0x0002b0c6       0x16 ./LWIP/lwip_app/lwip_comm/lwip_comm.o
- .debug_macro   0x0002b0dc       0x5f ./LWIP/lwip_app/lwip_comm/lwip_comm.o
- .debug_macro   0x0002b13b       0x64 ./LWIP/lwip_app/lwip_comm/lwip_comm.o
- .debug_macro   0x0002b19f       0xac ./LWIP/lwip_app/lwip_comm/lwip_comm.o
- .debug_macro   0x0002b24b      0x1be ./LWIP/lwip_app/lwip_comm/lwip_comm.o
- .debug_macro   0x0002b409       0x10 ./LWIP/lwip_app/lwip_comm/lwip_comm.o
- .debug_macro   0x0002b419       0x40 ./LWIP/lwip_app/lwip_comm/lwip_comm.o
- .debug_macro   0x0002b459       0xc3 ./LWIP/lwip_app/lwip_comm/lwip_comm.o
- .debug_macro   0x0002b51c       0x16 ./LWIP/lwip_app/lwip_comm/lwip_comm.o
- .debug_macro   0x0002b532       0x34 ./LWIP/lwip_app/lwip_comm/lwip_comm.o
- .debug_macro   0x0002b566      0x5a1 ./LWIP/lwip_app/lwip_client_app/lwip_client_app.o
- .debug_macro   0x0002bb07       0x10 ./LWIP/lwip_app/lwip_client_app/lwip_client_app.o
- .debug_macro   0x0002bb17       0x47 ./LWIP/lwip_app/lwip_client_app/lwip_client_app.o
- .debug_macro   0x0002bb5e       0x3a ./LWIP/lwip_app/lwip_client_app/lwip_client_app.o
- .debug_macro   0x0002bb98      0x591 ./LWIP/lwip-1.4.1/src/netif/etharp.o
- .debug_macro   0x0002c129      0x135 ./LWIP/lwip-1.4.1/src/netif/etharp.o
- .debug_macro   0x0002c25e      0x11c ./LWIP/lwip-1.4.1/src/netif/etharp.o
- .debug_macro   0x0002c37a      0x321 ./LWIP/lwip-1.4.1/src/netif/etharp.o
- .debug_macro   0x0002c69b       0x86 ./LWIP/lwip-1.4.1/src/netif/etharp.o
- .debug_macro   0x0002c721      0x532 ./LWIP/lwip-1.4.1/src/netif/ethernetif.o
- .debug_macro   0x0002cc53       0x6a ./LWIP/lwip-1.4.1/src/netif/ethernetif.o
- .debug_macro   0x0002ccbd       0x10 ./LWIP/lwip-1.4.1/src/netif/ethernetif.o
- .debug_macro   0x0002cccd       0x56 ./LWIP/lwip-1.4.1/src/netif/ethernetif.o
- .debug_macro   0x0002cd23       0x10 ./LWIP/lwip-1.4.1/src/netif/ethernetif.o
- .debug_macro   0x0002cd33      0x53e ./LWIP/lwip-1.4.1/src/core/ipv4/icmp.o
- .debug_macro   0x0002d271       0x5e ./LWIP/lwip-1.4.1/src/core/ipv4/icmp.o
- .debug_macro   0x0002d2cf       0x1c ./LWIP/lwip-1.4.1/src/core/ipv4/icmp.o
- .debug_macro   0x0002d2eb      0x4f4 ./LWIP/lwip-1.4.1/src/core/ipv4/inet_chksum.o
- .debug_macro   0x0002d7df       0x16 ./LWIP/lwip-1.4.1/src/core/ipv4/inet_chksum.o
- .debug_macro   0x0002d7f5      0x59d ./LWIP/lwip-1.4.1/src/core/ipv4/ip.o
- .debug_macro   0x0002dd92       0x10 ./LWIP/lwip-1.4.1/src/core/ipv4/ip.o
- .debug_macro   0x0002dda2       0xb2 ./LWIP/lwip-1.4.1/src/core/ipv4/ip.o
- .debug_macro   0x0002de54      0x246 ./LWIP/lwip-1.4.1/src/core/ipv4/ip.o
- .debug_macro   0x0002e09a       0x16 ./LWIP/lwip-1.4.1/src/core/ipv4/ip.o
- .debug_macro   0x0002e0b0      0x4d6 ./LWIP/lwip-1.4.1/src/core/ipv4/ip_addr.o
- .debug_macro   0x0002e586      0x553 ./LWIP/lwip-1.4.1/src/core/ipv4/ip_frag.o
- .debug_macro   0x0002ead9      0x483 ./LWIP/lwip-1.4.1/src/core/def.o
- .debug_macro   0x0002ef5c      0x5cf ./LWIP/lwip-1.4.1/src/core/dhcp.o
- .debug_macro   0x0002f52b       0x37 ./LWIP/lwip-1.4.1/src/core/dhcp.o
- .debug_macro   0x0002f562      0x5f3 ./LWIP/lwip-1.4.1/src/core/init.o
- .debug_macro   0x0002fb55       0xdc ./LWIP/lwip-1.4.1/src/core/init.o
- .debug_macro   0x0002fc31      0x2cb ./LWIP/lwip-1.4.1/src/core/init.o
- .debug_macro   0x0002fefc       0x16 ./LWIP/lwip-1.4.1/src/core/init.o
- .debug_macro   0x0002ff12      0x567 ./LWIP/lwip-1.4.1/src/core/mem.o
- .debug_macro   0x00030479      0x676 ./LWIP/lwip-1.4.1/src/core/memp.o
- .debug_macro   0x00030aef      0x122 ./LWIP/lwip-1.4.1/src/core/memp.o
- .debug_macro   0x00030c11      0x546 ./LWIP/lwip-1.4.1/src/core/netif.o
- .debug_macro   0x00031157      0x544 ./LWIP/lwip-1.4.1/src/core/pbuf.o
- .debug_macro   0x0003169b      0x523 ./LWIP/lwip-1.4.1/src/core/raw.o
- .debug_macro   0x00031bbe      0x565 ./LWIP/lwip-1.4.1/src/core/tcp.o
- .debug_macro   0x00032123      0x31b ./LWIP/lwip-1.4.1/src/core/tcp.o
- .debug_macro   0x0003243e      0x1c4 ./LWIP/lwip-1.4.1/src/core/tcp.o
- .debug_macro   0x00032602      0x522 ./LWIP/lwip-1.4.1/src/core/tcp_in.o
- .debug_macro   0x00032b24      0x556 ./LWIP/lwip-1.4.1/src/core/tcp_out.o
- .debug_macro   0x0003307a      0x5d0 ./LWIP/lwip-1.4.1/src/core/timers.o
- .debug_macro   0x0003364a      0x564 ./LWIP/lwip-1.4.1/src/core/udp.o
- .debug_macro   0x00033bae      0x5c6 ./LWIP/lwip-1.4.1/src/api/api_lib.o
- .debug_macro   0x00034174      0x5d5 ./LWIP/lwip-1.4.1/src/api/api_msg.o
- .debug_macro   0x00034749      0x4f6 ./LWIP/lwip-1.4.1/src/api/netbuf.o
- .debug_macro   0x00034c3f      0x604 ./LWIP/lwip-1.4.1/src/api/sockets.o
- .debug_macro   0x00035243       0x10 ./LWIP/lwip-1.4.1/src/api/sockets.o
- .debug_macro   0x00035253      0x241 ./LWIP/lwip-1.4.1/src/api/sockets.o
- .debug_macro   0x00035494      0x587 ./LWIP/lwip-1.4.1/src/api/tcpip.o
- .debug_macro   0x00035a1b      0x510 ./LWIP/arch/sys_arch.o
- .debug_macro   0x00035f2b       0x16 ./LWIP/arch/sys_arch.o
- .debug_macro   0x00035f41       0x16 ./LWIP/arch/sys_arch.o
- .debug_macro   0x00035f57       0x5e ./LWIP/arch/sys_arch.o
- .debug_macro   0x00035fb5      0x46f ./FreeRTOS/portable/MemMang/heap_4.o
- .debug_macro   0x00036424      0x10e ./FreeRTOS/portable/MemMang/heap_4.o
- .debug_macro   0x00036532       0x8d ./FreeRTOS/portable/MemMang/heap_4.o
- .debug_macro   0x000365bf       0x1c ./FreeRTOS/portable/MemMang/heap_4.o
- .debug_macro   0x000365db      0x4f5 ./FreeRTOS/portable/GCC/ARM_CM4F/port.o
- .debug_macro   0x00036ad0      0x174 ./FreeRTOS/portable/GCC/ARM_CM4F/port.o
- .debug_macro   0x00036c44      0x448 ./FreeRTOS/list.o
- .debug_macro   0x0003708c      0x4ce ./FreeRTOS/queue.o
- .debug_macro   0x0003755a      0x53c ./FreeRTOS/tasks.o
- .debug_macro   0x00037a96       0x10 ./FreeRTOS/tasks.o
- .debug_macro   0x00037aa6      0x48b ./FreeRTOS/timers.o
- .debug_macro   0x00037f31      0x521 ./Fonts/fontupd.o
- .debug_macro   0x00038452       0xd0 ./Fonts/fontupd.o
- .debug_macro   0x00038522      0x4f0 ./Fonts/text.o
- .debug_macro   0x00038a12       0x33 ./FatFs/cc936.o
- .debug_macro   0x00038a45       0xe0 ./FatFs/cc936.o
- .debug_macro   0x00038b25      0x4cc ./FatFs/diskio.o
- .debug_macro   0x00038ff1       0x8e ./FatFs/diskio.o
- .debug_macro   0x0003907f      0x467 ./FatFs/exfuns.o
- .debug_macro   0x000394e6       0x10 ./FatFs/exfuns.o
- .debug_macro   0x000394f6      0x3e5 ./FatFs/ff.o
- .debug_macro   0x000398db       0x94 ./FatFs/ff.o
- .debug_macro   0x0003996f       0x58 ./FatFs/ff.o
- .debug_macro   0x000399c7      0x418 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.o
- .debug_macro   0x00039ddf      0x3b8 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.o
- .debug_macro   0x0003a197      0x3bf ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.o
- .debug_macro   0x0003a556      0x40c ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma2d.o
- .debug_macro   0x0003a962      0x3ca ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_eth.o
- .debug_macro   0x0003ad2c      0x3f0 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.o
- .debug_macro   0x0003b11c      0x3f8 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.o
- .debug_macro   0x0003b514      0x3b8 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c_ex.o
- .debug_macro   0x0003b8cc      0x3b8 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_ltdc.o
- .debug_macro   0x0003bc84      0x3b8 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_nand.o
- .debug_macro   0x0003c03c      0x3d0 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.o
- .debug_macro   0x0003c40c      0x3dc ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.o
- .debug_macro   0x0003c7e8      0x3b8 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.o
- .debug_macro   0x0003cba0      0x3b8 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_sdram.o
- .debug_macro   0x0003cf58      0x3c0 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.o
- .debug_macro   0x0003d318      0x3b8 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.o
- .debug_macro   0x0003d6d0      0x3b8 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.o
- .debug_macro   0x0003da88      0x3b9 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.o
- .debug_macro   0x0003de41      0x3b8 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_fmc.o
- .debug_macro   0x0003e1f9      0x414 ./DeviceDrivers/Src/MF_RC522.o
- .debug_macro   0x0003e60d      0x276 ./DeviceDrivers/Src/MF_RC522.o
- .debug_macro   0x0003e883      0x474 ./DeviceDrivers/Src/ctiic.o
- .debug_macro   0x0003ecf7       0x22 ./DeviceDrivers/Src/ctiic.o
- .debug_macro   0x0003ed19      0x3c1 ./DeviceDrivers/Src/devBY8301.o
- .debug_macro   0x0003f0da       0x8e ./DeviceDrivers/Src/devBY8301.o
- .debug_macro   0x0003f168      0x45b ./DeviceDrivers/Src/devDelay.o
- .debug_macro   0x0003f5c3      0x404 ./DeviceDrivers/Src/devHMIScreen.o
- .debug_macro   0x0003f9c7      0x46a ./DeviceDrivers/Src/devKey.o
- .debug_macro   0x0003fe31      0x3c2 ./DeviceDrivers/Src/devLed.o
- .debug_macro   0x000401f3      0x414 ./DeviceDrivers/Src/devLtdc.o
- .debug_macro   0x00040607      0x46e ./DeviceDrivers/Src/devSdram.o
- .debug_macro   0x00040a75       0x4c ./DeviceDrivers/Src/devSdram.o
- .debug_macro   0x00040ac1      0x47e ./DeviceDrivers/Src/devUsart.o
- .debug_macro   0x00040f3f      0x47a ./DeviceDrivers/Src/devW25Qxx.o
- .debug_macro   0x000413b9      0x504 ./DeviceDrivers/Src/ft5206.o
- .debug_macro   0x000418bd      0x10c ./DeviceDrivers/Src/ft5206.o
- .debug_macro   0x000419c9       0x28 ./DeviceDrivers/Src/ft5206.o
- .debug_macro   0x000419f1      0x427 ./DeviceDrivers/Src/ftl.o
- .debug_macro   0x00041e18      0x491 ./DeviceDrivers/Src/lan8720.o
- .debug_macro   0x000422a9      0x3d6 ./DeviceDrivers/Src/malloc.o
- .debug_macro   0x0004267f      0x47d ./DeviceDrivers/Src/nand.o
- .debug_macro   0x00042afc       0xc4 ./DeviceDrivers/Src/nand.o
- .debug_macro   0x00042bc0      0x4e6 ./DeviceDrivers/Src/touch.o
- .debug_macro   0x000430a6      0x1e1 ./DeviceDrivers/Src/touch.o
- .debug_macro   0x00043287      0x699 ./App/Src/App_Gui.o
- .debug_macro   0x00043920      0x12a ./App/Src/App_Gui.o
- .debug_macro   0x00043a4a       0x1c ./App/Src/App_Gui.o
- .debug_macro   0x00043a66      0x659 ./App/Src/App_Pay.o
- .debug_macro   0x000440bf      0x84a ./App/Src/App_main.o
- .debug_macro   0x00044909       0x10 ./App/Src/App_main.o
- .debug_macro   0x00044919       0x16 ./App/Src/App_main.o
- .debug_macro   0x0004492f      0x243 ./syscalls.o
- .debug_macro   0x00044b72       0x10 ./syscalls.o
- .debug_macro   0x00044b82       0x10 ./syscalls.o
- .debug_macro   0x00044b92       0x10 ./syscalls.o
- .debug_macro   0x00044ba2       0x35 ./syscalls.o
- .debug_macro   0x00044bd7      0x122 ./syscalls.o
- .debug_macro   0x00044cf9       0x10 ./syscalls.o
- .debug_macro   0x00044d09      0x189 ./syscalls.o
- .debug_macro   0x00044e92       0x16 ./syscalls.o
- .debug_macro   0x00044ea8       0x88 ./syscalls.o
+ .debug_macro   0x00025f58      0x277 ./Src/main.o
+ .debug_macro   0x000261cf       0x94 ./Src/main.o
+ .debug_macro   0x00026263       0x64 ./Src/main.o
+ .debug_macro   0x000262c7       0x64 ./Src/main.o
+ .debug_macro   0x0002632b       0xca ./Src/main.o
+ .debug_macro   0x000263f5       0x10 ./Src/main.o
+ .debug_macro   0x00026405       0xe9 ./Src/main.o
+ .debug_macro   0x000264ee       0xd9 ./Src/main.o
+ .debug_macro   0x000265c7       0x64 ./Src/main.o
+ .debug_macro   0x0002662b       0x2e ./Src/main.o
+ .debug_macro   0x00026659       0x2e ./Src/main.o
+ .debug_macro   0x00026687       0x46 ./Src/main.o
+ .debug_macro   0x000266cd       0x28 ./Src/main.o
+ .debug_macro   0x000266f5       0x28 ./Src/main.o
+ .debug_macro   0x0002671d      0x130 ./Src/main.o
+ .debug_macro   0x0002684d      0x3d1 ./Src/spi.o
+ .debug_macro   0x00026c1e      0x3c7 ./Src/stm32f4xx_hal_msp.o
+ .debug_macro   0x00026fe5      0x3b8 ./Src/stm32f4xx_hal_timebase_tim.o
+ .debug_macro   0x0002739d      0x3d1 ./Src/stm32f4xx_it.o
+ .debug_macro   0x0002776e      0x3be ./Src/system_stm32f4xx.o
+ .debug_macro   0x00027b2c      0x3d1 ./Src/tim.o
+ .debug_macro   0x00027efd      0x3d1 ./Src/usart.o
+ .debug_macro   0x000282ce      0x4a9 ./Picture/Src/bmp.o
+ .debug_macro   0x00028777      0x124 ./Picture/Src/bmp.o
+ .debug_macro   0x0002889b      0x512 ./Picture/Src/gif.o
+ .debug_macro   0x00028dad      0x11f ./Picture/Src/gif.o
+ .debug_macro   0x00028ecc      0x48d ./Picture/Src/piclib.o
+ .debug_macro   0x00029359      0x497 ./Picture/Src/tjpgd.o
+ .debug_macro   0x000297f0      0x64c ./LWIP/lwip_app/lwip_comm/lwip_comm.o
+ .debug_macro   0x00029e3c      0x142 ./LWIP/lwip_app/lwip_comm/lwip_comm.o
+ .debug_macro   0x00029f7e       0x64 ./LWIP/lwip_app/lwip_comm/lwip_comm.o
+ .debug_macro   0x00029fe2      0x349 ./LWIP/lwip_app/lwip_comm/lwip_comm.o
+ .debug_macro   0x0002a32b       0x5e ./LWIP/lwip_app/lwip_comm/lwip_comm.o
+ .debug_macro   0x0002a389      0x4ba ./LWIP/lwip_app/lwip_comm/lwip_comm.o
+ .debug_macro   0x0002a843       0x70 ./LWIP/lwip_app/lwip_comm/lwip_comm.o
+ .debug_macro   0x0002a8b3       0x41 ./LWIP/lwip_app/lwip_comm/lwip_comm.o
+ .debug_macro   0x0002a8f4       0x52 ./LWIP/lwip_app/lwip_comm/lwip_comm.o
+ .debug_macro   0x0002a946      0x175 ./LWIP/lwip_app/lwip_comm/lwip_comm.o
+ .debug_macro   0x0002aabb       0x62 ./LWIP/lwip_app/lwip_comm/lwip_comm.o
+ .debug_macro   0x0002ab1d      0x13b ./LWIP/lwip_app/lwip_comm/lwip_comm.o
+ .debug_macro   0x0002ac58       0x80 ./LWIP/lwip_app/lwip_comm/lwip_comm.o
+ .debug_macro   0x0002acd8       0x3d ./LWIP/lwip_app/lwip_comm/lwip_comm.o
+ .debug_macro   0x0002ad15      0x240 ./LWIP/lwip_app/lwip_comm/lwip_comm.o
+ .debug_macro   0x0002af55       0x22 ./LWIP/lwip_app/lwip_comm/lwip_comm.o
+ .debug_macro   0x0002af77       0x10 ./LWIP/lwip_app/lwip_comm/lwip_comm.o
+ .debug_macro   0x0002af87       0x3a ./LWIP/lwip_app/lwip_comm/lwip_comm.o
+ .debug_macro   0x0002afc1       0x46 ./LWIP/lwip_app/lwip_comm/lwip_comm.o
+ .debug_macro   0x0002b007       0x16 ./LWIP/lwip_app/lwip_comm/lwip_comm.o
+ .debug_macro   0x0002b01d       0x10 ./LWIP/lwip_app/lwip_comm/lwip_comm.o
+ .debug_macro   0x0002b02d       0x16 ./LWIP/lwip_app/lwip_comm/lwip_comm.o
+ .debug_macro   0x0002b043       0x7e ./LWIP/lwip_app/lwip_comm/lwip_comm.o
+ .debug_macro   0x0002b0c1       0x16 ./LWIP/lwip_app/lwip_comm/lwip_comm.o
+ .debug_macro   0x0002b0d7       0x5f ./LWIP/lwip_app/lwip_comm/lwip_comm.o
+ .debug_macro   0x0002b136       0x64 ./LWIP/lwip_app/lwip_comm/lwip_comm.o
+ .debug_macro   0x0002b19a       0xac ./LWIP/lwip_app/lwip_comm/lwip_comm.o
+ .debug_macro   0x0002b246      0x1be ./LWIP/lwip_app/lwip_comm/lwip_comm.o
+ .debug_macro   0x0002b404       0x10 ./LWIP/lwip_app/lwip_comm/lwip_comm.o
+ .debug_macro   0x0002b414       0x40 ./LWIP/lwip_app/lwip_comm/lwip_comm.o
+ .debug_macro   0x0002b454       0xc3 ./LWIP/lwip_app/lwip_comm/lwip_comm.o
+ .debug_macro   0x0002b517       0x16 ./LWIP/lwip_app/lwip_comm/lwip_comm.o
+ .debug_macro   0x0002b52d       0x34 ./LWIP/lwip_app/lwip_comm/lwip_comm.o
+ .debug_macro   0x0002b561      0x5a1 ./LWIP/lwip_app/lwip_client_app/lwip_client_app.o
+ .debug_macro   0x0002bb02       0x10 ./LWIP/lwip_app/lwip_client_app/lwip_client_app.o
+ .debug_macro   0x0002bb12       0x47 ./LWIP/lwip_app/lwip_client_app/lwip_client_app.o
+ .debug_macro   0x0002bb59       0x3a ./LWIP/lwip_app/lwip_client_app/lwip_client_app.o
+ .debug_macro   0x0002bb93      0x591 ./LWIP/lwip-1.4.1/src/netif/etharp.o
+ .debug_macro   0x0002c124      0x135 ./LWIP/lwip-1.4.1/src/netif/etharp.o
+ .debug_macro   0x0002c259      0x11c ./LWIP/lwip-1.4.1/src/netif/etharp.o
+ .debug_macro   0x0002c375      0x321 ./LWIP/lwip-1.4.1/src/netif/etharp.o
+ .debug_macro   0x0002c696       0x86 ./LWIP/lwip-1.4.1/src/netif/etharp.o
+ .debug_macro   0x0002c71c      0x532 ./LWIP/lwip-1.4.1/src/netif/ethernetif.o
+ .debug_macro   0x0002cc4e       0x6a ./LWIP/lwip-1.4.1/src/netif/ethernetif.o
+ .debug_macro   0x0002ccb8       0x10 ./LWIP/lwip-1.4.1/src/netif/ethernetif.o
+ .debug_macro   0x0002ccc8       0x56 ./LWIP/lwip-1.4.1/src/netif/ethernetif.o
+ .debug_macro   0x0002cd1e       0x10 ./LWIP/lwip-1.4.1/src/netif/ethernetif.o
+ .debug_macro   0x0002cd2e      0x53e ./LWIP/lwip-1.4.1/src/core/ipv4/icmp.o
+ .debug_macro   0x0002d26c       0x5e ./LWIP/lwip-1.4.1/src/core/ipv4/icmp.o
+ .debug_macro   0x0002d2ca       0x1c ./LWIP/lwip-1.4.1/src/core/ipv4/icmp.o
+ .debug_macro   0x0002d2e6      0x4f4 ./LWIP/lwip-1.4.1/src/core/ipv4/inet_chksum.o
+ .debug_macro   0x0002d7da       0x16 ./LWIP/lwip-1.4.1/src/core/ipv4/inet_chksum.o
+ .debug_macro   0x0002d7f0      0x59d ./LWIP/lwip-1.4.1/src/core/ipv4/ip.o
+ .debug_macro   0x0002dd8d       0x10 ./LWIP/lwip-1.4.1/src/core/ipv4/ip.o
+ .debug_macro   0x0002dd9d       0xb2 ./LWIP/lwip-1.4.1/src/core/ipv4/ip.o
+ .debug_macro   0x0002de4f      0x246 ./LWIP/lwip-1.4.1/src/core/ipv4/ip.o
+ .debug_macro   0x0002e095       0x16 ./LWIP/lwip-1.4.1/src/core/ipv4/ip.o
+ .debug_macro   0x0002e0ab      0x4d6 ./LWIP/lwip-1.4.1/src/core/ipv4/ip_addr.o
+ .debug_macro   0x0002e581      0x553 ./LWIP/lwip-1.4.1/src/core/ipv4/ip_frag.o
+ .debug_macro   0x0002ead4      0x483 ./LWIP/lwip-1.4.1/src/core/def.o
+ .debug_macro   0x0002ef57      0x5cf ./LWIP/lwip-1.4.1/src/core/dhcp.o
+ .debug_macro   0x0002f526       0x37 ./LWIP/lwip-1.4.1/src/core/dhcp.o
+ .debug_macro   0x0002f55d      0x5f3 ./LWIP/lwip-1.4.1/src/core/init.o
+ .debug_macro   0x0002fb50       0xdc ./LWIP/lwip-1.4.1/src/core/init.o
+ .debug_macro   0x0002fc2c      0x2cb ./LWIP/lwip-1.4.1/src/core/init.o
+ .debug_macro   0x0002fef7       0x16 ./LWIP/lwip-1.4.1/src/core/init.o
+ .debug_macro   0x0002ff0d      0x567 ./LWIP/lwip-1.4.1/src/core/mem.o
+ .debug_macro   0x00030474      0x676 ./LWIP/lwip-1.4.1/src/core/memp.o
+ .debug_macro   0x00030aea      0x122 ./LWIP/lwip-1.4.1/src/core/memp.o
+ .debug_macro   0x00030c0c      0x546 ./LWIP/lwip-1.4.1/src/core/netif.o
+ .debug_macro   0x00031152      0x544 ./LWIP/lwip-1.4.1/src/core/pbuf.o
+ .debug_macro   0x00031696      0x523 ./LWIP/lwip-1.4.1/src/core/raw.o
+ .debug_macro   0x00031bb9      0x565 ./LWIP/lwip-1.4.1/src/core/tcp.o
+ .debug_macro   0x0003211e      0x31b ./LWIP/lwip-1.4.1/src/core/tcp.o
+ .debug_macro   0x00032439      0x1c4 ./LWIP/lwip-1.4.1/src/core/tcp.o
+ .debug_macro   0x000325fd      0x522 ./LWIP/lwip-1.4.1/src/core/tcp_in.o
+ .debug_macro   0x00032b1f      0x556 ./LWIP/lwip-1.4.1/src/core/tcp_out.o
+ .debug_macro   0x00033075      0x5d0 ./LWIP/lwip-1.4.1/src/core/timers.o
+ .debug_macro   0x00033645      0x564 ./LWIP/lwip-1.4.1/src/core/udp.o
+ .debug_macro   0x00033ba9      0x5c6 ./LWIP/lwip-1.4.1/src/api/api_lib.o
+ .debug_macro   0x0003416f      0x5d5 ./LWIP/lwip-1.4.1/src/api/api_msg.o
+ .debug_macro   0x00034744      0x4f6 ./LWIP/lwip-1.4.1/src/api/netbuf.o
+ .debug_macro   0x00034c3a      0x604 ./LWIP/lwip-1.4.1/src/api/sockets.o
+ .debug_macro   0x0003523e       0x10 ./LWIP/lwip-1.4.1/src/api/sockets.o
+ .debug_macro   0x0003524e      0x241 ./LWIP/lwip-1.4.1/src/api/sockets.o
+ .debug_macro   0x0003548f      0x587 ./LWIP/lwip-1.4.1/src/api/tcpip.o
+ .debug_macro   0x00035a16      0x510 ./LWIP/arch/sys_arch.o
+ .debug_macro   0x00035f26       0x16 ./LWIP/arch/sys_arch.o
+ .debug_macro   0x00035f3c       0x16 ./LWIP/arch/sys_arch.o
+ .debug_macro   0x00035f52       0x5e ./LWIP/arch/sys_arch.o
+ .debug_macro   0x00035fb0      0x46f ./FreeRTOS/portable/MemMang/heap_4.o
+ .debug_macro   0x0003641f      0x10e ./FreeRTOS/portable/MemMang/heap_4.o
+ .debug_macro   0x0003652d       0x8d ./FreeRTOS/portable/MemMang/heap_4.o
+ .debug_macro   0x000365ba       0x1c ./FreeRTOS/portable/MemMang/heap_4.o
+ .debug_macro   0x000365d6      0x4f5 ./FreeRTOS/portable/GCC/ARM_CM4F/port.o
+ .debug_macro   0x00036acb      0x174 ./FreeRTOS/portable/GCC/ARM_CM4F/port.o
+ .debug_macro   0x00036c3f      0x448 ./FreeRTOS/list.o
+ .debug_macro   0x00037087      0x4ce ./FreeRTOS/queue.o
+ .debug_macro   0x00037555      0x53c ./FreeRTOS/tasks.o
+ .debug_macro   0x00037a91       0x10 ./FreeRTOS/tasks.o
+ .debug_macro   0x00037aa1      0x48b ./FreeRTOS/timers.o
+ .debug_macro   0x00037f2c      0x521 ./Fonts/fontupd.o
+ .debug_macro   0x0003844d       0xd0 ./Fonts/fontupd.o
+ .debug_macro   0x0003851d      0x4f0 ./Fonts/text.o
+ .debug_macro   0x00038a0d       0x33 ./FatFs/cc936.o
+ .debug_macro   0x00038a40       0xe0 ./FatFs/cc936.o
+ .debug_macro   0x00038b20      0x4cc ./FatFs/diskio.o
+ .debug_macro   0x00038fec       0x8e ./FatFs/diskio.o
+ .debug_macro   0x0003907a      0x467 ./FatFs/exfuns.o
+ .debug_macro   0x000394e1       0x10 ./FatFs/exfuns.o
+ .debug_macro   0x000394f1      0x3e5 ./FatFs/ff.o
+ .debug_macro   0x000398d6       0x94 ./FatFs/ff.o
+ .debug_macro   0x0003996a       0x58 ./FatFs/ff.o
+ .debug_macro   0x000399c2      0x418 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.o
+ .debug_macro   0x00039dda      0x3b8 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.o
+ .debug_macro   0x0003a192      0x3bf ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.o
+ .debug_macro   0x0003a551      0x40c ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma2d.o
+ .debug_macro   0x0003a95d      0x3ca ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_eth.o
+ .debug_macro   0x0003ad27      0x3f0 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.o
+ .debug_macro   0x0003b117      0x3f8 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.o
+ .debug_macro   0x0003b50f      0x3b8 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c_ex.o
+ .debug_macro   0x0003b8c7      0x3b8 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_ltdc.o
+ .debug_macro   0x0003bc7f      0x3b8 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_nand.o
+ .debug_macro   0x0003c037      0x3d0 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.o
+ .debug_macro   0x0003c407      0x3dc ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.o
+ .debug_macro   0x0003c7e3      0x3b8 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.o
+ .debug_macro   0x0003cb9b      0x3b8 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_sdram.o
+ .debug_macro   0x0003cf53      0x3c0 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.o
+ .debug_macro   0x0003d313      0x3b8 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.o
+ .debug_macro   0x0003d6cb      0x3b8 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.o
+ .debug_macro   0x0003da83      0x3b9 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.o
+ .debug_macro   0x0003de3c      0x3b8 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_fmc.o
+ .debug_macro   0x0003e1f4      0x414 ./DeviceDrivers/Src/MF_RC522.o
+ .debug_macro   0x0003e608      0x271 ./DeviceDrivers/Src/MF_RC522.o
+ .debug_macro   0x0003e879      0x474 ./DeviceDrivers/Src/ctiic.o
+ .debug_macro   0x0003eced       0x22 ./DeviceDrivers/Src/ctiic.o
+ .debug_macro   0x0003ed0f      0x3c1 ./DeviceDrivers/Src/devBY8301.o
+ .debug_macro   0x0003f0d0       0x8e ./DeviceDrivers/Src/devBY8301.o
+ .debug_macro   0x0003f15e      0x45b ./DeviceDrivers/Src/devDelay.o
+ .debug_macro   0x0003f5b9      0x404 ./DeviceDrivers/Src/devHMIScreen.o
+ .debug_macro   0x0003f9bd      0x46a ./DeviceDrivers/Src/devKey.o
+ .debug_macro   0x0003fe27      0x3c2 ./DeviceDrivers/Src/devLed.o
+ .debug_macro   0x000401e9      0x414 ./DeviceDrivers/Src/devLtdc.o
+ .debug_macro   0x000405fd      0x46e ./DeviceDrivers/Src/devSdram.o
+ .debug_macro   0x00040a6b       0x4c ./DeviceDrivers/Src/devSdram.o
+ .debug_macro   0x00040ab7      0x47e ./DeviceDrivers/Src/devUsart.o
+ .debug_macro   0x00040f35      0x47a ./DeviceDrivers/Src/devW25Qxx.o
+ .debug_macro   0x000413af      0x504 ./DeviceDrivers/Src/ft5206.o
+ .debug_macro   0x000418b3      0x10c ./DeviceDrivers/Src/ft5206.o
+ .debug_macro   0x000419bf       0x28 ./DeviceDrivers/Src/ft5206.o
+ .debug_macro   0x000419e7      0x427 ./DeviceDrivers/Src/ftl.o
+ .debug_macro   0x00041e0e      0x491 ./DeviceDrivers/Src/lan8720.o
+ .debug_macro   0x0004229f      0x3d6 ./DeviceDrivers/Src/malloc.o
+ .debug_macro   0x00042675      0x47d ./DeviceDrivers/Src/nand.o
+ .debug_macro   0x00042af2       0xc4 ./DeviceDrivers/Src/nand.o
+ .debug_macro   0x00042bb6      0x4e6 ./DeviceDrivers/Src/touch.o
+ .debug_macro   0x0004309c      0x1e1 ./DeviceDrivers/Src/touch.o
+ .debug_macro   0x0004327d      0x699 ./App/Src/App_Gui.o
+ .debug_macro   0x00043916      0x12a ./App/Src/App_Gui.o
+ .debug_macro   0x00043a40       0x1c ./App/Src/App_Gui.o
+ .debug_macro   0x00043a5c      0x659 ./App/Src/App_Pay.o
+ .debug_macro   0x000440b5      0x84a ./App/Src/App_main.o
+ .debug_macro   0x000448ff       0x10 ./App/Src/App_main.o
+ .debug_macro   0x0004490f       0x16 ./App/Src/App_main.o
+ .debug_macro   0x00044925      0x243 ./syscalls.o
+ .debug_macro   0x00044b68       0x10 ./syscalls.o
+ .debug_macro   0x00044b78       0x10 ./syscalls.o
+ .debug_macro   0x00044b88       0x10 ./syscalls.o
+ .debug_macro   0x00044b98       0x35 ./syscalls.o
+ .debug_macro   0x00044bcd      0x122 ./syscalls.o
+ .debug_macro   0x00044cef       0x10 ./syscalls.o
+ .debug_macro   0x00044cff      0x189 ./syscalls.o
+ .debug_macro   0x00044e88       0x16 ./syscalls.o
+ .debug_macro   0x00044e9e       0x88 ./syscalls.o
 
 .comment        0x00000000       0x7f
  .comment       0x00000000       0x7f ./Src/dma2d.o

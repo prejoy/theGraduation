@@ -42,21 +42,7 @@ u16 pic_get_tnum(u8 *path)
 
 
 
-//
-//u8 SrcFile[7][25]={"0:/PICTURE/pic1.jpg",
-//                    "0:/PICTURE/pic2.jpg",
-//                    "0:/PICTURE/pic3.jpg",
-//                    "0:/PICTURE/pic4.jpg",
-//                    "0:/PICTURE/pic5.jpg",
-//                    "0:/PICTURE/pic6.jpg",
-//                    "0:/PICTURE/pic7.jpg"};
-//u8 DstFile[7][25]={"2:/test/pic1.jpg",
-//                    "2:/test/pic2.jpg",
-//                    "2:/test/pic3.jpg",
-//                    "2:/test/pic4.jpg",
-//                    "2:/test/pic5.jpg",
-//                    "2:/test/pic6.jpg",
-//                    "2:/test/pic7.jpg"};
+
 //文件复制
 //将psrc文件,copy到pdst.
 //psrc,pdst:源文件和目标文件

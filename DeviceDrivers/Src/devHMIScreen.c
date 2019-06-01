@@ -144,8 +144,6 @@ void IntToChar(uint8_t *strint,uint8_t *strlength,uint32_t Integer,uint32_t Deci
 			intnum = 0;
 	}
 
-//	printf("loc 1\r\n");
-
 	if((floatnum+intnum)>0)	// >0元
 	{
 		if(intnum>0)				//大于1元
@@ -167,9 +165,7 @@ void IntToChar(uint8_t *strint,uint8_t *strlength,uint32_t Integer,uint32_t Deci
 				*strlength = 6+1;
 				sprintf(strint,"%d.%d 元\"",intnum,floatnum);
 			}
-//			for(int i=0;i<9;i++)
-//				printf("%c",strint[i]);
-//			printf("\r\n");
+
 		}else if (intnum == 0)		//0-1元
 		{
 			*strlength = 6+1;
@@ -181,7 +177,6 @@ void IntToChar(uint8_t *strint,uint8_t *strlength,uint32_t Integer,uint32_t Deci
 		strcpy(strint,"0.0 元\"");
 	}
 
-//	printf("before return\r\n");
 
 }
 void SendPay(uint32_t Integer,uint32_t Decimal)
@@ -190,16 +185,12 @@ void SendPay(uint32_t Integer,uint32_t Decimal)
 	uint8_t CMD_END[3]={0xFF,0xFF,0xFF};
 	uint8_t pay_txt[10],len_pay_txt;
 	IntToChar(pay_txt,&len_pay_txt,Integer,Decimal);
-//	printf("len:%d\r\n",(len_pay_txt));
 	strcpy(CMD,"t4.txt=\"");					// 8
 	strcpy((CMD+8),(const char *)pay_txt);	// + len_pay_txt
 	HAL_UART_Transmit(&huart5,(uint8_t *)&CMD,(8+len_pay_txt),0xFF);
 	HAL_UART_Transmit(&huart5,(uint8_t *)&CMD_END,sizeof(CMD_END),0xFF);
 
 	DisplayPay();
-//	for(int i=0;i<(8+len_pay_txt);i++)
-//			printf("%c",CMD[i]);
-//	printf("\r\n");
 }
 void SendRemain(uint32_t Integer,uint32_t Decimal)
 {
@@ -207,7 +198,6 @@ void SendRemain(uint32_t Integer,uint32_t Decimal)
 	uint8_t CMD_END[3]={0xFF,0xFF,0xFF};
 	uint8_t pay_txt[10],len_pay_txt;
 	IntToChar(pay_txt,&len_pay_txt,Integer,Decimal);
-//	printf("len:%d\r\n",(len_pay_txt));
 	strcpy(CMD,"t5.txt=\"");					// 8
 	strcpy((CMD+8),(const char *)pay_txt);	// + len_pay_txt
 	HAL_UART_Transmit(&huart5,(uint8_t *)&CMD,(8+len_pay_txt),0xFF);
@@ -254,28 +244,24 @@ void SwitchResult(uint32_t isSuccess,uint32_t errtype,uint32_t disp,uint32_t txt
 				case ERR_PAYFAIL:
 					strcpy(CMD,"t7.txt=\"");
 					strcpy((CMD+8),(const char *)"支付失败\"");
-//					printf("%s\r\n",CMD);
 					HAL_UART_Transmit(&huart5,(uint8_t *)&CMD,(8+9),0xFF);
 					HAL_UART_Transmit(&huart5,(uint8_t *)&CMD_END,sizeof(CMD_END),0xFF);
 					break;
 				case ERR_BALANCECHARGE:
 					strcpy(CMD,"t7.txt=\"");
 					strcpy((CMD+8),(const char *)"余额不足\"");
-//					printf("%s\r\n",CMD);
 					HAL_UART_Transmit(&huart5,(uint8_t *)&CMD,(8+9),0xFF);
 					HAL_UART_Transmit(&huart5,(uint8_t *)&CMD_END,sizeof(CMD_END),0xFF);
 					break;
 				case ERR_NOSUCHID:
 					strcpy(CMD,"t7.txt=\"");
 					strcpy((CMD+8),(const char *)"卡片未注册\"");
-//					printf("%s\r\n",CMD);
 					HAL_UART_Transmit(&huart5,(uint8_t *)&CMD,(8+11),0xFF);
 					HAL_UART_Transmit(&huart5,(uint8_t *)&CMD_END,sizeof(CMD_END),0xFF);
 					break;
 				default:
 					strcpy(CMD,"t7.txt=\"");
 					strcpy((CMD+8),(const char *)"未知错误\"");
-//					printf("%s\r\n",CMD);
 					HAL_UART_Transmit(&huart5,(uint8_t *)&CMD,(8+9),0xFF);
 					HAL_UART_Transmit(&huart5,(uint8_t *)&CMD_END,sizeof(CMD_END),0xFF);
 					break;

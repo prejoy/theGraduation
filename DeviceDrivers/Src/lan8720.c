@@ -55,17 +55,6 @@ void HAL_ETH_MspInit(ETH_HandleTypeDef *heth)
     __HAL_RCC_GPIOC_CLK_ENABLE();			//开启GPIOC时钟
     __HAL_RCC_GPIOG_CLK_ENABLE();			//开启GPIOG时钟
 	
-	/*网络引脚设置 RMII接口
-	  ETH_MDIO -------------------------> PA2
-	  ETH_MDC --------------------------> PC1
-	  ETH_RMII_REF_CLK------------------> PA1
-	  ETH_RMII_CRS_DV ------------------> PA7
-	  ETH_RMII_RXD0 --------------------> PC4
-	  ETH_RMII_RXD1 --------------------> PC5
-	  ETH_RMII_TX_EN -------------------> PB11
-	  ETH_RMII_TXD0 --------------------> PG13
-	  ETH_RMII_TXD1 --------------------> PG14
-	  ETH_RESET-------------------------> PD3*/ 
 	  
     //PA1,2,7
     GPIO_Initure.Pin=GPIO_PIN_1|GPIO_PIN_2|GPIO_PIN_7; 
@@ -86,6 +75,7 @@ void HAL_ETH_MspInit(ETH_HandleTypeDef *heth)
     GPIO_Initure.Pin=GPIO_PIN_11;		//PB11
     HAL_GPIO_Init(GPIOB,&GPIO_Initure);         //初始化
 	
+//    无复位脚
 //    GPIO_Initure.Pin = GPIO_PIN_3;
 //    GPIO_Initure.Mode=GPIO_MODE_OUTPUT_PP;      //推挽
 //    GPIO_Initure.Pull=GPIO_NOPULL;              //不带上下拉
